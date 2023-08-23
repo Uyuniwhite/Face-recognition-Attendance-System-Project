@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainDialog</class>
- <widget class="QDialog" name="MainDialog">
+ <class>MainWidget</class>
+ <widget class="QWidget" name="MainWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,11 +10,14 @@
     <height>630</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
+  <property name="maximumSize">
+   <size>
+    <width>1120</width>
+    <height>630</height>
+   </size>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
+  <property name="windowTitle">
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -214,7 +217,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="home_page">
          <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -231,7 +234,7 @@ QPushButton::hover{
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_5">
+           <spacer name="left_h_spacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -244,8 +247,11 @@ QPushButton::hover{
            </spacer>
           </item>
           <item>
-           <widget class="QWidget" name="widget_8" native="true">
+           <widget class="QWidget" name="home_page_main_widget" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_12">
+             <property name="spacing">
+              <number>9</number>
+             </property>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <property name="spacing">
@@ -266,8 +272,11 @@ QPushButton::hover{
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <property name="spacing">
+                  <number>9</number>
+                 </property>
                  <item>
-                  <widget class="QLabel" name="label_12">
+                  <widget class="QLabel" name="img_lab">
                    <property name="minimumSize">
                     <size>
                      <width>60</width>
@@ -295,7 +304,7 @@ border-radius:30px;</string>
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_11">
                    <item>
-                    <widget class="QLabel" name="label_14">
+                    <widget class="QLabel" name="home_name_lab">
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
@@ -308,7 +317,7 @@ border-radius:30px;</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLabel" name="label_13">
+                    <widget class="QLabel" name="home_dept_lab">
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
@@ -322,12 +331,52 @@ border-radius:30px;</string>
                    </item>
                   </layout>
                  </item>
+                 <item>
+                  <widget class="QPushButton" name="out_btn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>60</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">#out_btn{
+border-radius:10px;
+border: 1px solid gray;
+background-color: rgb(255, 255, 255);
+}
+</string>
+                   </property>
+                   <property name="text">
+                    <string>외출하기</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="end_btn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>60</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius:10px;
+border: 1px solid gray;
+background-color: rgb(255, 255, 255);
+</string>
+                   </property>
+                   <property name="text">
+                    <string>퇴근하기</string>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </item>
               </layout>
              </item>
              <item>
-              <widget class="QWidget" name="widget_4" native="true">
+              <widget class="QWidget" name="home_bottom_widget" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_10">
                 <property name="leftMargin">
                  <number>0</number>
@@ -775,7 +824,7 @@ background-color: rgb(230, 234, 245);</string>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_6">
+           <spacer name="right_h_spacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>

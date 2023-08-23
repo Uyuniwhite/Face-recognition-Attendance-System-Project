@@ -2,8 +2,8 @@ import os
 import sys
 
 if __name__ == '__main__':
-    os.system('pyuic5 login_page.ui -o login_page.py')
-    os.system('pyuic5 main_dialog.ui -o main_dialog.py')
+    os.system('pyuic5 LoginWidget.ui -o LoginWidget.py')
+    os.system('pyuic5 MainWidget.ui -o MainWidget.py')
     os.system('pyuic5 warning_dialog.ui -o warning_dialog.py')
 
 

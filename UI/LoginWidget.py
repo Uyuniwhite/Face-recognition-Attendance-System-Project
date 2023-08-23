@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'login_page.ui'
+# Form implementation generated from reading ui file 'LoginWidget.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -11,17 +11,20 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_LoginDialog(object):
-    def setupUi(self, LoginDialog):
-        LoginDialog.setObjectName("LoginDialog")
-        LoginDialog.resize(1120, 630)
-        LoginDialog.setStyleSheet("background-color: rgb(241, 242, 246);")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(LoginDialog)
+class Ui_LoginWidget(object):
+    def setupUi(self, LoginWidget):
+        LoginWidget.setObjectName("LoginWidget")
+        LoginWidget.resize(1120, 630)
+        LoginWidget.setMinimumSize(QtCore.QSize(1120, 630))
+        LoginWidget.setMaximumSize(QtCore.QSize(1120, 630))
+        LoginWidget.setStyleSheet("background-color: rgb(241, 242, 246);")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(LoginWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(72, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.left_widget = QtWidgets.QWidget(LoginDialog)
+        self.left_widget = QtWidgets.QWidget(LoginWidget)
         self.left_widget.setMinimumSize(QtCore.QSize(374, 425))
         self.left_widget.setMaximumSize(QtCore.QSize(374, 425))
         self.left_widget.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -70,25 +73,30 @@ class Ui_LoginDialog(object):
         self.verticalLayout.addWidget(self.face_check_btn)
         self.horizontalLayout_2.addWidget(self.inner_widget)
         self.horizontalLayout.addWidget(self.left_widget)
-        self.right_widget = QtWidgets.QWidget(LoginDialog)
+        self.right_widget = QtWidgets.QWidget(LoginWidget)
         self.right_widget.setMinimumSize(QtCore.QSize(596, 0))
         self.right_widget.setMaximumSize(QtCore.QSize(596, 425))
         self.right_widget.setObjectName("right_widget")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.right_widget)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.sample_lab = QtWidgets.QLabel(self.right_widget)
-        self.sample_lab.setGeometry(QtCore.QRect(180, 150, 261, 111))
+        self.sample_lab.setMaximumSize(QtCore.QSize(356, 356))
+        self.sample_lab.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.sample_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.sample_lab.setObjectName("sample_lab")
+        self.horizontalLayout_3.addWidget(self.sample_lab)
         self.horizontalLayout.addWidget(self.right_widget)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem1 = QtWidgets.QSpacerItem(72, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
 
-        self.retranslateUi(LoginDialog)
-        QtCore.QMetaObject.connectSlotsByName(LoginDialog)
+        self.retranslateUi(LoginWidget)
+        QtCore.QMetaObject.connectSlotsByName(LoginWidget)
 
-    def retranslateUi(self, LoginDialog):
+    def retranslateUi(self, LoginWidget):
         _translate = QtCore.QCoreApplication.translate
-        LoginDialog.setWindowTitle(_translate("LoginDialog", "Dialog"))
-        self.id_lab.setText(_translate("LoginDialog", "ID"))
-        self.pw_lab.setText(_translate("LoginDialog", "Password"))
-        self.login_btn.setText(_translate("LoginDialog", "로그인하기"))
-        self.face_check_btn.setText(_translate("LoginDialog", "얼굴인식"))
-        self.sample_lab.setText(_translate("LoginDialog", "여기에 얼굴인식 화면이 들어갑니다"))
+        LoginWidget.setWindowTitle(_translate("LoginWidget", "Form"))
+        self.id_lab.setText(_translate("LoginWidget", "ID"))
+        self.pw_lab.setText(_translate("LoginWidget", "Password"))
+        self.login_btn.setText(_translate("LoginWidget", "로그인하기"))
+        self.face_check_btn.setText(_translate("LoginWidget", "얼굴인식"))
+        self.sample_lab.setText(_translate("LoginWidget", "여기에 얼굴인식 화면이 들어갑니다"))
