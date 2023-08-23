@@ -1,4 +1,4 @@
-# machine-and-deep-learning-project
+# Face-recognition-Attendance-System-Project
 
 
 ## 🍀 프로젝트 소개
