@@ -1,6 +1,8 @@
 from class_login import LoginFunc
-
 from PyQt5.QtWidgets import QWidget
+
+
+
 
 class Controller(QWidget):
     def __init__(self):
