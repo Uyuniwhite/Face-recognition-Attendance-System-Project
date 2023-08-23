@@ -1,7 +1,7 @@
 from UI.LoginWidget import Ui_LoginWidget
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtWidgets import QWidget, QLabel, QGraphicsDropShadowEffect
 from PyQt5.QtCore import QTimer
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QColor
 import cv2
 import mediapipe as mp
 
@@ -21,6 +21,23 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(5)
+
+        self.set_shadow()
+
+    def set_shadow(self):
+        # left_widget에 대한 그림자 효과
+        shadow_effect_left = QGraphicsDropShadowEffect()
+        shadow_effect_left.setOffset(10, 10)
+        shadow_effect_left.setBlurRadius(20)
+        shadow_effect_left.setColor(QColor(0, 0, 0, 80))
+        self.left_widget.setGraphicsEffect(shadow_effect_left)
+
+        # right_widget에 대한 그림자 효과
+        shadow_effect_right = QGraphicsDropShadowEffect()
+        shadow_effect_right.setOffset(10, 10)
+        shadow_effect_right.setBlurRadius(20)
+        shadow_effect_right.setColor(QColor(0, 0, 0, 80))
+        self.right_widget.setGraphicsEffect(shadow_effect_right)
 
     def update_frame(self):
         ret, frame_ = self.video_capture.read()
