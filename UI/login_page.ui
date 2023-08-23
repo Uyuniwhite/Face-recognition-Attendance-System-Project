@@ -175,19 +175,27 @@ border-radius:10px;
        <height>425</height>
       </size>
      </property>
-     <widget class="QLabel" name="sample_lab">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>150</y>
-        <width>261</width>
-        <height>111</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>여기에 얼굴인식 화면이 들어갑니다</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="sample_lab">
+        <property name="maximumSize">
+         <size>
+          <width>356</width>
+          <height>356</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>여기에 얼굴인식 화면이 들어갑니다</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>

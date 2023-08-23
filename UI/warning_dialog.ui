@@ -125,6 +125,11 @@ QPushButton{
              <height>66</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>경고문구가 들어갑니다.</string>
            </property>
@@ -149,6 +154,11 @@ QPushButton{
              <width>16777215</width>
              <height>40</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
            </property>
            <property name="styleSheet">
             <string notr="true"/>
