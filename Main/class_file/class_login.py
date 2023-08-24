@@ -25,10 +25,8 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.main = controller
 
         # 학습한 모델 불러오기
-
-        # self.model = load_model("./face_model.h5")
-        print(os.getcwd()+'class\\face_model.h5')
-        h5_path = os.getcwd()+'\\class_file\\face_model.h5'
+        print(os.getcwd() + 'class\\face_model.h5')
+        h5_path = os.getcwd() + '\\class_file\\face_model.h5'
         self.model = load_model(h5_path)
 
         # 카메라로부터 영상을 캡처하기 위한 객체를 생성
@@ -88,7 +86,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                 print(recognized_name)
 
                 # 이미지에서 인식된 사람의 이름을 보여줌
-                label_color = (255, 0, 0) # 라벨 컬러 지정
+                label_color = (255, 0, 0)  # 라벨 컬러 지정
                 if recognized_name == "None":
                     label_color = (0, 0, 255)
 
@@ -97,7 +95,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                                     cv2.LINE_AA)
             # 이미지 화면에 띄우기
             self.display_image(image, recognized_name)
-
 
     def recognize_face(self, image):
         """얼굴 인식"""
@@ -135,6 +132,11 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         if name in self.class_names:
             print(f'{name}이 확인되었습니다.')
-            # self.main.main_page.show()
+            self.timer.stop()
+            self.main.login.close()
+            # self.main.msgbox.set_contents(img=None, msg='test').show()
+            self.main.main_page.show()
 
             pass  # 여기서 자동으로 메인 페이지로 이동
+
+

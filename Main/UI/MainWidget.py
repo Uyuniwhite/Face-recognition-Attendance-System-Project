@@ -605,4 +605,4 @@ class Ui_MainWidget(object):
         self.name_lab.setText(_translate("MainWidget", "이름"))
         self.pw_recheck_lab.setText(_translate("MainWidget", "비밀번호 확인"))
         self.edit_btn.setText(_translate("MainWidget", "수정하기"))
-import resource_rc
+# import resource_rc
