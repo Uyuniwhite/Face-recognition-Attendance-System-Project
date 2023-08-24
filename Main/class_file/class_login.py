@@ -25,7 +25,11 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.main = controller
 
         # 학습한 모델 불러오기
-        self.model = load_model("face_model.h5")
+
+        # self.model = load_model("./face_model.h5")
+        print(os.getcwd()+'class\\face_model.h5')
+        h5_path = os.getcwd()+'\\class_file\\face_model.h5'
+        self.model = load_model(h5_path)
 
         # 카메라로부터 영상을 캡처하기 위한 객체를 생성
         self.cap = cv2.VideoCapture(0)
@@ -73,6 +77,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             # 이미지에서 얼굴 인식
             faces = face_cascade.detectMultiScale(image_rgb, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
 
+            recognized_name = None
             # 최소 하나의 얼굴인 인식되면
             for (x, y, w, h) in faces:
                 cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
