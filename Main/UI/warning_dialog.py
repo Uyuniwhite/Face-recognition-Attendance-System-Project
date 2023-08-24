@@ -88,3 +88,13 @@ class Ui_WarningDialog(object):
         self.icon_lab.setText(_translate("WarningDialog", "아이콘이 들어갑니다."))
         self.warn_lab.setText(_translate("WarningDialog", "경고문구가 들어갑니다."))
         self.ok_btn.setText(_translate("WarningDialog", "확인"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    WarningDialog = QtWidgets.QDialog()
+    ui = Ui_WarningDialog()
+    ui.setupUi(WarningDialog)
+    WarningDialog.show()
+    sys.exit(app.exec_())

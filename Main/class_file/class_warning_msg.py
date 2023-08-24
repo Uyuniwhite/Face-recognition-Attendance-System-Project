@@ -2,8 +2,7 @@ from UI.warning_dialog import Ui_WarningDialog
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt
-import os
-import sys
+from Main.class_file.class_font import Font
 
 
 class MsgBox(QDialog, Ui_WarningDialog):
@@ -18,9 +17,13 @@ class MsgBox(QDialog, Ui_WarningDialog):
         # 클릭 이벤트
         self.ok_btn.clicked.connect(self.close)
 
-    def set_dialog_type(self, type="", msg=""):
-        import os
+        # 폰트 설정
+        self.warn_lab.setFont(Font.text(2))
+        self.ok_btn.setFont(Font.text(2, weight='bold'))
 
+    def set_dialog_type(self, type="", msg=""):
+
+        import os
         # 작업 디렉토리를 현재 스크립트의 디렉토리로 변경
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
 

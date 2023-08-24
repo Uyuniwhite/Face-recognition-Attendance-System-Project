@@ -9,6 +9,7 @@ import os
 import numpy as np
 from tensorflow.keras.models import load_model
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성
@@ -42,6 +43,18 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # 웹캠 타이머 시작
         self.face_check_btn.clicked.connect(self.start_webcam)
+
+        # 폰트 설정
+        self.set_font()
+
+    def set_font(self):
+        self.id_lab.setFont(Font.text(2, weight='light'))
+        self.pw_lab.setFont(Font.text(2, weight='light'))
+        self.login_btn.setFont(Font.text(3))
+        self.face_check_btn.setFont(Font.text(3))
+        self.id_lineedit.setFont(Font.text(3))
+        self.pw_lineedit.setFont(Font.text(3))
+
 
     def start_webcam(self):
         """웹캠 시작하기"""
@@ -134,8 +147,11 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         if name in self.class_names:
             print(f'{name}이 확인되었습니다.')
 
+            # 메인 페이지 이동
+            self.main.main_page.show()
+
             # 메세지박스
-            message = f"{name} 출근이 확인되었습니다."
+            message = f"{name}님 출근이 확인되었습니다."
 
             msgbox_obj = MsgBox()
             msgbox_obj.set_dialog_type(type=1, msg=message)
@@ -144,6 +160,5 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             # 타이머 종료
             self.timer.stop()
 
-            # 메인 페이지 이동
-            self.main.main_page.show()
+
             # 여기서 db 연결(로그인 기록 저장)

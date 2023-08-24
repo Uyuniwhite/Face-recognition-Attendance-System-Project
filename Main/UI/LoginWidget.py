@@ -100,3 +100,13 @@ class Ui_LoginWidget(object):
         self.login_btn.setText(_translate("LoginWidget", "로그인하기"))
         self.face_check_btn.setText(_translate("LoginWidget", "얼굴인식"))
         self.sample_lab.setText(_translate("LoginWidget", "여기에 얼굴인식 화면이 들어갑니다"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    LoginWidget = QtWidgets.QWidget()
+    ui = Ui_LoginWidget()
+    ui.setupUi(LoginWidget)
+    LoginWidget.show()
+    sys.exit(app.exec_())
