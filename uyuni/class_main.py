@@ -8,7 +8,6 @@ def Main():
     app = QtWidgets.QApplication(sys.argv)
     main_window = Controller()
     main_window.login.show()
-    # main_window.chatting.show()
 
     app.exec_()
 
