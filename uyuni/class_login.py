@@ -40,12 +40,14 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.right_widget.setGraphicsEffect(shadow_effect_right)
 
     def update_frame(self):
-        ret, frame_ = self.video_capture.read()
+        ret, frame = self.video_capture.read()
         if not ret:
             return
 
-        frame = cv2.cvtColor(frame_, cv2.COLOR_BGR2RGB)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame.flags.writeable = False
         results = self.face_detection.process(frame)
+        frame.flags.writeable = True
 
         if results.detections:
             for detection in results.detections:
@@ -56,8 +58,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                 w += 70
                 h += 70
-
-
 
         height, width, channel = frame.shape
         bytes_per_line = 3 * width
