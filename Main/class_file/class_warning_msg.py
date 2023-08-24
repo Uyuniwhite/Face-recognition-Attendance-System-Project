@@ -8,8 +8,10 @@ class MsgBox(QDialog, Ui_WarningDialog):
         super().__init__()
 
         self.setupUi(self)
+        self.ok_btn.clicked.connect(self.close)
 
     def set_contents(self, msg, img):
         self.warn_lab.setText(msg)
         self.icon_lab.setPixmap(QPixmap(img))
-        self.ok_btn.clicked.connect(self.close)
+
+
