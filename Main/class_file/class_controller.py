@@ -1,5 +1,5 @@
-from class_login import LoginFunc
-from class_dbconnect import DBconnect
+from Main.class_file.class_login import LoginFunc
+from Main.class_file.class_dbconnect import DBconnect
 from PyQt5.QtWidgets import QWidget
 
 
