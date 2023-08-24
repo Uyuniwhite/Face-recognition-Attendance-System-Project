@@ -6,10 +6,13 @@ from PyQt5.QtGui import QImage, QPixmap, QColor
 import cv2
 import mediapipe as mp
 import numpy as np
-# from soyeon.image_learn import model
+# from soyeon.image_learn import generator
 from tensorflow.keras.models import load_model
+import json
 
-model = load_model('me.h5')
+model = load_model('people.h5')
+with open('class_indices.json', 'r') as f:
+    class_indices = json.load(f)
 
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성되었습니다.
@@ -40,19 +43,15 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
     # 그림자 효과를 위젯에 적용하는 메서드
     def set_shadow(self):
-        # left_widget에 대한 그림자 효과를 설정
-        shadow_effect_left = QGraphicsDropShadowEffect()
-        shadow_effect_left.setOffset(10, 10)
-        shadow_effect_left.setBlurRadius(20)
-        shadow_effect_left.setColor(QColor(0, 0, 0, 80))
-        self.left_widget.setGraphicsEffect(shadow_effect_left)
+        self.making_shadow(self.left_widget)
+        self.making_shadow(self.right_widget)
 
-        # right_widget에 대한 그림자 효과를 설정
+    def making_shadow(self, obj):
         shadow_effect_right = QGraphicsDropShadowEffect()
         shadow_effect_right.setOffset(10, 10)
         shadow_effect_right.setBlurRadius(20)
         shadow_effect_right.setColor(QColor(0, 0, 0, 80))
-        self.right_widget.setGraphicsEffect(shadow_effect_right)
+        obj.setGraphicsEffect(shadow_effect_right)
 
     # 카메라로부터 영상을 캡처하고 얼굴을 감지한 후 결과를 표시하는 메서드
     def update_frame(self):
@@ -78,14 +77,20 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                 face_crop = frame[y:y + h, x:x + w]
                 face_crop = cv2.resize(face_crop, (128, 128)) / 255.0  # 주의: 모델을 학습할 때 사용한 이미지 크기와 동일하게 조절
-                prediction = model.predict(np.expand_dims(face_crop, axis=0))
+                # prediction = model.predict(np.expand_dims(face_crop, axis=0))
 
-                if prediction[0][0] > 0.9:
-                    # 특정 얼굴로 판단된 경우, 메세지박스 표시
+                # Predict
+                predictions = model.predict(np.expand_dims(face_crop, axis=0))
+                predicted_class = np.argmax(predictions, axis=1)
+                predicted_label = list(class_indices.keys())[predicted_class[0]]
+
+                if np.max(predictions) > 0.5:
+                    # 인식된 얼굴에 대한 확률이 0.9보다 클 때 메세지박스 표시
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Information)
-                    msg.setText("소연 얼굴이 감지되었습니다!")
+                    msg.setText(f"{predicted_label} 얼굴이 감지되었습니다!")
                     msg.exec_()
+                    # self.timer.stop()
 
         # QPixmap 객체를 생성하여 UI 레이블에 프레임을 표시
         height, width, channel = frame.shape
