@@ -85,6 +85,9 @@ QPushButton{
            <property name="text">
             <string>아이콘이 들어갑니다.</string>
            </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
