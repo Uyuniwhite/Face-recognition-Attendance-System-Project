@@ -2,7 +2,7 @@ import cv2
 import os
 
 
-input_folder = "face/우현"
+# input_folder = "face/uhyeon"
 # output_folder = ""
 
 # 이미지 학습시키기

@@ -4,15 +4,8 @@ from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor
 import cv2
-import mediapipe as mp
+import os
 import numpy as np
-# from soyeon.image_learn import generator
-from tensorflow.keras.models import load_model
-import json
-
-# model = load_model('people.h5')
-# with open('class_indices.json', 'r') as f:
-#     class_indices = json.load(f)
 
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성되었습니다.
@@ -75,22 +68,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                 w += 70
                 h += 70
 
-                # face_crop = frame[y:y + h, x:x + w]
-                # face_crop = cv2.resize(face_crop, (128, 128)) / 255.0  # 주의: 모델을 학습할 때 사용한 이미지 크기와 동일하게 조절
-                # # prediction = model.predict(np.expand_dims(face_crop, axis=0))
-
-                # # Predict
-                # predictions = model.predict(np.expand_dims(face_crop, axis=0))
-                # predicted_class = np.argmax(predictions, axis=1)
-                # predicted_label = list(class_indices.keys())[predicted_class[0]]
-                #
-                # if np.max(predictions) > 0.5:
-                #     # 인식된 얼굴에 대한 확률이 0.9보다 클 때 메세지박스 표시
-                #     msg = QMessageBox()
-                #     msg.setIcon(QMessageBox.Information)
-                #     msg.setText(f"{predicted_label} 얼굴이 감지되었습니다!")
-                #     msg.exec_()
-                #     # self.timer.stop()
 
         # QPixmap 객체를 생성하여 UI 레이블에 프레임을 표시
         height, width, channel = frame.shape
