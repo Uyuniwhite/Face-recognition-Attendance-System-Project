@@ -28,7 +28,7 @@ class YourPyQtClass(QDialog):
         self.setLayout(layout)
 
         self.num_of_images = 0
-        self.active_name = "user"  # Adjust this if you have a different mechanism for active names
+        self.active_name = "soyeon"  # Adjust this if you have a different mechanism for active names
 
     @pyqtSlot()
     def capimg(self):

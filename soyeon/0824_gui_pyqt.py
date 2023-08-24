@@ -13,7 +13,7 @@ class FaceRecognitionApp(QWidget):
 
         self.model = load_model("face_model.h5")
         self.cap = cv2.VideoCapture(0)
-        self.class_names = ['soyeon', 'uhyeon', 'hohyeon']
+        self.class_names = ['soyeon', 'uhyeon', 'hohyeon', 'gwanghyeon']
 
         self.initUI()
 
@@ -42,10 +42,29 @@ class FaceRecognitionApp(QWidget):
 
     def update_frame(self):
         ret, image = self.cap.read()
-        recognized_name = self.recognize_face(image)
-        print(recognized_name)
-        image = cv2.putText(image, recognized_name, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-        self.display_image(image)
+        if ret:
+            # Load haarcascade for face detection
+            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+            # Convert the color of the image to RGB from BGR for face detection
+            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+            # Detect faces from the image
+            faces = face_cascade.detectMultiScale(image_rgb, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
+
+            # If at least one face is detected, recognize it. Otherwise, display the whole frame.
+            for (x, y, w, h) in faces:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                # Crop the face and recognize it
+                face_image = image[y:y + h, x:x + w]
+                recognized_name = self.recognize_face(face_image)
+                print(recognized_name)
+
+                # Display the name of the recognized person on the image
+                image = cv2.putText(image, recognized_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2,
+                                    cv2.LINE_AA)
+            self.display_image(image)
 
     def stop_webcam(self):
         self.timer.stop()

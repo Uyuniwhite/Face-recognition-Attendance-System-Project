@@ -17,7 +17,14 @@ char_path = r'face'
 # 데이터 로드
 data = []
 labels = []
-class_names = ['soyeon', 'uhyeon']
+characters = []
+
+# class_names = caer.sort_dict(char_dict, descending=True)
+# for i in class_names:
+#     characters.append(i[0])
+
+
+class_names = ['soyeon', 'woohyun', 'hohyeon', 'gwanghyeon']
 
 for name in class_names:
     path = os.path.join(char_path, name)
@@ -55,20 +62,17 @@ def custom_model(input_shape, num_classes):
     return model
 
 
-# Create the model
+# 모델 생성
 model_shape = (IMG_SIZE[0], IMG_SIZE[1], channels)
 model = custom_model(model_shape, len(class_names))
 
-# Compile the model with custom SGD optimizer
+# SGD optimizer 사용해서 모델 컴파일
 optimizer = SGD(learning_rate=0.001, momentum=0.9, nesterov=True)
 model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 model.summary()
 
 
 def step_decay_schedule(initial_lr=1e-3, decay_factor=0.75, step_size=10):
-    '''
-    Wrapper function to create a LearningRateScheduler with step decay schedule.
-    '''
 
     def schedule(epoch):
         return initial_lr * (decay_factor ** np.floor(epoch / step_size))
@@ -88,24 +92,24 @@ training = model.fit(train_gen,
 
 # 테스트
 # 테스트 경로
-test_path = 'uu_img.png'
-img = cv.imread(test_path)
-plt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))  # OpenCV는 BGR 형식으로 이미지를 읽으므로 RGB로 변환합니다.
-plt.show()
-
-
-def prepare(image):
-    image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)  # 회색조로 변경
-    image = cv.resize(image, IMG_SIZE)  # 이미지 크기 조절
-    image = image.reshape(1, IMG_SIZE[0], IMG_SIZE[1], 1)  # 모델 예측을 위한 형태로 변환
-    image = image / 255.0  # 데이터 정규화
-    return image
-
-
-prepared_img = prepare(img)
-predictions = model.predict(prepared_img)
-
-# Getting class with the highest probability
-print(class_names[np.argmax(predictions[0])])
+# test_path = 'uu_img.png'
+# img = cv.imread(test_path)
+# plt.imshow(cv.cvtColor(img, cv.COLOR_BGR2RGB))  # OpenCV는 BGR 형식으로 이미지를 읽으므로 RGB로 변환합니다.
+# plt.show()
+#
+#
+# def prepare(image):
+#     image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)  # 회색조로 변경
+#     image = cv.resize(image, IMG_SIZE)  # 이미지 크기 조절
+#     image = image.reshape(1, IMG_SIZE[0], IMG_SIZE[1], 1)  # 모델 예측을 위한 형태로 변환
+#     image = image / 255.0  # 데이터 정규화
+#     return image
+#
+#
+# prepared_img = prepare(img)
+# predictions = model.predict(prepared_img)
+#
+# # Getting class with the highest probability
+# print(class_names[np.argmax(predictions[0])])
 
 model.save("face_model.h5")
