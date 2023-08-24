@@ -8,6 +8,7 @@ import cv2
 import os
 import numpy as np
 from tensorflow.keras.models import load_model
+from Main.class_file.class_warning_msg import MsgBox
 
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성
@@ -23,7 +24,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # controller를 이용해 메인 애플리케이션을 참조
         self.main = controller
-        # self.msgbox = self.main.msgbox
 
         # 학습한 모델 불러오기
         print(os.getcwd() + 'class\\face_model.h5')
@@ -133,9 +133,17 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         if name in self.class_names:
             print(f'{name}이 확인되었습니다.')
+
+            # 메세지박스
+            message = f"{name} 출근이 확인되었습니다."
+
+            msgbox_obj = MsgBox()
+            msgbox_obj.set_dialog_type(type=1, msg=message)
+            # msgbox_obj.exec_()
+
+            # 타이머 종료
             self.timer.stop()
+
+            # 메인 페이지 이동
             self.main.main_page.show()
-
-            pass
-
-
+            # 여기서 db 연결(로그인 기록 저장)
