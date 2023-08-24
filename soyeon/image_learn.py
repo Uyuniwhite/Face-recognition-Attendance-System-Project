@@ -5,18 +5,18 @@ input_folder = "so_face"
 output_folder = "result_folder"
 
 # 이미지 학습시키기
-# if not os.path.exists(output_folder):
-#     os.mkdir(output_folder)
-#
-# for img_name in os.listdir(input_folder):
-#     img_path = os.path.join(input_folder, img_name)
-#     img = cv2.imread(img_path)
-#
-#     # Resize the image to 128x128
-#     resized_img = cv2.resize(img, (128, 128))
-#
-#     output_path = os.path.join(output_folder, img_name)
-#     cv2.imwrite(output_path, resized_img)
+if not os.path.exists(output_folder):
+    os.mkdir(output_folder)
+
+for img_name in os.listdir(input_folder):
+    img_path = os.path.join(input_folder, img_name)
+    img = cv2.imread(img_path)
+
+    # Resize the image to 128x128
+    resized_img = cv2.resize(img, (128, 128))
+
+    output_path = os.path.join(output_folder, img_name)
+    cv2.imwrite(output_path, resized_img)
 
 # 이미지 전처리(정규화)
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
