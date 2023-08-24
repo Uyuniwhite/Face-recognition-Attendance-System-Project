@@ -18,8 +18,8 @@ def Main():
     fontDB.addApplicationFont('../font/Pretendard-Regular.ttf')
     fontDB.addApplicationFont('../font/Pretendard-SemiBold.ttf')
 
-    for family in fontDB.families():
-        print(family, fontDB.styles(family))
+    # for family in fontDB.families():
+    #     print(family, fontDB.styles(family))
     main_window = Controller()
     main_window.login.show()
     app.exec_()
