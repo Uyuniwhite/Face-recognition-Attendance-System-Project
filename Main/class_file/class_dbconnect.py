@@ -87,11 +87,25 @@ class DBconnect:
 
         return dept_list
 
-    #
+    # 선택한 부서별 사원만 리스트 담아서 리턴
+    def select_dept(self, dept):
+        empolyee_list = list()
+        c = self.start_conn()
+        empolyee_query = "select tb_user.user_name from tb_user join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
+                         f"where tb_dept.dept_name = '{dept}'"
+        c.execute(empolyee_query)
+        datas = c.fetchall()
+        for data in datas:
+            empolyee_name = data[0]
+            empolyee_list.append(empolyee_name)
+
+        return empolyee_list
+
+
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    a = db_conn.find_dept()
+    a = db_conn.select_dept('인사팀')
     print(a)
 
 
