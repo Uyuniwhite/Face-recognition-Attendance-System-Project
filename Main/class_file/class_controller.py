@@ -1,9 +1,10 @@
 from Main.class_file.class_login_2 import LoginFunc
 from Main.class_file.class_dbconnect import DBconnect
-from PyQt5.QtWidgets import QWidget
 from Main.class_file.class_main_page import MainPage
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_open_page import OpenPage
+from Main.class_file.class_add_emp import AddEmpolyee
+from PyQt5.QtWidgets import QWidget
 
 
 
@@ -17,3 +18,4 @@ class Controller(QWidget):
         self.main_page = MainPage(self) # 메인 페이지 객체 생성
         # self.msgbox = MsgBox(self) # 메세지박스 객체 생성
         self.open_page = OpenPage(self) # 오픈페이지 객체 생성
+        self.add_emp = AddEmpolyee(self)  # 사원등록 객체 생성

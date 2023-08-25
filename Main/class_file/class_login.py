@@ -203,24 +203,30 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         msgbox = MsgBox()
         message = ''
-        if result_id == False or result_pw == False:
-            message = "아이디 또는 패스워드를 확인하세요!"
-        elif result_id == True and result_pw == True:
-            db_password = self.main.dbconn.check_id_pw(input_id) # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
-            if db_password == False:
-                message = "등록된 사원이 아닙니다!"
-            elif db_password != input_pw:
-                message = "패스워드가 일치하지 않습니다!"
-            else:
-                message = f"{input_id}님 로그인되었습니다."
-                # 메인페이지로 이동
-                self.main.main_page.show()
-                # 로그인 정보 DB 저장
-                self.save_db('id')  # 사원 등록 True, False 반환, 로그인 타입 아이디
-                # login 화면 종료
-                self.main.login.close()
-        msgbox.set_dialog_type(type=1, msg=message)
-        msgbox.exec_()
+        if input_id != 'admin':
+            if result_id == False or result_pw == False:
+                message = "아이디 또는 패스워드를 확인하세요!"
+            elif result_id == True and result_pw == True:
+                db_password = self.main.dbconn.check_id_pw(input_id) # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
+                if db_password == False:
+                    message = "등록된 사원이 아닙니다!"
+                elif db_password != input_pw:
+                    message = "패스워드가 일치하지 않습니다!"
+                else:
+                    message = f"{input_id}님 로그인되었습니다."
+                    # 메인페이지로 이동
+                    self.main.main_page.show()
+                    # 로그인 정보 DB 저장
+                    self.save_db('id')  # 사원 등록 True, False 반환, 로그인 타입 아이디
+                    # login 화면 종료
+                    self.main.login.close()
+            msgbox.set_dialog_type(type=1, msg=message)
+            msgbox.exec_()
+        elif input_id == 'admin':
+            self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
+            self.main.main_page.show()
+            self.close()
+
     # ID 검증
     def verify_id(self, input_id):
         if len(input_id) == 0 or ' ' in input_id:
