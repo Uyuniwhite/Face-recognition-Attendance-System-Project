@@ -115,7 +115,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                                     cv2.LINE_AA)
             # 이미지 화면에 띄우기
             self.display_image(image, recognized_name)
-            self.user_name = recognized_name # 데이터베이스 저장용 변수
 
     def recognize_face(self, image):
         """얼굴 인식"""
@@ -153,29 +152,44 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         if name in self.class_names:
             print(f'{name}이 확인되었습니다.')
-
+            self.user_name = name
             # 메인 페이지 이동
             self.main.main_page.show()
 
-            # 메세지박스
-            message = f"{name}님 출근이 확인되었습니다."
-
-            msgbox_obj = MsgBox()
-            msgbox_obj.set_dialog_type(type=1, msg=message)
-            msgbox_obj.exec_()
-
-            # 타이머 종료
-            self.timer.stop()
-
-            # login 화면 종료
-            self.main.login.close()
-
             # 여기서 db 연결(로그인 기록 저장)
-            current_time = datetime.now()
-            year = current_time.year
-            month = current_time.month
-            day = current_time.month
-            month_date = year + month + day
+            check_result = self.save_db() # 사원 등록 True, False 반환
 
-            # self.main.dbconn.log_in()
+            if not check_result: # True일때
+                # 메세지박스
+                message = f"{name}님 출근이 확인되었습니다."
 
+                msgbox_obj = MsgBox()
+                msgbox_obj.set_dialog_type(type=1, msg=message)
+                msgbox_obj.exec_()
+
+                # 타이머 종료
+                self.timer.stop()
+
+                # login 화면 종료
+                self.main.login.close()
+            else: # False일때
+                message = f"등록된 사원이 아닙니다!"
+
+                msgbox_obj = MsgBox()
+                msgbox_obj.set_dialog_type(type=1, msg=message)
+                msgbox_obj.exec_()
+
+
+    # 출근 시간 DB 저장
+    def save_db(self):
+        current_time = datetime.now()  # 현재 시간
+        year = current_time.year  # 연도
+        month = current_time.month  # 월
+        day = current_time.day  # 일
+        hour = current_time.hour  # 시간
+        minute = current_time.minute  # 분
+        seconds = current_time.second  # 초
+        day_date = f"{year}-{month}-{day}"
+        time_date = f"{hour}:{minute}:{seconds}"
+        check_result = self.main.dbconn.log_in(self.user_name, day_date, time_date)
+        return check_result
