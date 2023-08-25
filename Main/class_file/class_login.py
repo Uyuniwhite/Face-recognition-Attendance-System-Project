@@ -159,8 +159,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
             if not check_result: # True일때
                 # 메세지박스
-                message = f"{name}님 출근이 확인되었습니다."
-
+                message = f"{name}님 로그인되었습니다."
+                #로그인시 캠 캡쳐 종료
+                self.cap.release()
                 # 메인 페이지 이동
                 self.main.main_page.show()
 
@@ -173,6 +174,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                 # login 화면 종료
                 self.main.login.close()
+
             else: # False일때
                 message = f"등록된 사원이 아닙니다!"
 
