@@ -15,8 +15,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.initUI() # 기본 설정
         self.set_font() # 폰트 설정
 
-        # 컨트롤러 가져오기
-        self.controller = controller
+
 
         # 그리드 레이아웃 생성
         self.gridLayout = QGridLayout(self.frame)
@@ -33,6 +32,9 @@ class MainPage(QWidget, Ui_MainWidget):
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
         self.add_btn.clicked.connect(self.add_employee)
         # self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))
+
+        depts = self.controller.dbconn.find_dept()
+        print(depts)
 
     # 사원 추가 버튼
     def add_employee(self):
