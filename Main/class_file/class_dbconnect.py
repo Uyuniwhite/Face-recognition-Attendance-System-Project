@@ -74,8 +74,24 @@ class DBconnect:
     def regiseter_info(self):
         c = self.start_conn()
 
-# if __name__ == '__main__':
-#     db_conn = DBconnect(controller=None)
-#     db_conn.log_in('woohyun', None, None)
+    # 부서 목록 이름만 담아서 리스트로 반환
+    def find_dept(self):
+        dept_list = list()
+        c = self.start_conn()
+        dept_query = "select dept_name from tb_dept group by dept_name"
+        c.execute(dept_query)
+        datas = c.fetchall()
+        for data in datas:
+            name = data[0]
+            dept_list.append(name)
+
+        return dept_list
+
+    #
+
+if __name__ == '__main__':
+    db_conn = DBconnect(controller=None)
+    a = db_conn.find_dept()
+    print(a)
 
 
