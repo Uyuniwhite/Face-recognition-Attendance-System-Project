@@ -176,7 +176,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                 msgbox_obj = MsgBox()
                 msgbox_obj.set_dialog_type(type=1, msg=message)
-                msgbox_obj.exec_()
+                msgbox_obj.exec_() # # 테스트
+
+
 
                 # 타이머 종료
                 self.timer.stop()

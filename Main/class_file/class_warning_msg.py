@@ -11,31 +11,31 @@ class MsgBox(QDialog, Ui_WarningDialog):
         self.setupUi(self)
 
         # 투명하게 함
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
+        # self.setWindowFlags(Qt.FramelessWindowHint)
+        # self.setAttribute(Qt.WA_TranslucentBackground, True)
 
         # 클릭 이벤트
-        self.ok_btn.clicked.connect(self.accept)
-        self.cancel_btn.clicked.connect(self.reject)
+        self.ok_btn.clicked.connect(self.close)
+        self.cancel_btn.clicked.connect(self.close)
 
         # 폰트 설정
         self.warn_lab.setFont(Font.text(2))
         self.ok_btn.setFont(Font.text(2, weight='bold'))
-        self.cance_btn.setFont(Font.text(2, weight='bold'))
+        self.cancel_btn.setFont(Font.text(2, weight='bold'))
 
 
         # 커서 설정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
 
-    # 아니오, 닫기 눌렀을 때
-    def reject(self) -> None:
-        self.setResult(0)
-        self.close()
-
-    # 예, 확인 눌렀을 때
-    def accept(self) -> None:
-        self.setResult(1)
-        self.close()
+    # # 아니오, 닫기 눌렀을 때
+    # def reject(self) -> None:
+    #     self.setResult(0)
+    #     self.close()
+    #
+    # # 예, 확인 눌렀을 때
+    # def accept(self) -> None:
+    #     self.setResult(1)
+    #     self.close()
 
     def set_dialog_type(self, type="", msg=""):
 

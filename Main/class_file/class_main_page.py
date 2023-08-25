@@ -7,7 +7,6 @@ import sys
 import os
 
 
-
 class MainPage(QWidget, Ui_MainWidget):
     def __init__(self, controller):
         super().__init__()
@@ -16,14 +15,20 @@ class MainPage(QWidget, Ui_MainWidget):
         self.controller = controller
 
         self.setupUi(self)
-        self.initUI() # 기본 설정
-        self.set_font() # 폰트 설정
-
-
+        self.initUI()  # 기본 설정
+        self.set_font()  # 폰트 설정
 
         # 그리드 레이아웃 생성
-        self.gridLayout = QGridLayout(self.frame)
-        self.set_grid_lay(team=None)  # 체크박스 변경될 때마다 set_grid_lay 호출되게 해야 함
+        self.main_v_lay = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.gridLayout = QGridLayout()
+
+        self.main_v_lay.addLayout(self.gridLayout)
+        self.grid_spacer = QSpacerItem(20, 231, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.main_v_lay.addItem(self.grid_spacer)
+
+        # 현재 부서
+        # 체크박스 변경될 때마다 set_grid_lay 호출되게 해야 함
+        self.team_search_btn.clicked.connect(self.set_grid_lay)
 
     def initUI(self):
 
@@ -34,21 +39,18 @@ class MainPage(QWidget, Ui_MainWidget):
             lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
-        self.add_btn.clicked.connect(self.add_employee)
+        self.add_btn.clicked.connect(self.add_employee)  # 사원 추가
         # self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
         depts = self.controller.dbconn.find_dept()
         self.team_search_combobox.addItems(depts)
-        # for idx, dept in depts:
-        #     self.team_search_combobox.addItem(idx, dept)
-
 
     # 사원 추가 버튼
     def add_employee(self):
-        pass
 
+        pass
 
     # 폰트 설정
     def set_font(self):
@@ -102,21 +104,27 @@ class MainPage(QWidget, Ui_MainWidget):
         self.add_btn.setFont(Font.text(1, weight='bold'))
         self.team_search_combobox.setFont(Font.text(1))
 
-    def set_grid_lay(self, team):
+    def set_grid_lay(self):
         """그리드 영역에 위젯 클래스 넣어주기"""
 
+        current_dept = self.team_search_combobox.currentText()
+        empolyee_list = self.controller.dbconn.select_dept(current_dept)
+        print(empolyee_list)
+        print(len(empolyee_list))
 
-        # 테스트 리스트(팀에 따라 다른 리스트 불러오는 부분 추가해야 함)
-        test_list = [f'{n}번사원' for n in range(1, 21)]
+        for data in empolyee_list:
+            name, user_id, dept = data[0], data[1], data[2]
 
         # 행의 개수를 원소 수에 따라 결정
-        num_rows = (len(test_list) // 3)  # 올림 계산을 사용하여 행의 개수를 결정
+        num_rows = (len(empolyee_list) // 3 + 1)  # 올림 계산을 사용하여 행의 개수를 결정
+
         cnt = 0
 
         # 그리드 레이아웃에 유저셀 넣어주기
         for i in range(num_rows):
             for j in range(3):  # 열은 3개로 고정
-                if cnt < len(test_list):  # test_list의 원소 수를 초과하지 않도록 함
-                    user_cell = UserCell(self, type=1, name=test_list[cnt], user_id=None)
+                if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
+                    print(empolyee_list[cnt][0], empolyee_list[cnt][1])
+                    user_cell = UserCell(self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
                     self.gridLayout.addWidget(user_cell, i, j)
                     cnt += 1
