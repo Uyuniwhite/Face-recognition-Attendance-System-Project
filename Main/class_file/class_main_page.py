@@ -37,14 +37,12 @@ class MainPage(QWidget, Ui_MainWidget):
         self.add_btn.clicked.connect(self.add_employee)
         # self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))
 
-
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
         depts = self.controller.dbconn.find_dept()
         self.team_search_combobox.addItems(depts)
         # for idx, dept in depts:
         #     self.team_search_combobox.addItem(idx, dept)
-
 
 
     # 사원 추가 버튼
