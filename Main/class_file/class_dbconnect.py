@@ -91,13 +91,12 @@ class DBconnect:
     def select_dept(self, dept):
         empolyee_list = list()
         c = self.start_conn()
-        empolyee_query = "select tb_user.user_name from tb_user join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
+        empolyee_query = "select tb_user.user_name, tb_dept.dept_name from tb_user join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
                          f"where tb_dept.dept_name = '{dept}'"
         c.execute(empolyee_query)
         datas = c.fetchall()
         for data in datas:
-            empolyee_name = data[0]
-            empolyee_list.append(empolyee_name)
+            empolyee_list.append(data)
 
         return empolyee_list
 
@@ -105,7 +104,7 @@ class DBconnect:
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    a = db_conn.select_dept('인사팀')
-
+    a = db_conn.select_dept('개발팀')
+    # print(a)
 
 
