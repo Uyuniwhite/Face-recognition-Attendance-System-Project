@@ -106,6 +106,6 @@ class DBconnect:
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
     a = db_conn.select_dept('인사팀')
-    print(a)
+
 
 
