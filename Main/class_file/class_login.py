@@ -167,11 +167,14 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             self.main.login.close()
 
             # 여기서 db 연결(로그인 기록 저장)
-            current_time = datetime.now()
-            year = current_time.year
-            month = current_time.month
-            day = current_time.month
-            month_date = year + month + day
-
+            current_time = datetime.now() # 현재 시간
+            year = current_time.year # 연도
+            month = current_time.month # 월
+            day = current_time.day # 일
+            hour = current_time.hour # 시간
+            minute = current_time.minute # 분
+            seconds = current_time.second # 초
+            day_date = f"{year}-{month}-{day}"
+            time_date = f"{hour}:{minute}:{seconds}"
             # self.main.dbconn.log_in()
 
