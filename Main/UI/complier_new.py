@@ -12,4 +12,4 @@ if __name__ == "__main__":
     py_files = ['LoginWidget.py', 'MainWidget.py', 'warning_dialog.py']
 
     compile_ui(ui_files, py_files) # 여러 파일 컴파일
-    print('컴파일 완료!')
+    print('컴파일러 완료!')
