@@ -155,6 +155,11 @@ border-radius:10px;
              <height>40</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(238, 239, 240);</string>
            </property>
@@ -171,8 +176,14 @@ border-radius:10px;
              <height>40</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(48, 133, 254);</string>
+            <string notr="true">background-color: rgb(48, 133, 254);
+color: rgb(255, 255, 255);</string>
            </property>
            <property name="text">
             <string>얼굴인식</string>
@@ -201,22 +212,61 @@ border-radius:10px;
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLabel" name="sample_lab">
+       <widget class="QWidget" name="widget" native="true">
         <property name="maximumSize">
          <size>
-          <width>356</width>
-          <height>356</height>
+          <width>375</width>
+          <height>16777215</height>
          </size>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>여기에 얼굴인식 화면이 들어갑니다</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="face_lab">
+           <property name="minimumSize">
+            <size>
+             <width>356</width>
+             <height>356</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>356</width>
+             <height>356</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../img/icon/resource.qrc">:/face-id.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="explain_lab">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>얼굴인식 버튼을 클릭해 주세요!</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -237,6 +287,9 @@ border-radius:10px;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../img/icon/resource.qrc"/>
+  <include location="../../../../../../Desktop/Face-recognition-Attendance-System-Project2/img/icon/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

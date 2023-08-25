@@ -217,7 +217,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="admin_home_page">
          <layout class="QHBoxLayout" name="horizontalLayout_16">
@@ -462,6 +462,19 @@ background-color: rgb(217, 217, 217);</string>
               <number>9</number>
              </property>
              <item>
+              <spacer name="verticalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <property name="spacing">
                 <number>0</number>
@@ -523,6 +536,9 @@ border-radius:30px;</string>
                      <property name="text">
                       <string>이름이름</string>
                      </property>
+                     <property name="alignment">
+                      <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                     </property>
                     </widget>
                    </item>
                    <item>
@@ -535,6 +551,9 @@ border-radius:30px;</string>
                      </property>
                      <property name="text">
                       <string>부서부서</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignHCenter|Qt::AlignTop</set>
                      </property>
                     </widget>
                    </item>
@@ -609,6 +628,12 @@ background-color: rgb(255, 255, 255);
                       <height>100</height>
                      </size>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>100</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 255, 255);
 border-radius:5px;</string>
@@ -656,6 +681,9 @@ border-radius:5px;</string>
                          </property>
                          <property name="text">
                           <string>출근일</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                          </property>
                         </widget>
                        </item>
@@ -720,6 +748,12 @@ background-color: rgb(230, 234, 245);</string>
                       <height>100</height>
                      </size>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>100</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 255, 255);
 border-radius:5px;</string>
@@ -767,6 +801,9 @@ border-radius:5px;</string>
                          </property>
                          <property name="text">
                           <string>외출일</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                          </property>
                         </widget>
                        </item>
@@ -831,6 +868,12 @@ background-color: rgb(230, 234, 245);</string>
                       <height>100</height>
                      </size>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>100</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 255, 255);
 border-radius:5px;</string>
@@ -878,6 +921,9 @@ border-radius:5px;</string>
                          </property>
                          <property name="text">
                           <string>결근일</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                          </property>
                         </widget>
                        </item>
@@ -1428,48 +1474,8 @@ height: 40px;
                       <pointsize>12</pointsize>
                      </font>
                     </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QComboBox" name="dept_combobox">
-                    <property name="minimumSize">
-                     <size>
-                      <width>300</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>300</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">#dept_combobox{
-	border-radius:10px;
-	background-color: rgb(255, 255, 255);
-	border: 1px solid #3085FE;
-	padding-left:10px;}
-
-#dept_combobox::drop-down{
-	border:0px;
-}
-
-#dept_combobox::down-arrow{
-	image: url(:/down.png);
-	width: 15px;
-	height: 15px;
-	margin-right:15px;
-}
-#dept_combobox::on{
- border:4px solid gray;
-}
-</string>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -1533,6 +1539,9 @@ height: 40px;
                      <font>
                       <pointsize>12</pointsize>
                      </font>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -1604,6 +1613,9 @@ height: 40px;
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                   <item row="4" column="1">
@@ -1624,6 +1636,9 @@ height: 40px;
                      <font>
                       <pointsize>12</pointsize>
                      </font>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -1652,6 +1667,30 @@ height: 40px;
                    <widget class="QLabel" name="label_24">
                     <property name="text">
                      <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="dept_lineedit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>300</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>300</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>

@@ -29,7 +29,7 @@ class MainPage(QWidget, Ui_MainWidget):
     def initUI(self):
 
         # 커서 지정
-        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(50, 50)))
+        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
 
         self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page)) # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
@@ -55,10 +55,31 @@ class MainPage(QWidget, Ui_MainWidget):
         self.edit_btn.setFont(Font.button(6))
 
         self.name_lineedit.setFont(font_style_1)
-        self.dept_combobox.setFont(font_style_1)
+        self.dept_lineedit.setFont(font_style_1)
         self.user_id_lineedit.setFont(font_style_1)
         self.pw_lineedit.setFont(font_style_1)
         self.pw_recheck_lineedit.setFont(font_style_1)
+
+        # 근태화면
+        self.attend_check_lab.setFont(Font.text(0, weight='bold'))
+        self.attend_check_combobox.setFont(Font.text(0))
+        self.attend_check_btn.setFont(Font.text(0, weight='bold'))
+        self.summary_lab.setFont(Font.button(7))
+
+        # 메인 페이지
+        self.attend_day_lab.setFont(Font.title(3))
+        self.out_day_lab.setFont(Font.title(3))
+        self.absent_day_lab.setFont(Font.title(3))
+
+        self.attend_text_lab.setFont(Font.text(1))
+        self.out_text_lab.setFont(Font.text(1))
+        self.absent_text_lab.setFont(Font.text(1))
+
+        self.out_btn.setFont(Font.text(4))
+        self.end_btn.setFont(Font.text(4))
+
+        self.home_name_lab.setFont(Font.text(2))
+        self.home_dept_lab.setFont(Font.text(2))
 
 
 
