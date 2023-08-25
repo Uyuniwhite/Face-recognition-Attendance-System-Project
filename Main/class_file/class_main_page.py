@@ -47,10 +47,11 @@ class MainPage(QWidget, Ui_MainWidget):
         depts = self.controller.dbconn.find_dept()
         self.team_search_combobox.addItems(depts)
 
+        # 사원 등록 페이지 열기
+        self.add_btn.clicked.connect(self.add_employee)
     # 사원 추가 버튼
     def add_employee(self):
-
-        pass
+        self.controller.add_emp.show()
 
     # 폰트 설정
     def set_font(self):
