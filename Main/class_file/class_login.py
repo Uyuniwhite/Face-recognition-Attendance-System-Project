@@ -153,8 +153,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         if name in self.class_names:
             print(f'{name}이 확인되었습니다.')
             self.user_name = name
-            # 메인 페이지 이동
-            self.main.main_page.show()
 
             # 여기서 db 연결(로그인 기록 저장)
             check_result = self.save_db() # 사원 등록 True, False 반환
@@ -162,6 +160,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             if not check_result: # True일때
                 # 메세지박스
                 message = f"{name}님 출근이 확인되었습니다."
+
+                # 메인 페이지 이동
+                self.main.main_page.show()
 
                 msgbox_obj = MsgBox()
                 msgbox_obj.set_dialog_type(type=1, msg=message)
