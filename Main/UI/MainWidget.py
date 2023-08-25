@@ -693,7 +693,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
