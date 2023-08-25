@@ -1,5 +1,5 @@
 # 필요한 라이브러리와 모듈들을 임포트
-from UI.LoginWidget import Ui_LoginWidget
+from Main.UI.LoginWidget import Ui_LoginWidget
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor
@@ -52,6 +52,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # 커서 설정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(50, 50)))
+
+        # ID / PW 로그인 버튼 이벤트
+        self.login_btn.clicked.connect(self.clicked_login_btn)
 
     def set_font(self):
         self.id_lab.setFont(Font.text(2, weight='light'))
@@ -155,7 +158,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             self.user_name = name
 
             # 여기서 db 연결(로그인 기록 저장)
-            check_result = self.save_db() # 사원 등록 True, False 반환
+            check_result = self.save_db('face') # 사원 등록 True, False 반환, 로그인 타입 얼굴인식
 
             if not check_result: # True일때
                 # 메세지박스
@@ -182,9 +185,50 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                 msgbox_obj.set_dialog_type(type=1, msg=message)
                 msgbox_obj.exec_()
 
+    # ID / PW 입력하고 로그인버튼 클릭시 이벤트 처리 함수
+    def clicked_login_btn(self):
+        input_id = self.id_lineedit.text()
+        input_pw = self.pw_lineedit.text()
+
+        result_id = self.verify_id(input_id) # 아이디 검증
+        result_pw = self.verify_pw(input_pw) # 패스워드 검증
+
+        msgbox = MsgBox()
+        if result_id == False or result_pw == False:
+            msg = "아이디 또는 패스워드를 확인하세요!"
+
+        elif result_id == True and result_pw == True:
+            db_password = self.main.dbconn.check_id_pw(input_id) # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
+            if db_password == False:
+                print("등록된 사원이 아닙니다")
+            elif db_password != input_pw:
+                print("패스워드가 다릅니다!")
+            else:
+                print("로그인 성공")
+                # 메인페이지로 이동
+                self.main.main_page.show()
+                # 로그인 정보 DB 저장
+                self.save_db('id')  # 사원 등록 True, False 반환, 로그인 타입 아이디
+                # login 화면 종료
+                self.main.login.close()
+
+    # ID 검증
+    def verify_id(self, input_id):
+        if len(input_id) == 0 or ' ' in input_id:
+            return False # 아이디 길이가 0 이거나 아이디에 스페이스가 들어가있으면 False 리턴
+        else:
+            return True # 이상없으면 true 리턴
+
+
+    # PW 검증
+    def verify_pw(self, input_pw):
+        if len(input_pw) == 0 or ' ' in input_pw:
+            return False # 비밀번호 미입력 또는 스페이스 입력 시 False 리턴
+        else:
+            return True # 이상없으면 true 리턴
 
     # 출근 시간 DB 저장
-    def save_db(self):
+    def save_db(self, login_type):
         current_time = datetime.now()  # 현재 시간
         year = current_time.year  # 연도
         month = current_time.month  # 월
@@ -194,5 +238,5 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         seconds = current_time.second  # 초
         day_date = f"{year}-{month}-{day}"
         time_date = f"{hour}:{minute}:{seconds}"
-        check_result = self.main.dbconn.log_in(self.user_name, day_date, time_date)
+        check_result = self.main.dbconn.log_in(self.user_name, day_date, time_date, login_type)
         return check_result

@@ -28,14 +28,14 @@ class DBconnect:
             self.conn = None
 
     # 출근 데이터 저장
-    def log_in(self, user_id, day_date, time_date):
-        user_no = self.find_no(user_id)
+    def log_in(self, user_id, day_date, time_date, login_type):
+        user_no = self.find_no(user_id, day_date)
         clock_in = self.clock_in_check(user_no) # 출근 여부 출근 안했으면 0, 했으면 1
         c = self.start_conn()
         if user_no != None:
             if clock_in == 0:
                 clock_in_query = "insert into tb_atd (user_no, atd_date, atd_time, atd_start, atd_end, atd_type) " \
-                                 f"values('{user_no}', '{day_date}','{time_date}',1,0,'face')"
+                                 f"values('{user_no}', '{day_date}','{time_date}',1,0,'{login_type}')"
                 c.execute(clock_in_query)
                 self.commit_db()
                 self.end_conn()
@@ -46,9 +46,9 @@ class DBconnect:
 
 
     # user_no 찾는 함수
-    def find_no(self, user_id):
+    def find_no(self, user_id, day_date):
         c = self.start_conn()
-        no_query = f"select user_no from tb_user where user_id = '{user_id}'"  # user_no 찾는 쿼리
+        no_query = f"select user_no from tb_user where user_id = '{user_id}' and where atd_date = '{day_date}'"  # user_no 찾는 쿼리
         c.execute(no_query)  # user_no 찾는 쿼리문 실행
         data = c.fetchone()  # user_no
         if data != None:
@@ -99,6 +99,19 @@ class DBconnect:
             empolyee_list.append(data)
 
         return empolyee_list
+
+    # DB에서 아이디 / 패스워드 검증
+    def check_id_pw(self, user_id):
+        c = self.start_conn()
+        check_query = f"select user_pw from tb_user where user_id = '{user_id}'"
+        c.execute(check_query)
+        pw = c.fetchone()
+
+        if pw == None:
+            return False # 등록된 아이디 없음
+        else:
+            return pw[0]
+
 
 
 
