@@ -148,8 +148,52 @@ class Ui_MainWidget(object):
 "background-color: rgb(217, 217, 217);")
         self.team_search_btn.setObjectName("team_search_btn")
         self.horizontalLayout_17.addWidget(self.team_search_btn)
+        self.add_btn = QtWidgets.QPushButton(self.widget_4)
+        self.add_btn.setMinimumSize(QtCore.QSize(90, 40))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.add_btn.setFont(font)
+        self.add_btn.setStyleSheet("border-radius:10px;\n"
+"background-color: rgb(217, 217, 217);")
+        self.add_btn.setObjectName("add_btn")
+        self.horizontalLayout_17.addWidget(self.add_btn)
         self.verticalLayout_16.addLayout(self.horizontalLayout_17)
         self.scrollArea = QtWidgets.QScrollArea(self.widget_4)
+        self.scrollArea.setStyleSheet("QScrollBar:vertical {\n"
+"    border: none;\n"
+"    background: white;\n"
+"    width: 14px;\n"
+"    margin: 0 0 0 0;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background-color: #3C82F2;  /* 기본 색상을 #3C82F2로 변경*/\n"
+"    min-height: 50px;\n"
+"    border-radius: 7px;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical:hover {\n"
+"    background-color: #2868C7;  /* #3C82F2 색상의 어두운 버전으로 변경*/\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical:pressed {\n"
+"    background-color: #1F57B1;  /* #3C82F2 색상의 더 어두운 버전으로 변경*/\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"    border: none;\n"
+"    background-color: #2868C7;  /* #3C82F2 색상의 어두운 버전으로 변경*/\n"
+"    height: 15px;\n"
+"    border-radius: 5px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"}\n"
+"\n"
+"QScrollArea {\n"
+"    border-radius: 20px;\n"
+"}\n"
+"")
         self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
@@ -649,7 +693,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -660,6 +704,7 @@ class Ui_MainWidget(object):
         self.mypage_btn.setText(_translate("MainWidget", "마이페이지"))
         self.team_search_lab.setText(_translate("MainWidget", "부서조회"))
         self.team_search_btn.setText(_translate("MainWidget", "확인"))
+        self.add_btn.setText(_translate("MainWidget", "사원추가"))
         self.img_lab.setText(_translate("MainWidget", "이미지"))
         self.home_name_lab.setText(_translate("MainWidget", "이름이름"))
         self.home_dept_lab.setText(_translate("MainWidget", "부서부서"))

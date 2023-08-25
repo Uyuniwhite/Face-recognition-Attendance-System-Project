@@ -7,17 +7,13 @@ import sys
 import os
 
 
-
-
-
-
 class MainPage(QWidget, Ui_MainWidget):
     def __init__(self, controller):
         super().__init__()
 
         self.setupUi(self)
-        self.initUI()
-        self.set_font()
+        self.initUI() # 기본 설정
+        self.set_font() # 폰트 설정
 
         # 컨트롤러 가져오기
         self.controller = controller
@@ -31,11 +27,19 @@ class MainPage(QWidget, Ui_MainWidget):
         # 커서 지정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
 
-        self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page)) # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
+        self.home_btn.clicked.connect(
+            lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
+        self.add_btn.clicked.connect(self.add_employee)
         # self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))
 
+    # 사원 추가 버튼
+    def add_employee(self):
+        pass
+
+
+    # 폰트 설정
     def set_font(self):
         """폰트 지정"""
         font_style_1 = Font.text(1)
@@ -81,11 +85,11 @@ class MainPage(QWidget, Ui_MainWidget):
         self.home_name_lab.setFont(Font.text(2))
         self.home_dept_lab.setFont(Font.text(2))
 
-
-
-
-
-
+        # 관리자 페이지
+        self.team_search_lab.setFont(Font.text(1, weight='bold'))
+        self.team_search_btn.setFont(Font.text(1, weight='bold'))
+        self.add_btn.setFont(Font.text(1, weight='bold'))
+        self.team_search_combobox.setFont(Font.text(1))
 
     def set_grid_lay(self, team):
         """그리드 영역에 위젯 클래스 넣어주기"""

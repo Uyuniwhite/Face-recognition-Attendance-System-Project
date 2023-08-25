@@ -1,5 +1,5 @@
 # 필요한 라이브러리와 모듈들을 임포트
-from UI.LoginWidget import Ui_LoginWidget
+from Main.UI.LoginWidget import Ui_LoginWidget
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor
@@ -52,6 +52,11 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # 커서 설정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
+
+        # 사진 넣기
+
+        self.face_lab.setScaledContents(True)
+        self.face_lab.setPixmap(QPixmap('../img/icon/face-id.png'))
 
     def set_font(self):
         self.id_lab.setFont(Font.text(2, weight='light'))

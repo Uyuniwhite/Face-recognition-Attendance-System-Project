@@ -217,7 +217,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="admin_home_page">
          <layout class="QHBoxLayout" name="horizontalLayout_16">
@@ -364,10 +364,69 @@ background-color: rgb(217, 217, 217);</string>
                  </property>
                 </widget>
                </item>
+               <item>
+                <widget class="QPushButton" name="add_btn">
+                 <property name="minimumSize">
+                  <size>
+                   <width>90</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>13</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:10px;
+background-color: rgb(217, 217, 217);</string>
+                 </property>
+                 <property name="text">
+                  <string>사원추가</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
              <item>
               <widget class="QScrollArea" name="scrollArea">
+               <property name="styleSheet">
+                <string notr="true">QScrollBar:vertical {
+    border: none;
+    background: white;
+    width: 14px;
+    margin: 0 0 0 0;
+    border-radius: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #3C82F2;  /* 기본 색상을 #3C82F2로 변경*/
+    min-height: 50px;
+    border-radius: 7px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #2868C7;  /* #3C82F2 색상의 어두운 버전으로 변경*/
+}
+
+QScrollBar::handle:vertical:pressed {
+    background-color: #1F57B1;  /* #3C82F2 색상의 더 어두운 버전으로 변경*/
+}
+
+QScrollBar::sub-line:vertical {
+    border: none;
+    background-color: #2868C7;  /* #3C82F2 색상의 어두운 버전으로 변경*/
+    height: 15px;
+    border-radius: 5px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollArea {
+    border-radius: 20px;
+}
+</string>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
