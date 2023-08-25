@@ -23,7 +23,6 @@ class MsgBox(QDialog, Ui_WarningDialog):
         self.ok_btn.setFont(Font.text(2, weight='bold'))
         self.cancel_btn.setFont(Font.text(2, weight='bold'))
 
-
         # 커서 설정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
 
@@ -43,21 +42,30 @@ class MsgBox(QDialog, Ui_WarningDialog):
         # 작업 디렉토리를 현재 스크립트의 디렉토리로 변경
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+        # 기본 설정
         self.cancel_btn.hide()
+        relative_path = "../../img/icon/check.png"
 
         if type == 1:
-            import os
             relative_path = "../../img/icon/check.png"
-
         if type == 2:
             relative_path = '../../img/icon/password.png'
-            absolute_path = os.path.abspath(relative_path)
-            msg = '얼굴인식이 어렵습니다. \n '\
+
+            msg = '얼굴인식이 어렵습니다. \n ' \
                   '아이디와 비밀번호로 로그인 해 주세요!'
 
         if type == 3:
             self.cancel_btn.show()
             msg = '해당 유저를 삭제하시겠습니까?'
+
+        if type == 4:
+            msg = f"등록된 사원이 아닙니다!"
+        if type == 5:
+            msg = f"500장의 사진을 찍습니다.\n다양한 각도에서 사진을 찍어주세요."
+            relative_path = '../../img/icon/camera.png'
+        if type == 6:
+            msg = f"[오류!]\n이미지 캡쳐에 실패했습니다."
+            relative_path = '../../img/icon/warning-sign.png'
 
         absolute_path = os.path.abspath(relative_path)
 

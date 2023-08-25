@@ -1,6 +1,7 @@
 import sys
 import cv2
 import numpy as np
+import os
 
 from PyQt5.QtWidgets import QMessageBox, QLabel, QDialog, QApplication, QVBoxLayout, QPushButton
 from PyQt5.QtCore import pyqtSlot
@@ -48,7 +49,7 @@ class YourPyQtClass(QDialog):
 
         # Other logic remains unchanged
         QMessageBox.information(self, "INSTRUCTIONS", "We will Capture 300 pic of your Face.")
-        x = start_capture(self.active_name)
+        x = start_capture(self, self.active_name)
         self.num_of_images = x
         self.numimglabel.setText("Number of images captured = {}".format(x))
 
