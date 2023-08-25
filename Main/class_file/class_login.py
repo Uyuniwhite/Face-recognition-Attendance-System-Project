@@ -3,6 +3,7 @@ from UI.LoginWidget import Ui_LoginWidget
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor
+from datetime import datetime
 import sys
 import cv2
 import os
@@ -130,13 +131,12 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         img = img.rgbSwapped()
         self.sample_lab.setPixmap(QPixmap.fromImage(img))
 
-        if name in self.class_names:
-            print(f'{name}이 확인되었습니다.')
-            self.timer.stop()
-            self.main.login.close()
-            # self.main.msgbox.set_contents(img=None, msg='test').show()
-            self.main.main_page.show()
+        # if name in self.class_names:
+        #     print(f'{name}이 확인되었습니다.')
+        #     self.timer.stop()
+        #     self.main.login.close()
+        #     # self.main.msgbox.set_contents(img=None, msg='test').show()
+        #     self.main.main_page.show()
 
-            pass  # 여기서 자동으로 메인 페이지로 이동
 
 
