@@ -238,7 +238,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
     def save_db(self, login_type):
         current_time = datetime.now()  # 현재 시간
         year = current_time.year  # 연도
-        month = current_time.month  # 월
+        month = str(current_time.month)  # 월
+        if len(month) == 1:
+            month = '0' + month
         day = current_time.day  # 일
         hour = current_time.hour  # 시간
         minute = current_time.minute  # 분
