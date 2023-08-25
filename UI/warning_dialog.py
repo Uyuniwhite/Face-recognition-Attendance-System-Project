@@ -44,6 +44,7 @@ class Ui_WarningDialog(object):
         self.icon_lab.setMinimumSize(QtCore.QSize(115, 115))
         self.icon_lab.setMaximumSize(QtCore.QSize(115, 115))
         self.icon_lab.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.icon_lab.setScaledContents(True)
         self.icon_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.icon_lab.setWordWrap(True)
         self.icon_lab.setObjectName("icon_lab")

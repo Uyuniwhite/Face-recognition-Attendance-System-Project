@@ -80,7 +80,7 @@ class Ui_LoginWidget(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.right_widget)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.sample_lab = QtWidgets.QLabel(self.right_widget)
-        self.sample_lab.setMaximumSize(QtCore.QSize(356, 356))
+        self.sample_lab.setMaximumSize(QtCore.QSize(480, 380))
         self.sample_lab.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.sample_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.sample_lab.setObjectName("sample_lab")
