@@ -1,4 +1,4 @@
-from Main.class_file.class_login_2 import LoginFunc
+from Main.class_file.class_login import LoginFunc
 from Main.class_file.class_dbconnect import DBconnect
 from Main.class_file.class_main_page import MainPage
 from Main.class_file.class_warning_msg import MsgBox
