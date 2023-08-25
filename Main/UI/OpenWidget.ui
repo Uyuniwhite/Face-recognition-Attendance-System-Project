@@ -35,13 +35,14 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="resource.qrc">:/open_page.png</pixmap>
+      <pixmap resource="../../img/icon/resource.qrc">:/open_page.png</pixmap>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
+  <include location="../../img/icon/resource.qrc"/>
   <include location="resource.qrc"/>
  </resources>
  <connections/>
