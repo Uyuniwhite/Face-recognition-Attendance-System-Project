@@ -10,7 +10,7 @@ class OpenPage(QWidget, Ui_OpenWidget):
 
         self.setupUi(self)
         self.controller = controller
-        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(50, 50)))
+        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
 
     def mousePressEvent(self, event):
         self.close()

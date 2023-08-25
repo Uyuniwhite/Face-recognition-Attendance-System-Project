@@ -22,7 +22,7 @@ class MsgBox(QDialog, Ui_WarningDialog):
         self.ok_btn.setFont(Font.text(2, weight='bold'))
 
         # 커서 설정
-        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(50, 50)))
+        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
     def set_dialog_type(self, type="", msg=""):
 
         import os

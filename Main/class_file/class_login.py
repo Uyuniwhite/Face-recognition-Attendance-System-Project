@@ -51,15 +51,16 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.set_font()
 
         # 커서 설정
-        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(50, 50)))
+        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
 
     def set_font(self):
         self.id_lab.setFont(Font.text(2, weight='light'))
         self.pw_lab.setFont(Font.text(2, weight='light'))
-        self.login_btn.setFont(Font.text(3))
-        self.face_check_btn.setFont(Font.text(3))
-        self.id_lineedit.setFont(Font.text(3))
-        self.pw_lineedit.setFont(Font.text(3))
+        self.login_btn.setFont(Font.text(2, weight='bold'))
+        self.face_check_btn.setFont(Font.text(2, weight='bold'))
+        self.id_lineedit.setFont(Font.text(2, weight='light'))
+        self.pw_lineedit.setFont(Font.text(2, weight='light'))
+        self.explain_lab.setFont(Font.text(2))
 
 
     def start_webcam(self):
@@ -148,7 +149,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         img = QImage(img, img.shape[1], img.shape[0], img.strides[0], qformat)
         img = img.rgbSwapped()
-        self.sample_lab.setPixmap(QPixmap.fromImage(img))
+        self.face_lab.setPixmap(QPixmap.fromImage(img))
 
         if name in self.class_names:
             print(f'{name}이 확인되었습니다.')

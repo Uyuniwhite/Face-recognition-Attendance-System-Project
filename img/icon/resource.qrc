@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>face-id.png</file>
     <file>absent.png</file>
     <file>attendance.png</file>
     <file>check.png</file>
