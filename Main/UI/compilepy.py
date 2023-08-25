@@ -5,6 +5,9 @@ if __name__ == '__main__':
     os.system('pyuic5 LoginWidget.ui -o LoginWidget.py')
     os.system('pyuic5 MainWidget.ui -o MainWidget.py')
     os.system('pyuic5 warning_dialog.ui -o warning_dialog.py')
+    os.system('pyuic5 OpenWidget.ui -o OpenWidget.py')
+    os.system('pyrcc5 resource.qrc -o resource_rc.py')
+
 
 
 

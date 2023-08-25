@@ -184,7 +184,7 @@ class Ui_MainWidget(object):
         self.label_9.setStyleSheet("border-radius:30px;\n"
 "background-color: rgb(230, 234, 245);")
         self.label_9.setText("")
-        self.label_9.setPixmap(QtGui.QPixmap(":/img/icon/attendance.png"))
+        self.label_9.setPixmap(QtGui.QPixmap(":/attendance.png"))
         self.label_9.setScaledContents(True)
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
@@ -221,7 +221,7 @@ class Ui_MainWidget(object):
         self.label_6.setStyleSheet("border-radius:30px;\n"
 "background-color: rgb(230, 234, 245);")
         self.label_6.setText("")
-        self.label_6.setPixmap(QtGui.QPixmap(":/img/icon/absent.png"))
+        self.label_6.setPixmap(QtGui.QPixmap(":/out.png"))
         self.label_6.setScaledContents(True)
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
@@ -258,7 +258,7 @@ class Ui_MainWidget(object):
         self.label_3.setStyleSheet("border-radius:30px;\n"
 "background-color: rgb(230, 234, 245);")
         self.label_3.setText("")
-        self.label_3.setPixmap(QtGui.QPixmap(":/img/icon/out.png"))
+        self.label_3.setPixmap(QtGui.QPixmap(":/absent.png"))
         self.label_3.setScaledContents(True)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
@@ -343,7 +343,7 @@ class Ui_MainWidget(object):
 "}\n"
 "\n"
 "#comboBox::down-arrow{\n"
-"    image: url(:/img/icon/down.png);\n"
+"    image: url(:/down.png);\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
 "    margin-right:15px;\n"
@@ -466,7 +466,7 @@ class Ui_MainWidget(object):
 "}\n"
 "\n"
 "#dept_combobox::down-arrow{\n"
-"    image: url(:/img/icon/down.png);\n"
+"    image: url(:/down.png);\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
 "    margin-right:15px;\n"
@@ -571,7 +571,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -586,11 +586,11 @@ class Ui_MainWidget(object):
         self.out_btn.setText(_translate("MainWidget", "외출하기"))
         self.end_btn.setText(_translate("MainWidget", "퇴근하기"))
         self.label_7.setText(_translate("MainWidget", "00일"))
-        self.label_8.setText(_translate("MainWidget", "외출일"))
+        self.label_8.setText(_translate("MainWidget", "출근일"))
         self.label_4.setText(_translate("MainWidget", "00일"))
-        self.label_5.setText(_translate("MainWidget", "결근일"))
+        self.label_5.setText(_translate("MainWidget", "외출일"))
         self.label.setText(_translate("MainWidget", "00일"))
-        self.label_2.setText(_translate("MainWidget", "출근일수"))
+        self.label_2.setText(_translate("MainWidget", "결근일"))
         self.label_10.setText(_translate("MainWidget", "그래프에 대한 설명"))
         self.label_11.setText(_translate("MainWidget", "그래프에 대한 설명"))
         self.label_16.setText(_translate("MainWidget", "월별조회"))
@@ -605,7 +605,7 @@ class Ui_MainWidget(object):
         self.name_lab.setText(_translate("MainWidget", "이름"))
         self.pw_recheck_lab.setText(_translate("MainWidget", "비밀번호 확인"))
         self.edit_btn.setText(_translate("MainWidget", "수정하기"))
-# import resource_rc
+from Main.UI import resource_rc
 
 
 if __name__ == "__main__":

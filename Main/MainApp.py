@@ -2,7 +2,7 @@ import sys
 
 from PyQt5 import QtWidgets
 from Main.class_file.class_controller import Controller
-from PyQt5.QtGui import QFontDatabase
+from PyQt5.QtGui import QFontDatabase, QCursor
 
 def Main():
     app = QtWidgets.QApplication(sys.argv)
@@ -18,10 +18,12 @@ def Main():
     fontDB.addApplicationFont('../font/Pretendard-Regular.ttf')
     fontDB.addApplicationFont('../font/Pretendard-SemiBold.ttf')
 
-    for family in fontDB.families():
-        print(family, fontDB.styles(family))
+    # for family in fontDB.families():
+    #     print(family, fontDB.styles(family))
+
+
     main_window = Controller()
-    main_window.login.show()
+    main_window.open_page.show()
     app.exec_()
 
 
