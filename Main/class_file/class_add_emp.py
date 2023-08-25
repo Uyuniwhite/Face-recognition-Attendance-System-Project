@@ -36,8 +36,6 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
 
         msgbox = MsgBox() # 메시지박스 객체 생성
         message = ''
-        print(f"result_name = {result_name}")
-        print(type(result_name))
         if result_name == 0:
             message = "이름에 공백이 존재합니다!"
         elif result_name == 1:
@@ -86,7 +84,6 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
             return 1 # 15자 초과
         else:
             duple_result = self.main.dbconn.id_duple_check(id_)
-            print(f"중복검사 결과 {duple_result}")
             if duple_result:
                 return 2
             elif not duple_result:
@@ -108,7 +105,6 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
     # 부서 텍스트를 부서 번호로 변경
     def convert_dept(self, dept):
         dept_id = (10 * dept) + 10
-        print(dept_id)
         return dept_id
 
     # 얼굴 인식 관련
