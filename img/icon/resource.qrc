@@ -1,0 +1,11 @@
+<RCC>
+  <qresource>
+    <file>absent.png</file>
+    <file>attendance.png</file>
+    <file>check.png</file>
+    <file>down.png</file>
+    <file>open_page.png</file>
+    <file>out.png</file>
+    <file>password.png</file>
+  </qresource>
+</RCC>

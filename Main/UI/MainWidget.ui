@@ -217,7 +217,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="home_page">
          <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -446,7 +446,7 @@ border-radius:5px;</string>
                           </size>
                          </property>
                          <property name="text">
-                          <string>외출일</string>
+                          <string>출근일</string>
                          </property>
                         </widget>
                        </item>
@@ -490,7 +490,7 @@ background-color: rgb(230, 234, 245);</string>
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="../resource.qrc">:/img/icon/attendance.png</pixmap>
+                        <pixmap resource="resource.qrc">:/attendance.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -557,7 +557,7 @@ border-radius:5px;</string>
                           </size>
                          </property>
                          <property name="text">
-                          <string>결근일</string>
+                          <string>외출일</string>
                          </property>
                         </widget>
                        </item>
@@ -601,7 +601,7 @@ background-color: rgb(230, 234, 245);</string>
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="../resource.qrc">:/img/icon/absent.png</pixmap>
+                        <pixmap resource="resource.qrc">:/out.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -668,7 +668,7 @@ border-radius:5px;</string>
                           </size>
                          </property>
                          <property name="text">
-                          <string>출근일수</string>
+                          <string>결근일</string>
                          </property>
                         </widget>
                        </item>
@@ -712,7 +712,7 @@ background-color: rgb(230, 234, 245);</string>
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="../resource.qrc">:/img/icon/out.png</pixmap>
+                        <pixmap resource="resource.qrc">:/absent.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -941,7 +941,7 @@ background-color: rgb(230, 234, 245);</string>
 }
 
 #comboBox::down-arrow{
-	image: url(:/img/icon/down.png);
+	image: url(:/down.png);
 	width: 15px;
 	height: 15px;
 	margin-right:15px;
@@ -1252,7 +1252,7 @@ height: 40px;
 }
 
 #dept_combobox::down-arrow{
-	image: url(:/img/icon/down.png);
+	image: url(:/down.png);
 	width: 15px;
 	height: 15px;
 	margin-right:15px;
@@ -1497,7 +1497,7 @@ border-radius: 10px;</string>
   </layout>
  </widget>
  <resources>
-  <include location="../resource.qrc"/>
+  <include location="resource.qrc"/>
  </resources>
  <connections/>
 </ui>

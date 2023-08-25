@@ -1,8 +1,0 @@
-<RCC>
-  <qresource>
-    <file>img/icon/absent.png</file>
-    <file>img/icon/attendance.png</file>
-    <file>img/icon/out.png</file>
-    <file>img/icon/down.png</file>
-  </qresource>
-</RCC>

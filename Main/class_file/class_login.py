@@ -11,6 +11,7 @@ from datetime import datetime
 from tensorflow.keras.models import load_model
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
+from PyQt5.QtGui import QCursor, QPixmap
 
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성
@@ -48,6 +49,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # 폰트 설정
         self.set_font()
+
+        # 커서 설정
+        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(50, 50)))
 
     def set_font(self):
         self.id_lab.setFont(Font.text(2, weight='light'))
