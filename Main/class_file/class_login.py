@@ -164,7 +164,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             self.user_name = name
 
             # 여기서 db 연결(로그인 기록 저장)
-            check_result = self.save_db() # 사원 등록 True, False 반환
+            check_result = self.save_db(login_type='face') # 사원 등록 True, False 반환
 
             if not check_result: # True일때
                 # 메세지박스

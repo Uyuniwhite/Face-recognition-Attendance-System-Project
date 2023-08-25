@@ -49,6 +49,7 @@ class DBconnect:
     def find_no(self, user_id, day_date):
         c = self.start_conn()
         no_query = f"select user_no from tb_user where user_id = '{user_id}' and where atd_date = '{day_date}'"  # user_no 찾는 쿼리
+        print(no_query)
         c.execute(no_query)  # user_no 찾는 쿼리문 실행
         data = c.fetchone()  # user_no
         if data != None:

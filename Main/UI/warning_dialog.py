@@ -20,9 +20,14 @@ class Ui_WarningDialog(object):
 "border-radius:20px;\n"
 "    background-color: rgb(255, 255, 255);\n"
 "}\n"
-"QPushButton{\n"
+"QPushButton#ok_btn{\n"
 "    background-color: rgb(48, 133, 254);\n"
 "    color:white;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton#cance_btn{\n"
+"    background-color: #E6E6E6;\n"
+"    color: #252C58;\n"
 "    border-radius:10px;\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(WarningDialog)
@@ -50,7 +55,7 @@ class Ui_WarningDialog(object):
         self.horizontalLayout.addWidget(self.icon_lab)
         self.verticalLayout_3.addWidget(self.top_widget)
         self.bottom_widget = QtWidgets.QWidget(self.frame)
-        self.bottom_widget.setMaximumSize(QtCore.QSize(16777215, 130))
+        self.bottom_widget.setMaximumSize(QtCore.QSize(16777215, 180))
         self.bottom_widget.setObjectName("bottom_widget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.bottom_widget)
         self.verticalLayout_2.setContentsMargins(11, -1, -1, 0)
@@ -74,8 +79,17 @@ class Ui_WarningDialog(object):
         self.ok_btn.setStyleSheet("")
         self.ok_btn.setObjectName("ok_btn")
         self.verticalLayout_2.addWidget(self.ok_btn)
+        self.cancel_btn = QtWidgets.QPushButton(self.bottom_widget)
+        self.cancel_btn.setMinimumSize(QtCore.QSize(0, 40))
+        self.cancel_btn.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.cancel_btn.setFont(font)
+        self.cancel_btn.setStyleSheet("")
+        self.cancel_btn.setObjectName("cancel_btn")
+        self.verticalLayout_2.addWidget(self.cancel_btn)
         self.verticalLayout_3.addWidget(self.bottom_widget)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem = QtWidgets.QSpacerItem(20, 35, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem)
         self.verticalLayout.addWidget(self.frame)
 
@@ -88,6 +102,7 @@ class Ui_WarningDialog(object):
         self.icon_lab.setText(_translate("WarningDialog", "아이콘이 들어갑니다."))
         self.warn_lab.setText(_translate("WarningDialog", "경고문구가 들어갑니다."))
         self.ok_btn.setText(_translate("WarningDialog", "확인"))
+        self.cancel_btn.setText(_translate("WarningDialog", "취소"))
 
 
 if __name__ == "__main__":

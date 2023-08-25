@@ -29,7 +29,7 @@ class UserCell(QWidget, Ui_Form):
         self.del_btn.setIcon(QIcon(close_img_absolute_path))
 
         # 이름 담아주기
-        self.name_lab.setText(self.name_lab)
+        self.name_lab.setText(self.user_name)
 
         # 삭제 버튼 눌렀을 때 삭제하는 함수로 이동
         self.del_btn.clicked.connect(self.del_user)

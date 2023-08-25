@@ -7,16 +7,19 @@ import sys
 import os
 
 
+
 class MainPage(QWidget, Ui_MainWidget):
     def __init__(self, controller):
         super().__init__()
+
+        # 컨트롤러 가져오기
+        self.controller = controller
 
         self.setupUi(self)
         self.initUI() # 기본 설정
         self.set_font() # 폰트 설정
 
-        # 컨트롤러 가져오기
-        self.controller = controller
+
 
         # 그리드 레이아웃 생성
         self.gridLayout = QGridLayout(self.frame)
@@ -33,6 +36,16 @@ class MainPage(QWidget, Ui_MainWidget):
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
         self.add_btn.clicked.connect(self.add_employee)
         # self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))
+
+
+        # 부서 콤보박스에 넣기
+        self.team_search_combobox.clear()
+        depts = self.controller.dbconn.find_dept()
+        self.team_search_combobox.addItems(depts)
+        # for idx, dept in depts:
+        #     self.team_search_combobox.addItem(idx, dept)
+
+
 
     # 사원 추가 버튼
     def add_employee(self):
@@ -94,6 +107,7 @@ class MainPage(QWidget, Ui_MainWidget):
     def set_grid_lay(self, team):
         """그리드 영역에 위젯 클래스 넣어주기"""
 
+
         # 테스트 리스트(팀에 따라 다른 리스트 불러오는 부분 추가해야 함)
         test_list = [f'{n}번사원' for n in range(1, 21)]
 
@@ -105,6 +119,6 @@ class MainPage(QWidget, Ui_MainWidget):
         for i in range(num_rows):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(test_list):  # test_list의 원소 수를 초과하지 않도록 함
-                    user_cell = UserCell(self, type=1, name=test_list[cnt])
+                    user_cell = UserCell(self, type=1, name=test_list[cnt], user_id=None)
                     self.gridLayout.addWidget(user_cell, i, j)
                     cnt += 1
