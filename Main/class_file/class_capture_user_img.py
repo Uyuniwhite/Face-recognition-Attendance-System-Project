@@ -3,7 +3,7 @@ import cv2
 import os
 import numpy as np
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QLabel, QWidget, QApplication, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QImage, QPixmap
 
@@ -57,14 +57,7 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
             os.makedirs(path)
         except FileExistsError:
             print('폴더가 이미 생성되어 있습니다.')
-
-
-        try:
-            os.makedirs(path)
-        except:
-            print('폴더가 이미 생성되어 있습니다.')
         vid = cv2.VideoCapture(0)
-        # ... (기존의 start_capture 함수의 코드)
 
         while True:
             ret, img = vid.read()

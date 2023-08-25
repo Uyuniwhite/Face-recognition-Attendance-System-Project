@@ -8,11 +8,9 @@ import cv2
 import os
 import numpy as np
 from datetime import datetime
-from tensorflow.keras.models import load_model
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
 from Main.class_file.class_face_detection import FaceRecognizer
-
 
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성
@@ -31,14 +29,10 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.setupUi(self)  # UI 설정을 초기화
         self.initUI()  # 초기 설정
 
-
         # 카메라로부터 영상을 캡처하기 위한 객체를 생성
         self.cap = cv2.VideoCapture(0)
 
     def initUI(self):
-        # 인식 가능한 이름 리스트
-        # self.class_names = ['soyeon', 'woohyun', 'hohyeon', 'gwanghyeon']
-
         # 그림자 효과를 설정
         self.set_shadow()
 
@@ -57,8 +51,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         # 사진 넣기
         self.face_lab.setScaledContents(True)
         self.face_lab.setPixmap(QPixmap('../img/icon/face-id.png'))
-
-
 
     def set_font(self):
         self.id_lab.setFont(Font.text(2, weight='light'))
@@ -134,7 +126,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."
-                    self.msgbox.set_dialog_type(type=1, msg=message)
+                    self.msgbox.set_dialog_type(msg=message, img='check')
                     self.msgbox.exec_()
 
                     # 메인 페이지 이동
@@ -148,39 +140,38 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
 
                 else:
-                    self.msgbox.set_dialog_type(type=4)
+                    self.msgbox.set_dialog_type(type=2)
                     self.msgbox.exec_()
-
-
 
     # ID / PW 입력하고 로그인버튼 클릭시 이벤트 처리 함수
     def clicked_login_btn(self):
         input_id = self.id_lineedit.text()
         input_pw = self.pw_lineedit.text()
 
-        result_id = self.verify_id(input_id) # 아이디 검증
-        result_pw = self.verify_pw(input_pw) # 패스워드 검증
+        result_id = self.verify_id(input_id)  # 아이디 검증
+        result_pw = self.verify_pw(input_pw)  # 패스워드 검증
 
         msgbox = MsgBox()
         message = ''
         if input_id != 'admin':
             if result_id == False or result_pw == False:
-                message = "아이디 또는 패스워드를 확인하세요!"
+                msgbox.set_dialog_type(type=1)
             elif result_id == True and result_pw == True:
-                db_password = self.main.dbconn.check_id_pw(input_id) # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
+                db_password = self.main.dbconn.check_id_pw(input_id)  # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
                 if db_password == False:
-                    message = "등록된 사원이 아닙니다!"
+                    msgbox.set_dialog_type(type=2)
                 elif db_password != input_pw:
-                    message = "패스워드가 일치하지 않습니다!"
+                    msgbox.set_dialog_type(type=3)
                 else:
                     message = f"{input_id}님 로그인되었습니다."
+                    msgbox.set_dialog_type(msg=message, img='check')
                     # 메인페이지로 이동
                     self.main.main_page.show()
                     # 로그인 정보 DB 저장
                     self.save_db('id')  # 사원 등록 True, False 반환, 로그인 타입 아이디
                     # login 화면 종료
                     self.main.login.close()
-            msgbox.set_dialog_type(type=1, msg=message)
+
             msgbox.exec_()
         elif input_id == 'admin':
             self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
@@ -190,30 +181,34 @@ class LoginFunc(QWidget, Ui_LoginWidget):
     # ID 검증
     def verify_id(self, input_id):
         if len(input_id) == 0 or ' ' in input_id:
-            return False # 아이디 길이가 0 이거나 아이디에 스페이스가 들어가있으면 False 리턴
+            return False  # 아이디 길이가 0 이거나 아이디에 스페이스가 들어가있으면 False 리턴
         else:
-            return True # 이상없으면 true 리턴
-
+            return True  # 이상없으면 true 리턴
 
     # PW 검증
     def verify_pw(self, input_pw):
         if len(input_pw) == 0 or ' ' in input_pw:
-            return False # 비밀번호 미입력 또는 스페이스 입력 시 False 리턴
+            return False  # 비밀번호 미입력 또는 스페이스 입력 시 False 리턴
         else:
-            return True # 이상없으면 true 리턴
+            return True  # 이상없으면 true 리턴
 
     # 출근 시간 DB 저장
     def save_db(self, login_type):
+
         current_time = datetime.now()  # 현재 시간
-        year = current_time.year  # 연도
-        month = str(current_time.month)  # 월
-        if len(month) == 1:
-            month = '0' + month
-        day = current_time.day  # 일
-        hour = current_time.hour  # 시간
-        minute = current_time.minute  # 분
-        seconds = current_time.second  # 초
-        day_date = f"{year}-{month}-{day}"
-        time_date = f"{hour}:{minute}:{seconds}"
+        formatted_date = current_time.strftime('%Y-%m-%d')
+        formatted_time = current_time.strftime('%H:%M:%S')
+        # year = current_time.year  # 연도
+        # month = str(current_time.month)  # 월
+        # if len(month) == 1:
+        #     month = '0' + month
+        # day = current_time.day  # 일
+        # hour = current_time.hour  # 시간
+        # minute = current_time.minute  # 분
+        # seconds = current_time.second  # 초
+        # day_date = f"{year}-{month}-{day}"
+        # time_date = f"{hour}:{minute}:{seconds}"
+        day_date = formatted_date
+        time_date = formatted_time
         check_result = self.main.dbconn.log_in(self.user_name, day_date, time_date, login_type)
         return check_result

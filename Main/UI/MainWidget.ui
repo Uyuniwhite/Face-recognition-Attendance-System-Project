@@ -217,7 +217,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="admin_home_page">
          <layout class="QHBoxLayout" name="horizontalLayout_16">
@@ -439,7 +439,7 @@ QScrollArea {
                   <x>0</x>
                   <y>0</y>
                   <width>820</width>
-                  <height>356</height>
+                  <height>355</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -463,6 +463,24 @@ QScrollArea {
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_18">
+                    <item>
+                     <layout class="QGridLayout" name="users_grid_lay"/>
+                    </item>
+                    <item>
+                     <spacer name="verticalSpacer_5">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>319</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
                   </widget>
                  </item>
                 </layout>
@@ -1805,7 +1823,7 @@ border-radius: 10px;</string>
  </widget>
  <resources>
   <include location="../../img/icon/resource.qrc"/>
-  <include location="resource.qrc"/>
+  <include location="../../img/icon/resource.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -22,6 +22,60 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         self.cancel_btn.clicked.connect(self.close)
         self.admit_btn.clicked.connect(self.clicked_add_empolyee_btn)
 
+    # def clicked_add_empolyee_btn(self):
+    #     emp_name = self.name_lineedit.text()
+    #     emp_dept = self.comboBox.currentIndex()
+    #     emp_id = self.user_id_lineedit.text()
+    #     emp_pw = self.pw_lineedit.text()
+    #     emp_re_pw = self.pw_recheck_lineedit.text()
+    #
+    #     result_name = self.verify_name(emp_name)
+    #     result_id = self.verify_id(emp_id)
+    #     result_pw = self.verify_pw(emp_pw, emp_re_pw)
+    #     result_dept = self.convert_dept(emp_dept)
+    #
+    #     # 검증 결과에 따른 메시지 매핑
+    #     messages = {
+    #         'name': {
+    #             0: "이름에 공백이 존재합니다!",
+    #             1: "이름이 8글자를 초과합니다!",
+    #             2: None
+    #         },
+    #         'id': {
+    #             0: "ID에 공백이 존재합니다!",
+    #             1: "ID가 15자를 초과합니다!",
+    #             2: None,
+    #             3: "중복된 ID가 존재합니다!"
+    #         },
+    #         'pw': {
+    #             0: "패스워드에 공백이 존재합니다!",
+    #             1: "패스워드가 20자를 초과합니다!",
+    #             2: "동일한 패스워드를 입력하세요!",
+    #             3: None
+    #         },
+    #         'face': {
+    #             False: "얼굴 인식을 진행해주세요!",
+    #             True: "신규 사원 등록이 완료되었습니다!"
+    #         }
+    #     }
+    #
+    #     message = messages['name'].get(result_name) or \
+    #               messages['id'].get(result_id) or \
+    #               messages['pw'].get(result_pw) or \
+    #               messages['face'].get(self.face_regist)
+    #
+    #     self.display_message(message)
+    #
+    # def display_message(self, message):
+    #     msgbox = MsgBox()
+    #     if message == "신규 사원 등록이 완료되었습니다!":
+    #         msgbox.set_dialog_type(msg=message)
+    #         msgbox.exec_()
+    #         self.close()
+    #     else:
+    #         msgbox.set_dialog_type(type=1, msg=message)
+    #         msgbox.exec_()
+
     def clicked_add_empolyee_btn(self):
         emp_name = self.name_lineedit.text()
         emp_dept = self.comboBox.currentIndex()
@@ -60,11 +114,11 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
                     elif self.face_regist:
                         message = "신규 사원 등록이 완료되었습니다!"
 
-                        msgbox.set_dialog_type(type=1, msg=message)
+                        msgbox.set_dialog_type(msg=message, img='check')
                         msgbox.exec_()
                         return self.close()
 
-        msgbox.set_dialog_type(type=1, msg=message)
+        msgbox.set_dialog_type(msg=message)
         msgbox.exec_()
 
     # 이름 검증
@@ -109,6 +163,7 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
 
     # 얼굴 인식 관련
     def clicked_face_rec_btn(self):
+
         pass
 
     # 콤보박스 데이터 넣기

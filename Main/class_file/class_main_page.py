@@ -18,17 +18,6 @@ class MainPage(QWidget, Ui_MainWidget):
         self.initUI()  # 기본 설정
         self.set_font()  # 폰트 설정
 
-        # 그리드 레이아웃 생성
-        self.main_v_lay = QVBoxLayout(self.scrollAreaWidgetContents)
-        self.gridLayout = QGridLayout()
-
-        self.main_v_lay.addLayout(self.gridLayout)
-        self.grid_spacer = QSpacerItem(20, 231, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        self.main_v_lay.addItem(self.grid_spacer)
-
-        # 현재 부서
-        # 체크박스 변경될 때마다 set_grid_lay 호출되게 해야 함
-        self.team_search_btn.clicked.connect(self.set_grid_lay)
 
     def initUI(self):
 
@@ -40,7 +29,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
         self.add_btn.clicked.connect(self.add_employee)  # 사원 추가
-        # self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))
+        self.team_search_btn.clicked.connect(self.set_grid_lay)
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -49,6 +38,7 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 사원 등록 페이지 열기
         self.add_btn.clicked.connect(self.add_employee)
+
     # 사원 추가 버튼
     def add_employee(self):
         self.controller.add_emp.show()
@@ -107,14 +97,10 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def set_grid_lay(self):
         """그리드 영역에 위젯 클래스 넣어주기"""
+        self.clear_layout(self.users_grid_lay) #그리드 레이아웃 클리어
 
         current_dept = self.team_search_combobox.currentText()
         empolyee_list = self.controller.dbconn.select_dept(current_dept)
-        print(empolyee_list)
-        print(len(empolyee_list))
-
-        for data in empolyee_list:
-            name, user_id, dept = data[0], data[1], data[2]
 
         # 행의 개수를 원소 수에 따라 결정
         num_rows = (len(empolyee_list) // 3 + 1)  # 올림 계산을 사용하여 행의 개수를 결정
@@ -127,5 +113,19 @@ class MainPage(QWidget, Ui_MainWidget):
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
                     print(empolyee_list[cnt][0], empolyee_list[cnt][1])
                     user_cell = UserCell(self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
-                    self.gridLayout.addWidget(user_cell, i, j)
+                    self.users_grid_lay.addWidget(user_cell, i, j)
                     cnt += 1
+
+    def clear_layout(self, layout: QLayout):
+        """레이아웃 안의 모든 객체를 지웁니다."""
+        if layout is None or not layout.count():
+            return
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+
+            if widget is not None:
+                widget.setParent(None)
+            # 아이템이 레이아웃일 경우 재귀 호출로 레이아웃 내의 위젯 삭제
+            else:
+                self.clear_layout(item.layout())
