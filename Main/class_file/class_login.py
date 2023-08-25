@@ -220,8 +220,8 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.save_db('id')  # 사원 등록 True, False 반환, 로그인 타입 아이디
                     # login 화면 종료
                     self.main.login.close()
-                msgbox.set_dialog_type(type=1, msg=message)
-                msgbox.exec_()
+            msgbox.set_dialog_type(type=1, msg=message)
+            msgbox.exec_()
         elif input_id == 'admin':
             self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
             self.main.main_page.show()

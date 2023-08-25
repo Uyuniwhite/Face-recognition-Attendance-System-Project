@@ -115,7 +115,25 @@ class DBconnect:
         else:
             return pw[0]
 
+    # 관리자 사원 등록 아이디 중복검사
+    def id_duple_check(self, user_id):
+        c = self.start_conn()
+        query = f"select * from tb_user where user_id = '{user_id}'"
+        c.execute(query)
+        result = c.fetchone()
+        if result != None:
+            return False # 중복된 아이디
+        else:
+            return True # 중복 통과
 
+    # 신규 사원 등록
+    def save_newbie(self, newbie_name, newbie_id, newbie_pw, dept_id):
+        c = self.start_conn()
+        add_query = "insert into tb_user (user_name, user_id, user_pw, dept_id) values " \
+                    f"('{newbie_name}', '{newbie_id}', '{newbie_pw}', '{dept_id}')"
+        c.execute(add_query)
+        self.commit_db()
+        self.end_conn()
 
 
 if __name__ == '__main__':
