@@ -8,10 +8,13 @@ import os
 
 # 그리드 레이아웃에 들어가는 유저 캐럿셀
 class UserCell(QWidget, Ui_Form):
-    def __init__(self, parent, type, name):
+    def __init__(self, parent, type, name, user_id):
         super().__init__()
         self.setupUi(self)
+
         self.main_page = parent
+        self.user_id = user_id
+        self.user_name = name
 
         # 상대경로 절대경로로 변환
         user_img_path = '../../img/icon/user.png'  # 유저 아이콘
@@ -26,15 +29,17 @@ class UserCell(QWidget, Ui_Form):
         self.del_btn.setIcon(QIcon(close_img_absolute_path))
 
         # 이름 담아주기
-        self.name_lab.setText(name)
+        self.name_lab.setText(self.name_lab)
 
-        # 삭제 버튼 눌렀을 때
+        # 삭제 버튼 눌렀을 때 삭제하는 함수로 이동
         self.del_btn.clicked.connect(self.del_user)
 
     # 유저 삭제하는 부분
     def del_user(self):
+        # TODO 1. 해당 위젯 삭제
+        ## 다이얼로그 띄우기 -> 확인일 경우 DB에서 삭제
 
-        # 여기서 db 연결해야 함 (
+        # 여기서 db 연결해야 함 (아이디, 이름 가져와야)
 
         pass
 
