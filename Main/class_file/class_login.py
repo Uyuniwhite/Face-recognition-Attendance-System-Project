@@ -197,6 +197,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         if result_id == False or result_pw == False:
             msg = "아이디 또는 패스워드를 확인하세요!"
 
+
         elif result_id == True and result_pw == True:
             db_password = self.main.dbconn.check_id_pw(input_id) # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
             if db_password == False:

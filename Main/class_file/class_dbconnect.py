@@ -91,7 +91,7 @@ class DBconnect:
     def select_dept(self, dept):
         empolyee_list = list()
         c = self.start_conn()
-        empolyee_query = "select tb_user.user_name, tb_dept.dept_name from tb_user join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
+        empolyee_query = "select tb_user.user_name, tb_user.user_id, tb_dept.dept_name from tb_user join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
                          f"where tb_dept.dept_name = '{dept}'"
         c.execute(empolyee_query)
         datas = c.fetchall()
