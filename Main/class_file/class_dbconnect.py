@@ -25,4 +25,8 @@ class DBconnect:
     def log_in(self):
         c = self.start_conn()
 
+    def regiseter_info(self):
+        c = self.start_conn()
+
+
 

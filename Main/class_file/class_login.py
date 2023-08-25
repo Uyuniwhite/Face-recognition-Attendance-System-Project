@@ -7,6 +7,7 @@ import sys
 import cv2
 import os
 import numpy as np
+from datetime import datetime
 from tensorflow.keras.models import load_model
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
@@ -19,6 +20,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # 초기변수
         self.class_names = None
+        self.user_name = None
 
         self.setupUi(self)  # UI 설정을 초기화
         self.initUI()  # 초기 설정
@@ -109,6 +111,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                                     cv2.LINE_AA)
             # 이미지 화면에 띄우기
             self.display_image(image, recognized_name)
+            self.user_name = recognized_name # 데이터베이스 저장용 변수
 
     def recognize_face(self, image):
         """얼굴 인식"""
@@ -160,5 +163,15 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             # 타이머 종료
             self.timer.stop()
 
+            # login 화면 종료
+            self.main.login.close()
 
             # 여기서 db 연결(로그인 기록 저장)
+            current_time = datetime.now()
+            year = current_time.year
+            month = current_time.month
+            day = current_time.month
+            month_date = year + month + day
+
+            # self.main.dbconn.log_in()
+
