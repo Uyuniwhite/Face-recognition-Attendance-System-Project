@@ -1,18 +1,26 @@
+import cv2
+
 from Main.UI.MainWidget import Ui_MainWidget
 from Main.class_file.class_user_cell import UserCell
 from Main.class_file.class_font import Font
+from Main.class_file.class_face_detection import FaceRecognizer
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
+from PyQt5.QtCore import pyqtSignal, QTimer
 import sys
 import os
 
 
 class MainPage(QWidget, Ui_MainWidget):
+    SetUserId = pyqtSignal(str)
     def __init__(self, controller):
         super().__init__()
 
         # 컨트롤러 가져오기
         self.controller = controller
+
+        # 유저 Id
+        self.user_id = None
 
         self.setupUi(self)
         self.initUI()  # 기본 설정
@@ -44,9 +52,19 @@ class MainPage(QWidget, Ui_MainWidget):
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
         self.set_font()  # 폰트 설정
 
+        # 퇴근하기 버튼 클릭
+        self.end_btn.clicked.connect(self.clicked_end_btn)
+
+        # 유저 아이디 설정 시그널 연결
+        self.SetUserId.connect(self.set_user_id)
+
     # 사원 추가 버튼
     def add_employee(self):
         self.controller.add_emp.show()
+
+    # 로그인 유저 ID 변수 설정
+    def set_user_id(self, login_id):
+        self.user_id = login_id
 
     # 폰트 설정
     def set_font(self):
@@ -122,7 +140,7 @@ class MainPage(QWidget, Ui_MainWidget):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
                     print(empolyee_list[cnt][0], empolyee_list[cnt][1])
-                    user_cell = UserCell(self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
+                    user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
                     cnt += 1
 
@@ -152,3 +170,49 @@ class MainPage(QWidget, Ui_MainWidget):
             self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f'{i}팀원수')) # 1번째 열, 3번째 행에 값 넣기
             self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{i}근태율')) # 1번째 열, 4번째 행에 값 넣기
         self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
+
+    # 퇴근하기 버튼 클릭 이벤트 코드
+    def clicked_end_btn(self):
+        print(os.getcwd())
+        self.var_for_cam()
+        self.start_cam()
+
+    def var_for_cam(self):
+        path = os.getcwd() + '\\face_model.h5'
+        self.face_recognizer = FaceRecognizer(path)
+        self.cap = cv2.VideoCapture(0)
+
+    def start_cam(self):
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_frame)
+        self.timer.start(5)
+
+    def update_frame(self):
+        ret, image = self.cap.read()
+
+        if ret:
+            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            faces = face_cascade.detectMultiScale(image_rgb, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
+
+            recognized_name = None
+            for (x, y, w, h) in faces:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                face_image = image[y:y + h, x:x + w]
+                recognized_name = self.face_recognizer.recognize_face(face_image)
+                print("퇴근 인식 카메라에 찍힌 당신의 이름은 ",recognized_name)
+
+                label_color = (255, 0, 0)
+                if recognized_name == "None":
+                    label_color = (0, 0, 255)
+
+                image = cv2.putText(image, recognized_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, label_color, 2,
+                                    cv2.LINE_AA)
+                result, name = self.face_recognizer.display_image(image, recognized_name, self.face_lab)
+
+                if result:
+                    if name == self.user_id:
+                        print("멀리안나갑니다")
+
+

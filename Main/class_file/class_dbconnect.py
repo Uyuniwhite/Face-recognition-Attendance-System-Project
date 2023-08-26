@@ -143,8 +143,10 @@ class DBconnect:
         self.commit_db()
         self.end_conn()
 
+    # 퇴근 기록 DB 저장 코드
+
+
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    db_conn.delete_empolyee('test')
-
+    db_conn.save_newbie('삭제용', 'del_test', 'test', 20)
 

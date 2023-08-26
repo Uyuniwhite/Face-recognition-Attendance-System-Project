@@ -11,9 +11,10 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 class FaceRecognizer:
-    def __init__(self):
+    def __init__(self, path):
 
-        h5_path = os.getcwd() + '\\class_file\\face_model.h5'
+        # h5_path = os.getcwd() + '\\class_file\\face_model.h5'
+        h5_path = path
         self.model = load_model(h5_path)
         self.class_names = ['soyeon', 'woohyun', 'hohyeon', 'gwanghyeon']
 
