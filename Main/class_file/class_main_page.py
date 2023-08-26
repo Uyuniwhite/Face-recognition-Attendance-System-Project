@@ -35,6 +35,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
         self.add_btn.clicked.connect(self.add_employee)  # 사원 추가
         self.team_search_btn.clicked.connect(self.set_grid_lay)
+        self.out_btn.clicked.connect(self.show_out_while_img)
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -46,6 +47,10 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 테이블 채우기
         self.set_dept_table()
+
+    def show_out_while_img(self):
+        self.controller.show_out_img.show()
+
 
     def initStyle(self):
         # 커서 지정

@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>out_for_while.png</file>
     <file>camera.png</file>
     <file>interface.png</file>
     <file>face-id.png</file>
