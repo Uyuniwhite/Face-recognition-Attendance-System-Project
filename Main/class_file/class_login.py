@@ -176,7 +176,8 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
             msgbox.exec_()
         elif input_id == 'admin':
-            self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
+            # self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
+            self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
             self.main.main_page.show()
             self.close()
 

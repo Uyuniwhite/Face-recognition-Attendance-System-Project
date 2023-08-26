@@ -159,16 +159,17 @@ class MainPage(QWidget, Ui_MainWidget):
                 self.clear_layout(item.layout())
 
     def set_dept_table(self):
-        dept_list_test = self.controller.dbconn.find_dept()
+        dept_list_test = self.controller.dbconn.info_dept()
         print(dept_list_test)
         self.dept_tablewidget.setRowCount(4) # 이건 부서 갯수 불러오기
         self.dept_tablewidget.setColumnCount(4)
         # self.dept_tablewidget.horizontalHeader().setVisible(False)  # 열 헤더를 숨깁니다.
-        for idx, i in enumerate(dept_list_test):
-            self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(i)) # 1번째 열, 1번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{i}부서코드')) # 1번째 열, 2번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f'{i}팀원수')) # 1번째 열, 3번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{i}근태율')) # 1번째 열, 4번째 행에 값 넣기
+        for idx, data in enumerate(dept_list_test):
+            dept_code, dept_name, dept_emp = data
+            self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(dept_name)) # 1번째 열, 1번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{dept_code}')) # 1번째 열, 2번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f"{dept_emp}")) # 1번째 열, 3번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율')) # 1번째 열, 4번째 행에 값 넣기
         self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
 
     # 퇴근하기 버튼 클릭 이벤트 코드
