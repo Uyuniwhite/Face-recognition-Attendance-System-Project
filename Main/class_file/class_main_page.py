@@ -3,6 +3,7 @@ import cv2
 from Main.UI.MainWidget import Ui_MainWidget
 from Main.class_file.class_user_cell import UserCell
 from Main.class_file.class_font import Font
+from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_face_detection import FaceRecognizer
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
@@ -28,7 +29,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.setupUi(self)
         self.initUI()  # 기본 설정
         self.initStyle() # 스타일 설정
-
+        self.msgbox = MsgBox()
 
 
     def initUI(self):
@@ -52,7 +53,10 @@ class MainPage(QWidget, Ui_MainWidget):
         self.set_dept_table()
 
     def show_out_while_img(self):
-        self.controller.show_out_img.show()
+        self.msgbox.set_dialog_type(type=5, img='question')
+        self.msgbox.exec_()
+        if self.msgbox.result() == 1:
+            self.controller.show_out_img.show()
 
 
     def initStyle(self):

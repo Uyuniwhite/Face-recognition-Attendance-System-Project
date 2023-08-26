@@ -68,7 +68,8 @@ class MsgBox(QDialog, Ui_WarningDialog):
             'warn': '../../img/icon/warning-sign.png',
             'camera': '../../img/icon/camera.png',
             'delete': '../../img/icon/trash.png',
-            'loading': '../../img/icon/loading.gif'
+            'loading': '../../img/icon/loading.gif',
+            'question': '../../img/icon/question.png'
 
         }
         relative_path = img_path_dict[img]
@@ -82,6 +83,10 @@ class MsgBox(QDialog, Ui_WarningDialog):
             msg = "패스워드가 일치하지 않습니다!"
         elif type == 4:
             self.cancel_btn.setVisible(True)
+        elif type == 5:
+            self.cancel_btn.setVisible(True)
+            msg = '외출하시겠습니까?'
+
 
         self.warn_lab.setText(msg)
         if img == "loading":
