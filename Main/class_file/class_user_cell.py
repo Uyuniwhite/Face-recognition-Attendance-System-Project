@@ -10,10 +10,11 @@ import os
 
 # 그리드 레이아웃에 들어가는 유저 캐럿셀
 class UserCell(QWidget, Ui_Form):
-    def __init__(self, parent, type, name, user_id):
+    def __init__(self, contoller, parent, type, name, user_id):
         super().__init__()
         self.setupUi(self)
 
+        self.contoller = contoller
         self.main_page = parent
         self.user_id = user_id
         self.user_name = name
@@ -43,6 +44,9 @@ class UserCell(QWidget, Ui_Form):
         # 위젯 클릭하면 회원 확인 부분으로 이동하게 하기
         self.widget.mousePressEvent = self.move_main_page
 
+        # 관리자일 경우 삭제 버튼 숨기기
+        self.hide_del_btn()
+
     # 유저 삭제하는 부분
     def del_user(self):
         self.close() # 해당 위젯 삭제
@@ -52,11 +56,15 @@ class UserCell(QWidget, Ui_Form):
         self.msgbox.exec_()
 
         if self.msgbox.result() == 1:
-            print('확인') # 여기서 db연결
+            self.contoller.dbconn.delete_empolyee(self.user_id)
         elif self.msgbox.result() == 0:
             print('취소')
 
     def move_main_page(self, event):
-        user_name = self.name_lab.text()
-        self.main_page.summary_lab.setText(f'{user_name}의 {8}월 출근일수는 {00}일, 근태율은 {00}%입니다.')
-        self.main_page.stackedWidget.setCurrentWidget(self.main_page.atd_page)
+        if self.user_name != '관리자':
+            self.main_page.summary_lab.setText(f'{self.user_name}의 {8}월 출근일수는 {00}일, 근태율은 {00}%입니다.')
+            self.main_page.stackedWidget.setCurrentWidget(self.main_page.atd_page)
+
+    def hide_del_btn(self):
+        if self.user_name == '관리자':
+            self.del_btn.hide()

@@ -112,7 +112,7 @@ class MainPage(QWidget, Ui_MainWidget):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
                     print(empolyee_list[cnt][0], empolyee_list[cnt][1])
-                    user_cell = UserCell(self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
+                    user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
                     cnt += 1
 
