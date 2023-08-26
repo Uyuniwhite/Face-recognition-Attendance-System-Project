@@ -1,6 +1,7 @@
 from Main.UI.AddEmployee import Ui_AddEmployee
 from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import pyqtSignal
 
 class AddEmpolyee(QWidget, Ui_AddEmployee):
     def __init__(self, controller):
@@ -19,8 +20,9 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
 
     def init_func(self):
         # 버튼 클릭 이벤트
-        self.cancel_btn.clicked.connect(self.close)
-        self.admit_btn.clicked.connect(self.clicked_add_empolyee_btn)
+        self.cancel_btn.clicked.connect(self.close) # 취소버튼
+        self.admit_btn.clicked.connect(self.clicked_add_empolyee_btn) # 등록완료 버튼
+        self.face_rec_btn.clicked.connect(self.clicked_face_rec_btn) # 얼굴인식 버튼
 
     # def clicked_add_empolyee_btn(self):
     #     emp_name = self.name_lineedit.text()
@@ -91,12 +93,12 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         msgbox = MsgBox() # 메시지박스 객체 생성
         message = ''
         if result_name == 0:
-            message = "이름에 공백이 존재합니다!"
+            message = "이름을 입력하지 않았거나 공백이 존재합니다!"
         elif result_name == 1:
             message = "이름이 8글자를 초과합니다!"
         elif result_name == 2:
             if result_id == 0:
-                message = "ID에 공백이 존재합니다!"
+                message = "ID를입력하지 않았거나 공백이 존재합니다!"
             elif result_id == 1:
                 message = "ID가 15자를 초과합니다!"
             elif result_id == 3:
@@ -163,8 +165,22 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
 
     # 얼굴 인식 관련
     def clicked_face_rec_btn(self):
-
-        pass
+        newbie_id = self.user_id_lineedit.text()
+        msgbox = MsgBox()
+        message = str()
+        id_duple = self.verify_id(newbie_id)
+        if id_duple == 0: # 아이디 미입력 또는 공백 존재
+            message = "ID를 입력하지 않았거나 공백이 있습니다!"
+        elif id_duple == 1: # id 글자 초과
+            message = "ID가 15자를 초과합니다!"
+        elif id_duple == 2: # id 검증 통과
+            self.main.face_cap.SetName.emit(newbie_id)
+            self.main.face_cap.show()
+            return
+        elif id_duple == 3: # id 중복
+            message = "중복된 ID가 존재합니다!"
+        msgbox.set_dialog_type(msg=message)
+        msgbox.exec_()
 
     # 콤보박스 데이터 넣기
     def set_data_cb(self):
