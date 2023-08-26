@@ -2,8 +2,16 @@ from Main.UI.AddEmployee import Ui_AddEmployee
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, QTimer, QThread
+from Main.class_file.image_learn import ImageLearn
 
+
+class Worker(QThread):
+    fisnished_signal = pyqtSignal()
+
+    def run(self):
+        learner = ImageLearn()
+        self.fisnished_signal.emit()
 
 class AddEmpolyee(QWidget, Ui_AddEmployee):
     def __init__(self, controller):
@@ -44,59 +52,6 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         self.pw_lineedit.setFont(Font.text(1, weight='light'))
         self.pw_recheck_lineedit.setFont(Font.text(1, weight='light'))
 
-    # def clicked_add_empolyee_btn(self):
-    #     emp_name = self.name_lineedit.text()
-    #     emp_dept = self.comboBox.currentIndex()
-    #     emp_id = self.user_id_lineedit.text()
-    #     emp_pw = self.pw_lineedit.text()
-    #     emp_re_pw = self.pw_recheck_lineedit.text()
-    #
-    #     result_name = self.verify_name(emp_name)
-    #     result_id = self.verify_id(emp_id)
-    #     result_pw = self.verify_pw(emp_pw, emp_re_pw)
-    #     result_dept = self.convert_dept(emp_dept)
-    #
-    #     # 검증 결과에 따른 메시지 매핑
-    #     messages = {
-    #         'name': {
-    #             0: "이름에 공백이 존재합니다!",
-    #             1: "이름이 8글자를 초과합니다!",
-    #             2: None
-    #         },
-    #         'id': {
-    #             0: "ID에 공백이 존재합니다!",
-    #             1: "ID가 15자를 초과합니다!",
-    #             2: None,
-    #             3: "중복된 ID가 존재합니다!"
-    #         },
-    #         'pw': {
-    #             0: "패스워드에 공백이 존재합니다!",
-    #             1: "패스워드가 20자를 초과합니다!",
-    #             2: "동일한 패스워드를 입력하세요!",
-    #             3: None
-    #         },
-    #         'face': {
-    #             False: "얼굴 인식을 진행해주세요!",
-    #             True: "신규 사원 등록이 완료되었습니다!"
-    #         }
-    #     }
-    #
-    #     message = messages['name'].get(result_name) or \
-    #               messages['id'].get(result_id) or \
-    #               messages['pw'].get(result_pw) or \
-    #               messages['face'].get(self.face_regist)
-    #
-    #     self.display_message(message)
-    #
-    # def display_message(self, message):
-    #     msgbox = MsgBox()
-    #     if message == "신규 사원 등록이 완료되었습니다!":
-    #         msgbox.set_dialog_type(msg=message)
-    #         msgbox.exec_()
-    #         self.close()
-    #     else:
-    #         msgbox.set_dialog_type(type=1, msg=message)
-    #         msgbox.exec_()
 
     def clicked_add_empolyee_btn(self):
         emp_name = self.name_lineedit.text()
@@ -133,14 +88,28 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
                     if not self.face_regist:
                         message = "얼굴 인식을 진행해주세요!"
                     elif self.face_regist:
-                        message = "신규 사원 등록이 완료되었습니다!"
+                        # 로딩 화면 보여주기
+                        self.msgbox.set_dialog_type(msg='이미지 학습 중입니다...', img='loading')
+                        self.msgbox.show()
 
-                        self.msgbox.set_dialog_type(msg=message, img='check')
-                        self.msgbox.exec_()
-                        return self.close()
+                        self.img_learn()
+                        # return self.close()
         if len(message) > 0:
             self.msgbox.set_dialog_type(msg=message)
             self.msgbox.exec_()
+
+    def img_learn(self):
+        self.learn = Worker()
+        self.learn.finished.connect(self.hide_loading)
+        self.learn.start()
+
+    def hide_loading(self):
+        self.msgbox.close()
+        message = "신규 사원 등록이 완료되었습니다!"
+        self.msgbox.set_dialog_type(msg=message, img='check')
+        self.msgbox.exec_() # 메세지박스 종료
+        self.close() # 사원등록창 종료
+
 
     # 이름 검증
     def verify_name(self, name):

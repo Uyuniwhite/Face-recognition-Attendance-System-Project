@@ -56,6 +56,7 @@ class MsgBox(QDialog, Ui_WarningDialog):
 
         # 기본 설정
         self.cancel_btn.setVisible(False)
+        self.icon_lab.setScaledContents(True)
 
         # 커서 설정
         self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
@@ -66,7 +67,8 @@ class MsgBox(QDialog, Ui_WarningDialog):
             'password': '../../img/icon/password.png',
             'warn': '../../img/icon/warning-sign.png',
             'camera': '../../img/icon/camera.png',
-            'delete': '../../img/icon/trash.png'
+            'delete': '../../img/icon/trash.png',
+            'loading': '../../img/icon/loading.gif'
 
         }
         relative_path = img_path_dict[img]
@@ -82,5 +84,9 @@ class MsgBox(QDialog, Ui_WarningDialog):
             self.cancel_btn.setVisible(True)
 
         self.warn_lab.setText(msg)
-        self.icon_lab.setScaledContents(True)
-        self.icon_lab.setPixmap(QPixmap(absolute_path))
+        if img == "loading":
+            movie = QMovie(absolute_path)
+            self.icon_lab.setMovie(movie)
+            movie.start()
+        else:
+            self.icon_lab.setPixmap(QPixmap(absolute_path))

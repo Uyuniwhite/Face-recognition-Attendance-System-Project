@@ -16,7 +16,21 @@ class FaceRecognizer:
         # h5_path = os.getcwd() + '\\class_file\\face_model.h5'
         h5_path = path
         self.model = load_model(h5_path)
-        self.class_names = ['soyeon', 'woohyun', 'hohyeon', 'gwanghyeon']
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(current_dir, "..\..", "img", "face")
+        self.class_names = self.list_directories(path)
+
+    def list_directories(self, path):
+        """
+        지정된 경로의 폴더를 출력합니다.
+        """
+        class_names = []
+        print(os.listdir(path))
+        for name in os.listdir(path):
+            full_path = os.path.join(path, name)
+            if os.path.isdir(full_path):
+                class_names.append(name)
+        return class_names
 
     def recognize_face(self, image):
         """얼굴 인식"""

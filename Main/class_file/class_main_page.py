@@ -6,9 +6,12 @@ from Main.class_file.class_font import Font
 from Main.class_file.class_face_detection import FaceRecognizer
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
-from PyQt5.QtCore import pyqtSignal, QTimer
+from PyQt5.QtCore import pyqtSignal, QTimer, QThread
 import sys
 import os
+
+
+
 
 
 class MainPage(QWidget, Ui_MainWidget):
