@@ -34,8 +34,8 @@ class DBconnect:
         c = self.start_conn()
         if user_no != None:
             if clock_in == 0:
-                clock_in_query = "insert into tb_atd (user_no, atd_date, atd_time, atd_start, atd_end, atd_type) " \
-                                 f"values('{user_no}', '{day_date}','{time_date}',1,0,'{login_type}')"
+                clock_in_query = "insert into tb_atd (user_no, atd_date, atd_time, atd_start, atd_end, atd_type, atd_leave) " \
+                                 f"values('{user_no}', '{day_date}','{time_date}',1,0,'{login_type}', 'NULL')"
                 c.execute(clock_in_query)
                 self.commit_db()
                 self.end_conn()
@@ -155,8 +155,14 @@ class DBconnect:
         self.end_conn()
 
     # 퇴근 기록 DB 저장 코드
-    def leave_workplace(self, user_id):
+    def leave_workplace(self, user_id, day_date, time_date):
+        user_no = self.find_no(user_id)
         c = self.start_conn()
+        leave_query = f"update tb_atd set atd_end = 1, atd_leave = '{time_date}' " \
+                      f"where user_no = '{user_no}' and atd_date = '{day_date}' and atd_end = 0"
+        c.execute(leave_query)
+        self.commit_db()
+        self.end_conn()
 
 
 if __name__ == '__main__':
