@@ -94,7 +94,9 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
                 vid.release()
                 self.main.add_emp.face_regist = True
                 print(self.main.add_emp.face_regist)
-                self.close()
+                break
+        self.close()
+
         cv2.destroyAllWindows()
         return num_of_images
 
