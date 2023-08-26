@@ -4,6 +4,7 @@ from Main.class_file.class_main_page import MainPage
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_open_page import OpenPage
 from Main.class_file.class_add_emp import AddEmpolyee
+from Main.class_file.class_capture_user_img import CaptureUserImage
 from PyQt5.QtWidgets import QWidget
 
 
@@ -19,3 +20,4 @@ class Controller(QWidget):
         # self.msgbox = MsgBox(self) # 메세지박스 객체 생성
         self.open_page = OpenPage(self) # 오픈페이지 객체 생성
         self.add_emp = AddEmpolyee(self)  # 사원등록 객체 생성
+        self.face_cap = CaptureUserImage(self, newbie_name=None) # 얼굴 캡쳐 객체 생성

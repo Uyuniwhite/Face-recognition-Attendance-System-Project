@@ -4,7 +4,7 @@ import os
 import numpy as np
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QImage, QPixmap
 
 from Main.UI.SaveUserImg import Ui_SaveUserImg
@@ -13,16 +13,20 @@ from Main.class_file.class_warning_msg import MsgBox
 
 
 class CaptureUserImage(QWidget, Ui_SaveUserImg):
-    def __init__(self):
+    SetName = pyqtSignal(str)
+    def __init__(self, controller, newbie_name = None):
         super().__init__()
 
         self.setupUi(self)
+        self.main = controller
         self.msgbox = MsgBox()
-        self.active_name = 'test' # 이름 사원등록화면에서 가져오기
+        self.active_name = newbie_name # 이름 사원등록화면에서 가져오기
         self.num_of_images = 0
         self.capture_btn.clicked.connect(self.capimg)
-
-
+        self.cancel_btn.clicked.connect(self.close)
+        self.SetName.connect(self.set_active_name)
+    def set_active_name(self, name):
+        self.active_name = name
     @pyqtSlot()
     def capimg(self):
         self.numimglabel.setText("찍힌 사진 = 0")
@@ -87,7 +91,10 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
 
                 pass
             if key == ord("q") or key == 27 or num_of_images > 510:
-                break
+                vid.release()
+                self.main.add_emp.face_regist = True
+                print(self.main.add_emp.face_regist)
+                self.close()
         cv2.destroyAllWindows()
         return num_of_images
 
