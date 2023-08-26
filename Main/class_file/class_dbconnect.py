@@ -90,6 +90,17 @@ class DBconnect:
 
         return dept_list
 
+    # 부서명, 부서코드, 부서인원수 리턴해주기
+    def info_dept(self):
+        c = self.start_conn()
+        dept_query = "select tb_dept.dept_id, tb_dept.dept_name, count(*) from tb_dept " \
+                     "join tb_user on tb_dept.dept_id = tb_user.dept_id group by tb_dept.dept_id, tb_dept.dept_name"
+        c.execute(dept_query)
+        data = c.fetchall()
+        self.end_conn()
+        return data
+
+
     # 선택한 부서별 사원만 리스트 담아서 리턴
     def select_dept(self, dept):
         empolyee_list = list()
@@ -148,5 +159,6 @@ class DBconnect:
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    db_conn.save_newbie('삭제용', 'del_test', 'test', 20)
+    db_conn.info_dept()
+
 
