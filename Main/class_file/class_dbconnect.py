@@ -135,10 +135,16 @@ class DBconnect:
         self.commit_db()
         self.end_conn()
 
+    # 사원 삭제
+    def delete_empolyee(self, emp_id):
+        c = self.start_conn()
+        del_query = f"delete from tb_user where user_id = '{emp_id}'"
+        c.execute(del_query)
+        self.commit_db()
+        self.end_conn()
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    a = db_conn.select_dept('개발팀')
-    # print(a)
+    db_conn.delete_empolyee('test')
 
 
