@@ -131,7 +131,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.msgbox.exec_()
 
                     # 메인 페이지 이동
-                    self.main.main_page.SetUserId.emit(self.user_name)
+                    self.main.leave_work.SetUserId.emit(self.user_name)
                     self.main.main_page.show()
 
                     # 타이머 종료
@@ -201,16 +201,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         current_time = datetime.now()  # 현재 시간
         formatted_date = current_time.strftime('%Y-%m-%d')
         formatted_time = current_time.strftime('%H:%M:%S')
-        # year = current_time.year  # 연도
-        # month = str(current_time.month)  # 월
-        # if len(month) == 1:
-        #     month = '0' + month
-        # day = current_time.day  # 일
-        # hour = current_time.hour  # 시간
-        # minute = current_time.minute  # 분
-        # seconds = current_time.second  # 초
-        # day_date = f"{year}-{month}-{day}"
-        # time_date = f"{hour}:{minute}:{seconds}"
         day_date = formatted_date
         time_date = formatted_time
         check_result = self.main.dbconn.log_in(self.user_name, day_date, time_date, login_type)
