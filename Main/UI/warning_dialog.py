@@ -25,7 +25,7 @@ class Ui_WarningDialog(object):
 "    color:white;\n"
 "    border-radius:10px;\n"
 "}\n"
-"QPushButton#cance_btn{\n"
+"QPushButton#cancel_btn{\n"
 "    background-color: #E6E6E6;\n"
 "    color: #252C58;\n"
 "    border-radius:10px;\n"
@@ -44,6 +44,7 @@ class Ui_WarningDialog(object):
         self.top_widget = QtWidgets.QWidget(self.frame)
         self.top_widget.setObjectName("top_widget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.top_widget)
+        self.horizontalLayout.setContentsMargins(-1, 30, -1, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.icon_lab = QtWidgets.QLabel(self.top_widget)
         self.icon_lab.setMinimumSize(QtCore.QSize(115, 115))

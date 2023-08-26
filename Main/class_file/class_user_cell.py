@@ -1,6 +1,8 @@
 from Main.UI.UserCell import Ui_Form
+from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
+
 import sys
 import os
 
@@ -15,6 +17,10 @@ class UserCell(QWidget, Ui_Form):
         self.main_page = parent
         self.user_id = user_id
         self.user_name = name
+        self.msgbox = MsgBox()
+
+        # 커서 설정
+        self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
 
         # 상대경로 절대경로로 변환
         user_img_path = '../../img/icon/user.png'  # 유저 아이콘
@@ -34,17 +40,23 @@ class UserCell(QWidget, Ui_Form):
         # 삭제 버튼 눌렀을 때 삭제하는 함수로 이동
         self.del_btn.clicked.connect(self.del_user)
 
+        # 위젯 클릭하면 회원 확인 부분으로 이동하게 하기
+        self.widget.mousePressEvent = self.move_main_page
+
     # 유저 삭제하는 부분
     def del_user(self):
-        # TODO 1. 해당 위젯 삭제
-        ## 다이얼로그 띄우기 -> 확인일 경우 DB에서 삭제
+        self.close() # 해당 위젯 삭제
+        print(self.user_id, '삭제해야 합니다.')
+        msg = f"{self.user_name}님을 삭제하시겠습니까?"
+        self.msgbox.set_dialog_type(msg=msg, img='delete', type=4)
+        self.msgbox.exec_()
 
-        # 여기서 db 연결해야 함 (아이디, 이름 가져와야)
+        if self.msgbox.result() == 1:
+            print('확인') # 여기서 db연결
+        elif self.msgbox.result() == 0:
+            print('취소')
 
-        pass
-
-    def mousePressEvent(self, event):
+    def move_main_page(self, event):
         user_name = self.name_lab.text()
         self.main_page.summary_lab.setText(f'{user_name}의 {8}월 출근일수는 {00}일, 근태율은 {00}%입니다.')
         self.main_page.stackedWidget.setCurrentWidget(self.main_page.atd_page)
-        # 여기서 유저의 이름 가지고 페이지 이동해야 함
