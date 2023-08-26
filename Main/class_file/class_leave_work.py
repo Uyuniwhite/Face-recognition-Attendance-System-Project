@@ -1,5 +1,6 @@
 from Main.UI.SaveUserImg import Ui_SaveUserImg
 from Main.class_file.class_face_detection import FaceRecognizer
+from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtGui import QPixmap
@@ -22,6 +23,7 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
 
     def init_cam(self):
         self.user_id = None
+        self.msgbox = MsgBox()
         self.user_img.setScaledContents(True)
         self.user_img.setPixmap(QPixmap("../../img/icon/face-id.png"))
         # 유저 아이디 설정 시그널 연결
@@ -74,8 +76,9 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
                         formatted_time = current_time.strftime('%H:%M:%S')
                         self.controller.dbconn.leave_workplace(self.user_id, formatted_date, formatted_time)
                     elif name != self.user_id:
-                        print(f"당신은 {self.user_id}님이 아니신데요?")
-
+                        message = f"당신은 {self.user_id}님이 아니신데요?"
+                        self.msgbox.set_dialog_type(msg=message, img='warn')
+                        self.msgbox.exec_()
                     self.cap.release()
                     break
 
