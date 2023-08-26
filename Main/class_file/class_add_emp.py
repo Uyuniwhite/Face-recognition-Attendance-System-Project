@@ -1,5 +1,6 @@
 from Main.UI.AddEmployee import Ui_AddEmployee
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSignal
 
@@ -15,7 +16,7 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
     def init_UI(self):
         self.setupUi(self)
         self.set_data_cb()
-
+        self.set_font()
         # 변수
         self.face_regist = False  # 얼굴인식 유/무
 
@@ -24,6 +25,24 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         self.cancel_btn.clicked.connect(self.close)  # 취소버튼
         self.admit_btn.clicked.connect(self.clicked_add_empolyee_btn)  # 등록완료 버튼
         self.face_rec_btn.clicked.connect(self.clicked_face_rec_btn)  # 얼굴인식 버튼
+
+    def set_font(self):
+        self.emp_add_title.setFont(Font.title(2))
+        self.dept_lab.setFont(Font.button(1))
+        self.user_id_lab.setFont(Font.button(1))
+        self.name_lab.setFont(Font.button(1))
+        self.pw_lab.setFont(Font.button(1))
+        self.pw_recheck_lab.setFont(Font.button(1))
+
+        self.admit_btn.setFont(Font.button(1))
+        self.face_rec_btn.setFont(Font.button(1))
+        self.cancel_btn.setFont(Font.button(1))
+
+        self.name_lineedit.setFont(Font.text(1, weight='light'))
+        self.comboBox.setFont(Font.text(1, weight='light'))
+        self.user_id_lineedit.setFont(Font.text(1, weight='light'))
+        self.pw_lineedit.setFont(Font.text(1, weight='light'))
+        self.pw_recheck_lineedit.setFont(Font.text(1, weight='light'))
 
     # def clicked_add_empolyee_btn(self):
     #     emp_name = self.name_lineedit.text()

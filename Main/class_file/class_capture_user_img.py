@@ -10,6 +10,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from Main.UI.SaveUserImg import Ui_SaveUserImg
 
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 
 
 class CaptureUserImage(QWidget, Ui_SaveUserImg):
@@ -18,6 +19,7 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
         super().__init__()
 
         self.setupUi(self)
+        self.set_font()
         self.main = controller
         self.msgbox = MsgBox()
         self.active_name = newbie_name # 이름 사원등록화면에서 가져오기
@@ -25,6 +27,16 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
         self.capture_btn.clicked.connect(self.capimg)
         self.cancel_btn.clicked.connect(self.close)
         self.SetName.connect(self.set_active_name)
+
+
+    def set_font(self):
+        self.title_lab.setFont(Font.title(2))
+        self.numimglabel.setFont(Font.text(5))
+        self.capture_btn.setFont(Font.button(1))
+        self.cancel_btn.setFont(Font.button(1))
+        self.user_img.setFont(Font.button(2))
+
+
     def set_active_name(self, name):
         self.active_name = name
     @pyqtSlot()
@@ -43,11 +55,11 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
             cap.release()
 
         else:
-            self.msgbox.set_dialog_type(type=6)
+            msg = '사진 인식 오류입니다.'
+            self.msgbox.set_dialog_type(msg=msg)
             self.msgbox.exec_()
 
-        self.msgbox.set_dialog_type(type=5)
-        self.msgbox.exec_()
+
         x = self.start_capture(self.active_name)
         self.num_of_images = x
         self.numimglabel.setText(f"찍힌 사진 = {x}")
@@ -95,7 +107,7 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
                 self.main.add_emp.face_regist = True
                 print(self.main.add_emp.face_regist)
                 break
-        self.close()
+        # self.close()
 
         cv2.destroyAllWindows()
         return num_of_images

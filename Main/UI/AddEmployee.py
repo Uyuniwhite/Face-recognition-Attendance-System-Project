@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_AddEmployee(object):
     def setupUi(self, AddEmployee):
         AddEmployee.setObjectName("AddEmployee")
-        AddEmployee.resize(1120, 663)
+        AddEmployee.resize(1120, 665)
         AddEmployee.setStyleSheet("background-color: rgb(241, 242, 246);")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(AddEmployee)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -51,13 +51,13 @@ class Ui_AddEmployee(object):
         self.widget_11.setObjectName("widget_11")
         self.horizontalLayout_12 = QtWidgets.QHBoxLayout(self.widget_11)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
-        self.home_btn = QtWidgets.QPushButton(self.widget_11)
-        self.home_btn.setMinimumSize(QtCore.QSize(0, 25))
+        self.emp_add_title = QtWidgets.QPushButton(self.widget_11)
+        self.emp_add_title.setMinimumSize(QtCore.QSize(0, 25))
         font = QtGui.QFont()
         font.setPointSize(25)
-        self.home_btn.setFont(font)
-        self.home_btn.setObjectName("home_btn")
-        self.horizontalLayout_12.addWidget(self.home_btn)
+        self.emp_add_title.setFont(font)
+        self.emp_add_title.setObjectName("emp_add_title")
+        self.horizontalLayout_12.addWidget(self.emp_add_title)
         self.top_vlay.addWidget(self.widget_11)
         self.horizontalLayout_2.addLayout(self.top_vlay)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -74,6 +74,9 @@ class Ui_AddEmployee(object):
         self.widget = QtWidgets.QWidget(self.widget_3)
         self.widget.setStyleSheet("QLineEdit{\n"
 "height: 40px;\n"
+"border-radius:10px;\n"
+"background-color:white;\n"
+"border: 1.5px solid #3085FE;\n"
 "}\n"
 "QComboBox{\n"
 "height: 40px;\n"
@@ -92,6 +95,7 @@ class Ui_AddEmployee(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.user_id_lineedit.setFont(font)
+        self.user_id_lineedit.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.user_id_lineedit.setReadOnly(False)
         self.user_id_lineedit.setObjectName("user_id_lineedit")
         self.gridLayout.addWidget(self.user_id_lineedit, 2, 1, 1, 1)
@@ -117,6 +121,8 @@ class Ui_AddEmployee(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pw_recheck_lineedit.setFont(font)
+        self.pw_recheck_lineedit.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pw_recheck_lineedit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pw_recheck_lineedit.setReadOnly(False)
         self.pw_recheck_lineedit.setObjectName("pw_recheck_lineedit")
         self.gridLayout.addWidget(self.pw_recheck_lineedit, 4, 1, 1, 1)
@@ -142,6 +148,7 @@ class Ui_AddEmployee(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.name_lineedit.setFont(font)
+        self.name_lineedit.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.name_lineedit.setReadOnly(False)
         self.name_lineedit.setObjectName("name_lineedit")
         self.gridLayout.addWidget(self.name_lineedit, 0, 1, 1, 1)
@@ -159,11 +166,33 @@ class Ui_AddEmployee(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pw_lineedit.setFont(font)
+        self.pw_lineedit.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pw_lineedit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pw_lineedit.setReadOnly(False)
         self.pw_lineedit.setObjectName("pw_lineedit")
         self.gridLayout.addWidget(self.pw_lineedit, 3, 1, 1, 1)
         self.comboBox = QtWidgets.QComboBox(self.widget)
         self.comboBox.setMinimumSize(QtCore.QSize(300, 0))
+        self.comboBox.setStyleSheet("#comboBox{\n"
+"    border: 1.5px solid #3085FE;\n"
+"    border-radius:10px;\n"
+"    background-color: white;\n"
+"    padding-left:10px;}\n"
+"\n"
+"#comboBox::drop-down{\n"
+"    border:0px;\n"
+"}\n"
+"\n"
+"#comboBox::down-arrow{\n"
+"    image: url(:/down.png);\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"    margin-right:15px;\n"
+"}\n"
+"#comboBox::on{\n"
+" border:4px solid #3085FE;\n"
+"}\n"
+"")
         self.comboBox.setObjectName("comboBox")
         self.gridLayout.addWidget(self.comboBox, 1, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
@@ -221,7 +250,7 @@ class Ui_AddEmployee(object):
     def retranslateUi(self, AddEmployee):
         _translate = QtCore.QCoreApplication.translate
         AddEmployee.setWindowTitle(_translate("AddEmployee", "Form"))
-        self.home_btn.setText(_translate("AddEmployee", "사원 등록 화면"))
+        self.emp_add_title.setText(_translate("AddEmployee", "사원 등록 화면"))
         self.pw_lab.setText(_translate("AddEmployee", "비밀번호"))
         self.dept_lab.setText(_translate("AddEmployee", "부서"))
         self.pw_recheck_lab.setText(_translate("AddEmployee", "비밀번호 확인"))

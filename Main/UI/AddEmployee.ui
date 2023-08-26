@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1120</width>
-    <height>663</height>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,7 +117,7 @@ QPushButton{
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
-            <widget class="QPushButton" name="home_btn">
+            <widget class="QPushButton" name="emp_add_title">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -191,6 +191,9 @@ QPushButton{
         <property name="styleSheet">
          <string notr="true">QLineEdit{
 height: 40px;
+border-radius:10px;
+background-color:white;
+border: 1.5px solid #3085FE;
 }
 QComboBox{
 height: 40px;
@@ -235,6 +238,9 @@ height: 40px;
               <font>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
              </property>
              <property name="readOnly">
               <bool>false</bool>
@@ -302,6 +308,12 @@ height: 40px;
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
              <property name="readOnly">
               <bool>false</bool>
              </property>
@@ -368,6 +380,9 @@ height: 40px;
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
              <property name="readOnly">
               <bool>false</bool>
              </property>
@@ -413,6 +428,12 @@ height: 40px;
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
              <property name="readOnly">
               <bool>false</bool>
              </property>
@@ -425,6 +446,28 @@ height: 40px;
                <width>300</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#comboBox{
+	border: 1.5px solid #3085FE;
+	border-radius:10px;
+	background-color: white;
+	padding-left:10px;}
+
+#comboBox::drop-down{
+	border:0px;
+}
+
+#comboBox::down-arrow{
+	image: url(:/down.png);
+	width: 15px;
+	height: 15px;
+	margin-right:15px;
+}
+#comboBox::on{
+ border:4px solid #3085FE;
+}
+</string>
              </property>
             </widget>
            </item>

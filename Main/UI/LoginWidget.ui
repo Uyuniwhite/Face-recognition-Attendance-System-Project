@@ -289,7 +289,7 @@ color: rgb(255, 255, 255);</string>
  </widget>
  <resources>
   <include location="../../img/icon/resource.qrc"/>
-  <include location="../../../../../../Desktop/Face-recognition-Attendance-System-Project2/img/icon/resource.qrc"/>
+  <include location="../../img/icon/resource.qrc"/>
  </resources>
  <connections/>
 </ui>

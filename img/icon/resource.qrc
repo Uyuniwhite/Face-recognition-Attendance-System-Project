@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>camera.png</file>
     <file>interface.png</file>
     <file>face-id.png</file>
     <file>absent.png</file>

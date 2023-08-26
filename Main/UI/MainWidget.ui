@@ -111,7 +111,7 @@ QPushButton::hover{
          <widget class="QWidget" name="widget_11" native="true">
           <property name="maximumSize">
            <size>
-            <width>270</width>
+            <width>350</width>
             <height>16777215</height>
            </size>
           </property>
@@ -136,6 +136,24 @@ QPushButton::hover{
              </property>
              <property name="text">
               <string>홈</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="users_btn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>사원관리</string>
              </property>
             </widget>
            </item>
@@ -217,8 +235,206 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
+        <widget class="QWidget" name="admin_dept_check">
+         <layout class="QHBoxLayout" name="horizontalLayout_18">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>142</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>830</width>
+              <height>0</height>
+             </size>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_23">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_19">
+               <item>
+                <widget class="QLabel" name="dept_title">
+                 <property name="font">
+                  <font>
+                   <pointsize>20</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>부서조회</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_13">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="dept_tablewidget">
+               <column>
+                <property name="text">
+                 <string>부서이름</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>부서코드</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>팀원수</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>근태율</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="home_bottom_widget_3" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>236</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>240</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_20">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="graph_widget_3" native="true">
+                  <layout class="QVBoxLayout" name="verticalLayout_19">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_20"/>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="graph_contents_3">
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>45</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>그래프에 대한 설명</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="graph_widget_4" native="true">
+                  <layout class="QVBoxLayout" name="verticalLayout_21">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_22"/>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="graph_contents_4">
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>45</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>그래프에 대한 설명</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_12">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>142</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
         <widget class="QWidget" name="admin_home_page">
          <layout class="QHBoxLayout" name="horizontalLayout_16">
           <property name="spacing">
@@ -320,22 +536,22 @@ QPushButton::hover{
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#admin_combobox{
+                  <string notr="true">#team_search_combobox{
 	border-radius:10px;
 	background-color: rgb(217, 217, 217);
 	padding-left:10px;}
 
-#admin_combobox::drop-down{
+#team_search_combobox::drop-down{
 	border:0px;
 }
 
-#admin_combobox::down-arrow{
+#team_search_combobox::down-arrow{
 	image: url(:/down.png);
 	width: 15px;
 	height: 15px;
 	margin-right:15px;
 }
-#admin_combobox::on{
+#team_search_combobox::on{
  border:4px solid gray;
 }
 </string>
@@ -439,7 +655,7 @@ QScrollArea {
                   <x>0</x>
                   <y>0</y>
                   <width>820</width>
-                  <height>355</height>
+                  <height>356</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">

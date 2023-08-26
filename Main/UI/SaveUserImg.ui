@@ -223,8 +223,14 @@ height: 40px;
              <height>323</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
+           </property>
            <property name="text">
-            <string>여기서 이미지를 학습합니다.</string>
+            <string>사진촬영을 눌러주세요!</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -232,6 +238,9 @@ height: 40px;
           <widget class="QLabel" name="numimglabel">
            <property name="text">
             <string>캡쳐된 이미지 수</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -362,6 +371,8 @@ border-radius:10px;</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../img/icon/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

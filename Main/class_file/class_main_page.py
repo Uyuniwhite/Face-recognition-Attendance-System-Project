@@ -16,14 +16,11 @@ class MainPage(QWidget, Ui_MainWidget):
 
         self.setupUi(self)
         self.initUI()  # 기본 설정
-        self.set_font()  # 폰트 설정
+        self.initStyle() # 스타일 설정
+
 
 
     def initUI(self):
-
-        # 커서 지정
-        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
-
         self.home_btn.clicked.connect(
             lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
@@ -39,6 +36,14 @@ class MainPage(QWidget, Ui_MainWidget):
         # 사원 등록 페이지 열기
         self.add_btn.clicked.connect(self.add_employee)
 
+        # 테이블 채우기
+        self.set_dept_table()
+
+    def initStyle(self):
+        # 커서 지정
+        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
+        self.set_font()  # 폰트 설정
+
     # 사원 추가 버튼
     def add_employee(self):
         self.controller.add_emp.show()
@@ -52,6 +57,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.home_btn.setFont(Font.button(6))
         self.atd_btn.setFont(Font.button(6))
         self.mypage_btn.setFont(Font.button(6))
+        self.users_btn.setFont(Font.button(6))
 
         # 마이페이지
         self.name_lab.setFont(font_style_1)
@@ -88,6 +94,10 @@ class MainPage(QWidget, Ui_MainWidget):
 
         self.home_name_lab.setFont(Font.text(2))
         self.home_dept_lab.setFont(Font.text(2))
+        self.graph_contents_1.setFont(Font.text(4))
+        self.graph_contents_2.setFont(Font.text(4))
+        self.graph_contents_3.setFont(Font.text(4))
+        self.graph_contents_4.setFont(Font.text(4))
 
         # 관리자 페이지
         self.team_search_lab.setFont(Font.text(1, weight='bold'))
@@ -129,3 +139,16 @@ class MainPage(QWidget, Ui_MainWidget):
             # 아이템이 레이아웃일 경우 재귀 호출로 레이아웃 내의 위젯 삭제
             else:
                 self.clear_layout(item.layout())
+
+    def set_dept_table(self):
+        dept_list_test = self.controller.dbconn.find_dept()
+        print(dept_list_test)
+        self.dept_tablewidget.setRowCount(4) # 이건 부서 갯수 불러오기
+        self.dept_tablewidget.setColumnCount(4)
+        # self.dept_tablewidget.horizontalHeader().setVisible(False)  # 열 헤더를 숨깁니다.
+        for idx, i in enumerate(dept_list_test):
+            self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(i)) # 1번째 열, 1번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{i}부서코드')) # 1번째 열, 2번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f'{i}팀원수')) # 1번째 열, 3번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{i}근태율')) # 1번째 열, 4번째 행에 값 넣기
+        self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.

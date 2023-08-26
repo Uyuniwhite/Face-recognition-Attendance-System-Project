@@ -36,7 +36,8 @@ class MsgBox(QDialog, Ui_WarningDialog):
         self.setResult(1)
         super(MsgBox, self).accept()
 
-    '''
+    ''' 
+    메세지박스 사용 방법
     msgbox = MsgBox()
     msgbox.set_dialog_type(type=1, msg="샘플 메시지", img='warn')
     msgbox.exec_()  # 메시지박스 실행
