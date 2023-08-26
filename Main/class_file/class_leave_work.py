@@ -2,6 +2,8 @@ from Main.UI.SaveUserImg import Ui_SaveUserImg
 from Main.class_file.class_face_detection import FaceRecognizer
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer, pyqtSignal
+from PyQt5.QtGui import QPixmap
+from datetime import datetime
 import cv2
 import os
 
@@ -20,6 +22,8 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
 
     def init_cam(self):
         self.user_id = None
+        self.user_img.setScaledContents(True)
+        self.user_img.setPixmap(QPixmap("../../img/icon/face-id.png"))
         # 유저 아이디 설정 시그널 연결
         self.SetUserId.connect(self.set_user_id)
         self.capture_btn.clicked.connect(self.start_cam)
@@ -54,7 +58,6 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
 
                 face_image = image[y:y + h, x:x + w]
                 recognized_name = self.face_recognizer.recognize_face(face_image)
-                print("퇴근 인식 카메라에 찍힌 당신의 이름은 ",recognized_name)
 
                 label_color = (255, 0, 0)
                 if recognized_name == "None":
@@ -66,10 +69,16 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
 
                 if result:
                     if name == self.user_id:
-                        print("멀리안나갑니다")
+                        current_time = datetime.now()  # 현재 시간
+                        formatted_date = current_time.strftime('%Y-%m-%d')
+                        formatted_time = current_time.strftime('%H:%M:%S')
+                        self.controller.dbconn.leave_workplace(self.user_id, formatted_date, formatted_time)
                     elif name != self.user_id:
                         print(f"당신은 {self.user_id}님이 아니신데요?")
 
                     self.cap.release()
                     break
+
+            self.user_img.setScaledContents(True)
+            self.user_img.setPixmap(QPixmap("../../img/icon/face-id.png"))
             self.close()
