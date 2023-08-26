@@ -24,7 +24,8 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         # 객체 생성
         self.main = controller
         self.msgbox = MsgBox()
-        self.face_recognizer = FaceRecognizer()
+        path = os.getcwd() + '\\class_file\\face_model.h5'
+        self.face_recognizer = FaceRecognizer(path)
 
         self.setupUi(self)  # UI 설정을 초기화
         self.initUI()  # 초기 설정
@@ -130,6 +131,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.msgbox.exec_()
 
                     # 메인 페이지 이동
+                    self.main.main_page.SetUserId.emit(self.user_name)
                     self.main.main_page.show()
 
                     # 타이머 종료
