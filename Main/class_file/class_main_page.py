@@ -12,7 +12,7 @@ import os
 
 
 class MainPage(QWidget, Ui_MainWidget):
-    SetUserId = pyqtSignal(str)
+
     def __init__(self, controller):
         super().__init__()
 
@@ -60,16 +60,11 @@ class MainPage(QWidget, Ui_MainWidget):
         # 퇴근하기 버튼 클릭
         self.end_btn.clicked.connect(self.clicked_end_btn)
 
-        # 유저 아이디 설정 시그널 연결
-        self.SetUserId.connect(self.set_user_id)
+
 
     # 사원 추가 버튼
     def add_employee(self):
         self.controller.add_emp.show()
-
-    # 로그인 유저 ID 변수 설정
-    def set_user_id(self, login_id):
-        self.user_id = login_id
 
     # 폰트 설정
     def set_font(self):
@@ -179,46 +174,9 @@ class MainPage(QWidget, Ui_MainWidget):
 
     # 퇴근하기 버튼 클릭 이벤트 코드
     def clicked_end_btn(self):
-        print(os.getcwd())
-        self.var_for_cam()
-        self.start_cam()
+        self.controller.leave_work.show()
 
-    def var_for_cam(self):
-        path = os.getcwd() + '\\face_model.h5'
-        self.face_recognizer = FaceRecognizer(path)
-        self.cap = cv2.VideoCapture(0)
 
-    def start_cam(self):
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_frame)
-        self.timer.start(5)
 
-    def update_frame(self):
-        ret, image = self.cap.read()
-
-        if ret:
-            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            faces = face_cascade.detectMultiScale(image_rgb, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
-
-            recognized_name = None
-            for (x, y, w, h) in faces:
-                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-                face_image = image[y:y + h, x:x + w]
-                recognized_name = self.face_recognizer.recognize_face(face_image)
-                print("퇴근 인식 카메라에 찍힌 당신의 이름은 ",recognized_name)
-
-                label_color = (255, 0, 0)
-                if recognized_name == "None":
-                    label_color = (0, 0, 255)
-
-                image = cv2.putText(image, recognized_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, label_color, 2,
-                                    cv2.LINE_AA)
-                result, name = self.face_recognizer.display_image(image, recognized_name, self.face_lab)
-
-                if result:
-                    if name == self.user_id:
-                        print("멀리안나갑니다")
 
 

@@ -155,6 +155,8 @@ class DBconnect:
         self.end_conn()
 
     # 퇴근 기록 DB 저장 코드
+    def leave_workplace(self, user_id):
+        c = self.start_conn()
 
 
 if __name__ == '__main__':

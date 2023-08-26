@@ -131,7 +131,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.msgbox.exec_()
 
                     # 메인 페이지 이동
-                    self.main.main_page.SetUserId.emit(self.user_name)
+                    self.main.leave_work.SetUserId.emit(self.user_name)
                     self.main.main_page.show()
 
                     # 타이머 종료
