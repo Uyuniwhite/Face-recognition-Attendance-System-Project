@@ -41,6 +41,8 @@ class ShowOutForWhile(QWidget):
     # 사용자 확인
     def check_user(self, event):
         print('사용자 외출 복귀 화면으로 이동해야 함')
+        self.close()
+        self.controller.check_out.show()
         pass
         # 사용자 확인 페이지로 이동
 
