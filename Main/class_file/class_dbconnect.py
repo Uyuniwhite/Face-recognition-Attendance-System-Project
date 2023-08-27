@@ -1,5 +1,5 @@
 import psycopg2
-
+from  datetime import datetime
 host = "10.10.20.103"
 port = "5432"
 database = "ATD"
@@ -59,6 +59,50 @@ class DBconnect:
         else:
             self.end_conn()
             return None
+
+    from datetime import datetime
+
+    def return_datetime(self, type):
+        """원하는 날짜/시간 포멧을 반환"""
+        now = datetime.now()  # 시간
+
+        if type == 'date':
+            now_format = now.strftime("%Y-%m-%d")  # 년 월 일
+        elif type == 'time':
+            now_format = now.strftime("%Y-%m-%d %H:%M:%S")  # 년 월 일 시 분 초
+        elif type == 'time_only':
+            now_format = now.strftime("%H:%M:%S")  # 시 분 초
+        elif type == 'year_month':
+            now_format = now.strftime("%Y-%m")  # 년월
+        elif type == 'c_date':
+            now_format = now.strftime("%d")  # 일
+        else:
+            return "Invalid type"
+
+        # print('[dateimte.py]시간 포멧팅: ', now_format)
+        return now_format
+
+    def return_specific_data(self, column, table_name, condition=None, type='all'):
+        """특정 열 데이터만 반환합니다."""
+        c = self.start_conn()
+
+        query = f"SELECT {column} FROM {table_name}"
+        if condition is not None:
+            query += f" WHERE {condition}"
+        print(query)
+
+        c.execute(query)
+        r_data = c.fetchall()
+        # print('데이터', r_data)
+
+        if type != 'all':
+            return r_data[0][0]
+        return r_data[0]
+
+    # def return_all_data(self, table_name, condition=None):
+    #     c = self.start_conn()
+    #     query = f"SELECT {column} FROM {table_name}"
+
 
 
     # 출근 여부 확인

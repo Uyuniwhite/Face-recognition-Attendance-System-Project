@@ -1,6 +1,6 @@
 # 필요한 라이브러리와 모듈들을 임포트
 from Main.UI.LoginWidget import Ui_LoginWidget
-from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox
+from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox, QPushButton
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor, QCursor
 import sys
@@ -125,6 +125,11 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     # 로그인시 캠 캡쳐 종료
                     self.cap.release()
 
+                    # 사용자 타이틀 바 보여줌
+                    self.show_title_btns()
+                    print('유저이름은', self.user_name)
+                    self.main.main_page.set_user_atd_summary(user_id=self.user_name)
+
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."
                     self.msgbox.set_dialog_type(msg=message, img='check')
@@ -147,26 +152,25 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
     # ID / PW 입력하고 로그인버튼 클릭시 이벤트 처리 함수
     def clicked_login_btn(self):
-        input_id = self.id_lineedit.text()
-        input_pw = self.pw_lineedit.text()
+        input_id, input_pw = self.id_lineedit.text(), self.pw_lineedit.text()
 
         result_id = self.verify_id(input_id)  # 아이디 검증
         result_pw = self.verify_pw(input_pw)  # 패스워드 검증
-
-        msgbox = MsgBox()
         message = ''
         if input_id != 'admin':
             if result_id == False or result_pw == False:
-                msgbox.set_dialog_type(type=1)
+                self.msgbox.set_dialog_type(type=1)
             elif result_id == True and result_pw == True:
                 db_password = self.main.dbconn.check_id_pw(input_id)  # 등록된 사원이면 패스워드가 담기고 등록되지않은 사원은 False가 담김
                 if db_password == False:
-                    msgbox.set_dialog_type(type=2)
+                    self.msgbox.set_dialog_type(type=2)
                 elif db_password != input_pw:
-                    msgbox.set_dialog_type(type=3)
+                    self.msgbox.set_dialog_type(type=3)
                 else:
-                    message = f"{input_id}님 로그인되었습니다."
+                    self.show_title_btns()
+                    self.message = f"{input_id}님 로그인되었습니다."
                     msgbox.set_dialog_type(msg=message, img='check')
+
                     # 메인페이지로 이동
                     self.main.main_page.show()
                     # 로그인 정보 DB 저장
@@ -174,12 +178,27 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     # login 화면 종료
                     self.main.login.close()
 
-            msgbox.exec_()
+            msgbox.exec_() # 메세지 박스 띄우기
         elif input_id == 'admin':
+            # admin일 경우
+            self.show_title_btns(type='admin')
             # self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
             self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
             self.main.main_page.show()
             self.close()
+
+    def show_title_btns(self, type='user'):
+        print('여길 타나요')
+        btns_list = self.main.main_page.title_btns.findChildren(QPushButton)
+        hidden_btns = []
+        if type != 'admin':
+            hidden_btns = ['users_btn']
+        else:
+            hidden_btns = ['users_btn', 'mypage_btn']
+
+        for btn in btns_list:
+            print(btn.objectName())
+            btn.setVisible(btn.objectName() not in hidden_btns)
 
     # ID 검증
     def verify_id(self, input_id):

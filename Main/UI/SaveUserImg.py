@@ -86,6 +86,7 @@ class Ui_SaveUserImg(object):
         self.user_img = QtWidgets.QLabel(self.widget)
         self.user_img.setMinimumSize(QtCore.QSize(500, 323))
         self.user_img.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.user_img.setText("")
         self.user_img.setAlignment(QtCore.Qt.AlignCenter)
         self.user_img.setObjectName("user_img")
         self.verticalLayout.addWidget(self.user_img)
@@ -137,7 +138,6 @@ class Ui_SaveUserImg(object):
         _translate = QtCore.QCoreApplication.translate
         SaveUserImg.setWindowTitle(_translate("SaveUserImg", "Form"))
         self.title_lab.setText(_translate("SaveUserImg", "얼굴 등록 화면"))
-        self.user_img.setText(_translate("SaveUserImg", "사진촬영을 눌러주세요!"))
         self.numimglabel.setText(_translate("SaveUserImg", "캡쳐된 이미지 수"))
         self.capture_btn.setText(_translate("SaveUserImg", "사진촬영"))
         self.cancel_btn.setText(_translate("SaveUserImg", "취소"))

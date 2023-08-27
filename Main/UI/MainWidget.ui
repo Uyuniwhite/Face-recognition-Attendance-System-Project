@@ -108,7 +108,7 @@ QPushButton::hover{
          </spacer>
         </item>
         <item>
-         <widget class="QWidget" name="widget_11" native="true">
+         <widget class="QWidget" name="title_btns" native="true">
           <property name="maximumSize">
            <size>
             <width>350</width>
@@ -235,7 +235,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="admin_dept_check">
          <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -1479,22 +1479,22 @@ background-color: rgb(230, 234, 245);</string>
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#comboBox{
+                  <string notr="true">#attend_check_combobox{
 	border-radius:10px;
 	background-color: rgb(217, 217, 217);
 	padding-left:10px;}
 
-#comboBox::drop-down{
+#attend_check_combobox::drop-down{
 	border:0px;
 }
 
-#comboBox::down-arrow{
+#attend_check_combobox::down-arrow{
 	image: url(:/down.png);
 	width: 15px;
 	height: 15px;
 	margin-right:15px;
 }
-#comboBox::on{
+#attend_check_combobox::on{
  border:4px solid gray;
 }
 </string>

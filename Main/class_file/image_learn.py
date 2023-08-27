@@ -78,7 +78,8 @@ class ImageLearn:
                              validation_steps=len(y_val) // BATCH_SIZE,
                              callbacks=callbacks_list)
 
-        model.save("face_model.h5")
+        # model.save("face_model.h5")
+        model.save("face_model.keras")
 
     def custom_model(self, input_shape, num_classes):
         model = Sequential()
