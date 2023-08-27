@@ -248,4 +248,5 @@ class MainPage(QWidget, Ui_MainWidget):
         return dept_name
 
     def clicked_edit_btn(self):
+        self.controller.pw_change.user_id = self.user_id
         self.controller.pw_change.exec()
