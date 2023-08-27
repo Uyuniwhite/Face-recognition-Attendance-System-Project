@@ -600,6 +600,7 @@ class Ui_MainWidget(object):
         self.verticalLayout_14.setObjectName("verticalLayout_14")
         self.tableWidget = QtWidgets.QTableWidget(self.widget_10)
         self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 280))
+        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(0)
@@ -796,7 +797,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(4)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):

@@ -1,10 +1,12 @@
 import psycopg2
-from  datetime import datetime
+from datetime import datetime, date
+
 host = "10.10.20.103"
 port = "5432"
 database = "ATD"
 name = "postgres"
 password = "1234"
+
 
 class DBconnect:
     def __init__(self, controller):
@@ -12,6 +14,7 @@ class DBconnect:
         self.conn = None
         self.cur = None
         # self.start_conn()
+
     def start_conn(self):
         self.conn = psycopg2.connect(host=host, database=database, user=name, password=password, port=port)
         self.cur = self.conn.cursor()
@@ -30,7 +33,7 @@ class DBconnect:
     # 출근 데이터 저장
     def log_in(self, user_id, day_date, time_date, login_type):
         user_no = self.find_no(user_id)
-        clock_in = self.clock_in_check(user_no, day_date) # 출근 여부 출근 안했으면 0, 했으면 1
+        clock_in = self.clock_in_check(user_no, day_date)  # 출근 여부 출근 안했으면 0, 했으면 1
         c = self.start_conn()
         if user_no != None:
             if clock_in == 0:
@@ -42,8 +45,7 @@ class DBconnect:
                 return True
         else:
             self.end_conn()
-            return False # 등록된 사원이 아니면 False를 리턴함
-
+            return False  # 등록된 사원이 아니면 False를 리턴함
 
     # user_no 찾는 함수
     def find_no(self, user_id):
@@ -79,8 +81,20 @@ class DBconnect:
         else:
             return "Invalid type"
 
-        # print('[dateimte.py]시간 포멧팅: ', now_format)
         return now_format
+
+    # 요일로 반환
+    def get_day_of_week(self, text_date):
+        date_object = datetime.strptime(text_date, '%Y-%m-%d').date()
+
+        # 요일을 숫자로 반환 (월요일: 0, 화요일: 1, ..., 일요일: 6)
+        day_of_week = date_object.weekday()
+
+        # 숫자를 요일 이름으로 변환
+        days = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
+        day_name = days[day_of_week]
+
+        return day_name
 
     def return_specific_data(self, column, table_name, condition=None, type=1):
         """특정 열 데이터만 반환합니다."""
@@ -101,7 +115,7 @@ class DBconnect:
 
     def return_user_atd_info(self, user_id, year_month):
         c = self.start_conn()
-        user_no = self.find_no(user_id=user_id) # 유저 아이디 반환
+        user_no = self.find_no(user_id=user_id)  # 유저 아이디 반환
 
         query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%'"
         c.execute(query)
@@ -110,12 +124,13 @@ class DBconnect:
 
     def return_user_atd_month(self, user_id):
         """유저가 출근한 월들만 리스트로 반환"""
-        user_no = self.find_no(user_id) # 유저 번호 반환
-        result = self.return_specific_data(column='atd_date', table_name='tb_atd', condition=f'user_no={user_no}', type=2) # 유저 출근 날들 반환
+        user_no = self.find_no(user_id)  # 유저 번호 반환
+        result = self.return_specific_data(column='atd_date', table_name='tb_atd', condition=f'user_no={user_no}',
+                                           type=2)  # 유저 출근 날들 반환
 
-        result = [date[0][:7] for date in result] # 출근 년도 - 월수만 반환
+        result = [date[0][:7] for date in result]  # 출근 년도 - 월수만 반환
         unique_result = []
-        [unique_result.append(x) for x in result if x not in unique_result] # 그 중 중복값 제거
+        [unique_result.append(x) for x in result if x not in unique_result]  # 그 중 중복값 제거
 
         print(unique_result)
         return unique_result
@@ -135,7 +150,7 @@ class DBconnect:
         # 출근일수
         con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'"  # 조건2
         user_atd_day = self.return_specific_data(column='count(*)', table_name='tb_atd',
-                                                                   condition=con2, type=1)
+                                                 condition=con2, type=1)
         # 근태율 계산 = (현재 달 출근일 / 현재 달 날짜) * 100
         atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
         text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
@@ -145,8 +160,6 @@ class DBconnect:
     # def return_all_data(self, table_name, condition=None):
     #     c = self.start_conn()
     #     query = f"SELECT {column} FROM {table_name}"
-
-
 
     # 출근 여부 확인
     def clock_in_check(self, user_no, day_date):
@@ -187,7 +200,6 @@ class DBconnect:
         self.end_conn()
         return data
 
-
     # 선택한 부서별 사원만 리스트 담아서 리턴
     def select_dept(self, dept):
         empolyee_list = list()
@@ -209,7 +221,7 @@ class DBconnect:
         pw = c.fetchone()
 
         if pw == None:
-            return False # 등록된 아이디 없음
+            return False  # 등록된 아이디 없음
         else:
             return pw[0]
 
@@ -220,9 +232,9 @@ class DBconnect:
         c.execute(query)
         result = c.fetchone()
         if result != None:
-            return False # 중복된 아이디
+            return False  # 중복된 아이디
         else:
-            return True # 중복 통과
+            return True  # 중복 통과
 
     # 신규 사원 등록
     def save_newbie(self, newbie_name, newbie_id, newbie_pw, dept_id):
@@ -263,6 +275,5 @@ class DBconnect:
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
     # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
-    db_conn.return_user_atd_month(user_id='soyeon')
-
-
+    # db_conn.return_user_atd_month(user_id='soyeon')
+    db_conn.get_day_of_week('2023-08-27')
