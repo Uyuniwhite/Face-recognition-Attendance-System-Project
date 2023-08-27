@@ -55,7 +55,6 @@ class MainPage(QWidget, Ui_MainWidget):
 
     # 근태 테이블 채우기
     def set_user_atd_info(self, user_id):
-
         pass
 
     # 근태화면 하단 요약 부분
@@ -73,11 +72,10 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 출근일수
         con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'" # 조건2
-        user_atd_day = self.controller.dbconn.return_specific_data(column='count(*)', table_name='tb_atd', condition=con2)
-
+        user_atd_day = self.controller.dbconn.return_specific_data(column='count(*)', table_name='tb_atd', condition=con2, type=1)
+        print(user_atd_day, current_date)
         # 근태율 계산 = (현재 달 출근일 / 현재 달 날짜) * 100
         atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
-
         text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
         self.summary_lab.setText(text)
 

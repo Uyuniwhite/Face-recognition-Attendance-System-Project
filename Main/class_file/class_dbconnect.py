@@ -82,7 +82,7 @@ class DBconnect:
         # print('[dateimte.py]시간 포멧팅: ', now_format)
         return now_format
 
-    def return_specific_data(self, column, table_name, condition=None, type='all'):
+    def return_specific_data(self, column, table_name, condition=None, type=1):
         """특정 열 데이터만 반환합니다."""
         c = self.start_conn()
 
@@ -95,7 +95,7 @@ class DBconnect:
         r_data = c.fetchall()
         # print('데이터', r_data)
 
-        if type != 'all':
+        if type == 1:
             return r_data[0][0]
         return r_data[0]
 
