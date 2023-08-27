@@ -6,7 +6,7 @@ from Main.class_file.class_font import Font
 from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal, Qt
 import cv2
 import sys
 import os
@@ -60,20 +60,25 @@ class MainPage(QWidget, Ui_MainWidget):
 
         self.tableWidget.setRowCount(len(atd_list))
         self.tableWidget.setColumnCount(6)
+
         for idx, data in enumerate(atd_list):
-            date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5] # 일자, 출근시간, 퇴근시간, 퇴근방식
-            date_day = self.controller.dbconn.get_day_of_week(text_date=date) #요일
+            date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5]
+            date_day = self.controller.dbconn.get_day_of_week(text_date=date)
+            if end_time != 'NULL':
+                time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
+            else:
+                end_time = '근무중'
             if atd_type == 'face':
                 atd_type = '얼굴인식'
-            self.tableWidget.setItem(idx, 0, QTableWidgetItem(date))  # 1번째 열, 1번째 행에 값 넣기
-            self.tableWidget.setItem(idx, 1, QTableWidgetItem(date_day))  # 1번째 열, 2번째 행에 값 넣기
-            self.tableWidget.setItem(idx, 2, QTableWidgetItem(start_time))  # 1번째 열, 3번째 행에 값 넣기
-            self.tableWidget.setItem(idx, 3, QTableWidgetItem(atd_type))  # 1번째 열, 4번째 행에 값 넣기
-            self.tableWidget.setItem(idx, 4, QTableWidgetItem(end_time))  # 1번째 열, 4번째 행에 값 넣기
-            self.tableWidget.setItem(idx, 5, QTableWidgetItem('test'))  # 1번째 열, 5번째 행에 값 넣기
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
 
 
+            # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
+            for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
+                item = QTableWidgetItem(value)
+                item.setTextAlignment(Qt.AlignCenter)  # 가운데 정렬
+                self.tableWidget.setItem(idx, col, item)
+
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def set_user_id(self, user_id):
         self.user_id = user_id

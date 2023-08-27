@@ -83,6 +83,14 @@ class DBconnect:
 
         return now_format
 
+    def get_strptime(self, start_time_str, end_time_str):
+        start_time_obj = datetime.strptime(start_time_str, '%H:%M:%S')
+        end_time_obj = datetime.strptime(end_time_str, '%H:%M:%S')
+
+        # 두 시간 간의 차이 계산
+        time_difference = end_time_obj - start_time_obj
+        return time_difference
+
     # 요일로 반환
     def get_day_of_week(self, text_date):
         date_object = datetime.strptime(text_date, '%Y-%m-%d').date()
