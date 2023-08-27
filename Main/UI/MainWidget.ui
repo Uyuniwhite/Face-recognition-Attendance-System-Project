@@ -1499,16 +1499,6 @@ background-color: rgb(230, 234, 245);</string>
 }
 </string>
                  </property>
-                 <item>
-                  <property name="text">
-                   <string>테스트</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>테스트</string>
-                  </property>
-                 </item>
                 </widget>
                </item>
                <item>
@@ -1565,6 +1555,36 @@ background-color: rgb(217, 217, 217);</string>
                    <height>280</height>
                   </size>
                  </property>
+                 <column>
+                  <property name="text">
+                   <string>일자</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>요일</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>출근시각</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>출근타입</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>퇴근시각</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>총근무시간</string>
+                  </property>
+                 </column>
                 </widget>
                </item>
               </layout>

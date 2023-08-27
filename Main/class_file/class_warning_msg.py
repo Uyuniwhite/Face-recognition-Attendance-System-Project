@@ -86,6 +86,10 @@ class MsgBox(QDialog, Ui_WarningDialog):
         elif type == 5:
             self.cancel_btn.setVisible(True)
             msg = '외출하시겠습니까?'
+        elif type == 6:
+            self.cancel_btn.setVisible(True)
+            msg = '퇴근하시겠습니까?'
+
 
 
         self.warn_lab.setText(msg)

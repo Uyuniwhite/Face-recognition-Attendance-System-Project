@@ -97,7 +97,52 @@ class DBconnect:
 
         if type == 1:
             return r_data[0][0]
-        return r_data[0]
+        return r_data
+
+    def return_user_atd_info(self, user_id, year_month):
+        c = self.start_conn()
+        user_no = self.find_no(user_id=user_id) # 유저 아이디 반환
+
+        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%'";
+        c.execute(query)
+        r_data = c.fetchall()
+
+        print(r_data)
+        return r_data
+
+    def return_user_atd_month(self, user_id):
+        """유저가 출근한 월들만 리스트로 반환"""
+        user_no = self.find_no(user_id) # 유저 번호 반환
+        result = self.return_specific_data(column='atd_date', table_name='tb_atd', condition=f'user_no={user_no}', type=2) # 유저 출근 날들 반환
+
+        result = [date[0][:7] for date in result] # 출근 년도 - 월수만 반환
+        unique_result = []
+        [unique_result.append(x) for x in result if x not in unique_result] # 그 중 중복값 제거
+
+        print(unique_result)
+        return unique_result
+
+    def return_user_atd_summary(self, user_id):
+        # 유저 이름
+        con = f"user_id = '{user_id}'"  # 조건1
+        user_name = self.return_specific_data(column='user_name', table_name='tb_user', condition=con)
+
+        # 현재 년-월
+        current_year_month = self.return_datetime(type='year_month')
+        current_date = self.return_datetime(type='c_date')
+
+        # 유저 번호
+        user_no = self.dbconn.find_no(user_id)
+
+        # 출근일수
+        con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'"  # 조건2
+        user_atd_day = self.return_specific_data(column='count(*)', table_name='tb_atd',
+                                                                   condition=con2, type=1)
+        # 근태율 계산 = (현재 달 출근일 / 현재 달 날짜) * 100
+        atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
+        text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
+
+        return text
 
     # def return_all_data(self, table_name, condition=None):
     #     c = self.start_conn()
@@ -211,6 +256,7 @@ class DBconnect:
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    db_conn.info_dept()
+    # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
+    db_conn.return_user_atd_month(user_id='soyeon')
 
 

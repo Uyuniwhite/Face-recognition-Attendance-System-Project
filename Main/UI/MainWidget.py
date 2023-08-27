@@ -561,28 +561,26 @@ class Ui_MainWidget(object):
         self.horizontalLayout_11.addWidget(self.attend_check_lab)
         self.attend_check_combobox = QtWidgets.QComboBox(self.widget_9)
         self.attend_check_combobox.setMinimumSize(QtCore.QSize(156, 41))
-        self.attend_check_combobox.setStyleSheet("#comboBox{\n"
+        self.attend_check_combobox.setStyleSheet("#attend_check_combobox{\n"
 "    border-radius:10px;\n"
 "    background-color: rgb(217, 217, 217);\n"
 "    padding-left:10px;}\n"
 "\n"
-"#comboBox::drop-down{\n"
+"#attend_check_combobox::drop-down{\n"
 "    border:0px;\n"
 "}\n"
 "\n"
-"#comboBox::down-arrow{\n"
+"#attend_check_combobox::down-arrow{\n"
 "    image: url(:/down.png);\n"
 "    width: 15px;\n"
 "    height: 15px;\n"
 "    margin-right:15px;\n"
 "}\n"
-"#comboBox::on{\n"
+"#attend_check_combobox::on{\n"
 " border:4px solid gray;\n"
 "}\n"
 "")
         self.attend_check_combobox.setObjectName("attend_check_combobox")
-        self.attend_check_combobox.addItem("")
-        self.attend_check_combobox.addItem("")
         self.horizontalLayout_11.addWidget(self.attend_check_combobox)
         self.attend_check_btn = QtWidgets.QPushButton(self.widget_9)
         self.attend_check_btn.setMinimumSize(QtCore.QSize(66, 41))
@@ -603,8 +601,20 @@ class Ui_MainWidget(object):
         self.tableWidget = QtWidgets.QTableWidget(self.widget_10)
         self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 280))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(5, item)
         self.verticalLayout_14.addWidget(self.tableWidget)
         self.verticalLayout_13.addWidget(self.widget_10)
         self.summary_lab = QtWidgets.QLabel(self.atd_page)
@@ -784,7 +794,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -822,9 +832,19 @@ class Ui_MainWidget(object):
         self.graph_contents_1.setText(_translate("MainWidget", "그래프에 대한 설명"))
         self.graph_contents_2.setText(_translate("MainWidget", "그래프에 대한 설명"))
         self.attend_check_lab.setText(_translate("MainWidget", "월별조회"))
-        self.attend_check_combobox.setItemText(0, _translate("MainWidget", "테스트"))
-        self.attend_check_combobox.setItemText(1, _translate("MainWidget", "테스트"))
         self.attend_check_btn.setText(_translate("MainWidget", "확인"))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWidget", "일자"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWidget", "요일"))
+        item = self.tableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("MainWidget", "출근시각"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("MainWidget", "출근타입"))
+        item = self.tableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("MainWidget", "퇴근시각"))
+        item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("MainWidget", "총근무시간"))
         self.summary_lab.setText(_translate("MainWidget", "000님의 0월 출근일수는 00일, 근태율은 00%입니다."))
         self.my_img_lab.setText(_translate("MainWidget", "이미지"))
         self.pw_lab.setText(_translate("MainWidget", "비밀번호"))

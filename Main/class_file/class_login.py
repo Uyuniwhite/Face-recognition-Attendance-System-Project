@@ -128,7 +128,13 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     # 사용자 타이틀 바 보여줌
                     self.show_title_btns()
                     print('유저이름은', self.user_name)
-                    self.main.main_page.set_user_atd_summary(user_id=self.user_name)
+                    self.main.leave_work.SetUserId.emit(self.user_name)
+                    self.main.check_out.SetUserId.emit(self.user_name)
+
+                    # 이 부분은 나중에 함수로 빼기
+                    self.main.main_page.set_user_atd_info(user_id=self.user_name) # 유저 콤보박스 추가
+                    self.main.main_page.set_user_atd_summary(user_id=self.user_name) # 유저 근태내역 요약 추가
+
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."
@@ -136,8 +142,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.msgbox.exec_()
 
                     # 메인 페이지 이동
-                    self.main.leave_work.SetUserId.emit(self.user_name)
-                    self.main.check_out.SetUserId.emit(self.user_name)
                     self.main.main_page.show()
 
                     # 타이머 종료

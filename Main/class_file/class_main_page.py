@@ -29,71 +29,64 @@ class MainPage(QWidget, Ui_MainWidget):
         self.setupUi(self)
         self.initUI()  # 기본 설정
         self.initStyle() # 스타일 설정
-        self.msgbox = MsgBox()
+        self.msgbox = MsgBox() # 메세지박스 객체 싱성
 
 
     def initUI(self):
-        self.home_btn.clicked.connect(
-            lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
-        self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
-        self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
+        # 페이지 이동
+        self.home_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
+        self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page)) # 근태관리 페이지 이동
+        self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page)) # 마이페이지 이동
+
+        # 버튼 클릭 이벤트
         self.add_btn.clicked.connect(self.add_employee)  # 사원 추가 버튼 눌렀을 때
         self.team_search_btn.clicked.connect(self.set_grid_lay) # 팀 검색 버튼 눌렀을 때
-        self.out_btn.clicked.connect(self.show_out_while_img) #
+        self.out_btn.clicked.connect(self.show_out_while_img) # 외출하기 버튼 클릭
+        self.end_btn.clicked.connect(self.clicked_end_btn) # 퇴근하기 버튼 클릭
+        self.add_btn.clicked.connect(self.add_employee) # 사원 등록 페이지 열기
+        self.attend_check_btn.clicked.connect(self.show_atd_table) # 특정 달 출근일자 테이블에 보여주기
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
         depts = self.controller.dbconn.find_dept()
         self.team_search_combobox.addItems(depts)
 
-        # 사원 등록 페이지 열기
-        self.add_btn.clicked.connect(self.add_employee)
 
         # 테이블 채우기
         self.set_dept_table()
 
+    def show_atd_table(self):
+        pass
 
     # 근태 테이블 채우기
     def set_user_atd_info(self, user_id):
-        pass
+        month_list = self.controller.dbconn.return_user_atd_month(user_id=user_id)
+        self.attend_check_combobox.addItems(month_list)
 
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):
-        # 유저 이름
-        con = f"user_id = '{user_id}'" # 조건1
-        user_name = self.controller.dbconn.return_specific_data(column='user_name', table_name='tb_user', condition=con)
-
-        # 현재 년-월
-        current_year_month = self.controller.dbconn.return_datetime(type='year_month')
-        current_date = self.controller.dbconn.return_datetime(type='c_date')
-
-        # 유저 번호
-        user_no = self.controller.dbconn.find_no(user_id)
-
-        # 출근일수
-        con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'" # 조건2
-        user_atd_day = self.controller.dbconn.return_specific_data(column='count(*)', table_name='tb_atd', condition=con2, type=1)
-        print(user_atd_day, current_date)
-        # 근태율 계산 = (현재 달 출근일 / 현재 달 날짜) * 100
-        atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
-        text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
+        text = self.controller.dbconn.return_user_atd_summary(user_id=user_id)
         self.summary_lab.setText(text)
 
+    # 외출하기 버튼 클릭시
     def show_out_while_img(self):
         self.msgbox.set_dialog_type(type=5, img='question')
         self.msgbox.exec_()
         if self.msgbox.result() == 1:
             self.controller.show_out_img.show()
 
+    # 퇴근하기 버튼 클릭시
+    def clicked_end_btn(self):
+        self.msgbox.set_dialog_type(type=6, img='question')
+        self.msgbox.exec_()
+        if self.msgbox.result() == 1:
+            self.controller.leave_work.show()
+
 
     def initStyle(self):
         # 커서 지정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
         self.set_font()  # 폰트 설정
-
-        # 퇴근하기 버튼 클릭
-        self.end_btn.clicked.connect(self.clicked_end_btn)
-
 
 
     # 사원 추가 버튼
@@ -206,9 +199,7 @@ class MainPage(QWidget, Ui_MainWidget):
             self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율')) # 1번째 열, 4번째 행에 값 넣기
         self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
 
-    # 퇴근하기 버튼 클릭 이벤트 코드
-    def clicked_end_btn(self):
-        self.controller.leave_work.show()
+
 
 
 
