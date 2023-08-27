@@ -132,7 +132,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.main.check_out.SetUserId.emit(self.user_name)
 
                     # 이 부분은 나중에 함수로 빼기
-                    self.main.main_page.set_user_atd_info(user_id=self.user_name) # 유저 콤보박스 추가
+                    self.main.main_page.set_user_atd_combo(user_id=self.user_name) # 유저 콤보박스 추가
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name) # 유저 근태내역 요약 추가
 
 

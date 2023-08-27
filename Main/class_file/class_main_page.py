@@ -59,9 +59,10 @@ class MainPage(QWidget, Ui_MainWidget):
     def set_user_id(self, user_id):
         self.user_id = user_id
 
-    # 근태 테이블 채우기
-    def set_user_atd_info(self, user_id):
-        pass
+    # 유저 출근 달들만 리턴
+    def set_user_atd_combo(self, user_id):
+        user_atd_months = self.controller.dbconn.return_user_atd_month(user_id=user_id)
+        self.attend_check_combobox.addItems(user_atd_months)
 
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):
