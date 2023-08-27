@@ -129,12 +129,16 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.show_title_btns()
                     self.main.leave_work.SetUserId.emit(self.user_name)
                     self.main.check_out.SetUserId.emit(self.user_name)
-                    self.main.main_page.user_id = name
 
                     # 이 부분은 나중에 함수로 빼기
-                    self.main.main_page.set_user_atd_combo(user_id=self.user_name) # 유저 콤보박스 추가
-                    self.main.main_page.set_user_atd_summary(user_id=self.user_name) # 유저 근태내역 요약 추가
+                    self.main.main_page.user_id = name
+                    result = self.main.dbconn.get_user_data(name)
+                    user_dept = self.main.dbconn.return_specific_data(column='dept_name', table_name='tb_dept', condition=f'dept_id = {result[4]}', type=1)
+                    self.main.main_page.home_name_lab.setText(result[1])
+                    self.main.main_page.home_dept_lab.setText(user_dept)
 
+                    self.main.main_page.set_user_atd_combo(user_id=self.user_name)  # 유저 콤보박스 추가
+                    self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."
@@ -177,7 +181,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                 else:
                     self.show_title_btns()
                     self.message = f"{input_id}님 로그인되었습니다."
-                    msgbox.set_dialog_type(msg=message, img='check')
+                    self.msgbox.set_dialog_type(msg=message, img='check')
 
                     # 메인페이지로 이동
                     self.main.main_page.show()
@@ -186,7 +190,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     # login 화면 종료
                     self.main.login.close()
 
-            msgbox.exec_() # 메세지 박스 띄우기
+            self.msgbox.exec_()  # 메세지 박스 띄우기
         elif input_id == 'admin':
             # admin일 경우
             self.show_title_btns(type='admin')

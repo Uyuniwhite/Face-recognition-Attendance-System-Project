@@ -282,7 +282,7 @@ class Ui_MainWidget(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 820, 356))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 86, 33))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_17.setContentsMargins(0, 0, 0, 0)
@@ -332,6 +332,9 @@ class Ui_MainWidget(object):
         self.img_lab.setMaximumSize(QtCore.QSize(60, 60))
         self.img_lab.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius:30px;")
+        self.img_lab.setText("")
+        self.img_lab.setPixmap(QtGui.QPixmap("../../img/icon/user.png"))
+        self.img_lab.setScaledContents(True)
         self.img_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.img_lab.setObjectName("img_lab")
         self.horizontalLayout_7.addWidget(self.img_lab)
@@ -352,18 +355,22 @@ class Ui_MainWidget(object):
         self.out_btn.setMinimumSize(QtCore.QSize(60, 60))
         self.out_btn.setStyleSheet("#out_btn{\n"
 "border-radius:10px;\n"
-"border: 1px solid gray;\n"
+"border: 1px solid #3085FE;\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
-"")
+"#out_btn::hover{\n"
+"    background-color: rgb(230, 236, 255);\n"
+"}")
         self.out_btn.setObjectName("out_btn")
         self.horizontalLayout_7.addWidget(self.out_btn)
         self.end_btn = QtWidgets.QPushButton(self.home_page_main_widget)
         self.end_btn.setMinimumSize(QtCore.QSize(60, 60))
-        self.end_btn.setStyleSheet("border-radius:10px;\n"
-"border: 1px solid gray;\n"
-"background-color: rgb(255, 255, 255);\n"
-"")
+        self.end_btn.setStyleSheet("#end_btn{border-radius:10px;\n"
+"border: 1px solid #3085FE;\n"
+"background-color: rgb(255, 255, 255);}\n"
+"#end_btn::hover{\n"
+"    background-color: rgb(230, 236, 255);\n"
+"}")
         self.end_btn.setObjectName("end_btn")
         self.horizontalLayout_7.addWidget(self.end_btn)
         self.horizontalLayout_8.addLayout(self.horizontalLayout_7)
@@ -600,6 +607,7 @@ class Ui_MainWidget(object):
         self.verticalLayout_14.setObjectName("verticalLayout_14")
         self.tableWidget = QtWidgets.QTableWidget(self.widget_10)
         self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 280))
+        self.tableWidget.setFocusPolicy(QtCore.Qt.NoFocus)
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(6)
@@ -797,7 +805,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -821,7 +829,6 @@ class Ui_MainWidget(object):
         self.team_search_lab.setText(_translate("MainWidget", "부서조회"))
         self.team_search_btn.setText(_translate("MainWidget", "확인"))
         self.add_btn.setText(_translate("MainWidget", "사원추가"))
-        self.img_lab.setText(_translate("MainWidget", "이미지"))
         self.home_name_lab.setText(_translate("MainWidget", "이름이름"))
         self.home_dept_lab.setText(_translate("MainWidget", "부서부서"))
         self.out_btn.setText(_translate("MainWidget", "외출하기"))

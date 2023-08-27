@@ -235,7 +235,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="admin_dept_check">
          <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -654,8 +654,8 @@ QScrollArea {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>820</width>
-                  <height>356</height>
+                  <width>86</width>
+                  <height>33</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -809,7 +809,13 @@ QScrollArea {
 border-radius:30px;</string>
                    </property>
                    <property name="text">
-                    <string>이미지</string>
+                    <string/>
+                   </property>
+                   <property name="pixmap">
+                    <pixmap>../../img/icon/user.png</pixmap>
+                   </property>
+                   <property name="scaledContents">
+                    <bool>true</bool>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
@@ -863,10 +869,12 @@ border-radius:30px;</string>
                    <property name="styleSheet">
                     <string notr="true">#out_btn{
 border-radius:10px;
-border: 1px solid gray;
+border: 1px solid #3085FE;
 background-color: rgb(255, 255, 255);
 }
-</string>
+#out_btn::hover{
+	background-color: rgb(230, 236, 255);
+}</string>
                    </property>
                    <property name="text">
                     <string>외출하기</string>
@@ -882,10 +890,12 @@ background-color: rgb(255, 255, 255);
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">border-radius:10px;
-border: 1px solid gray;
-background-color: rgb(255, 255, 255);
-</string>
+                    <string notr="true">#end_btn{border-radius:10px;
+border: 1px solid #3085FE;
+background-color: rgb(255, 255, 255);}
+#end_btn::hover{
+	background-color: rgb(230, 236, 255);
+}</string>
                    </property>
                    <property name="text">
                     <string>퇴근하기</string>
@@ -2070,7 +2080,6 @@ border-radius: 10px;</string>
   </layout>
  </widget>
  <resources>
-  <include location="../../img/icon/resource.qrc"/>
   <include location="../../img/icon/resource.qrc"/>
  </resources>
  <connections/>

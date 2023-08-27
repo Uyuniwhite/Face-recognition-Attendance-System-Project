@@ -1,6 +1,9 @@
 from Main.UI.PassWordChangeDialog import Ui_PWChangeDialog
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize
 import random
 import string
 
@@ -14,14 +17,30 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
 
         self.init_UI()
 
-    def init_UI(self):
+    def init_UI(self, ):
         # 버튼 클릭 / 시그널
+        self.pushButton.setIcon(QIcon('../../img/icon/refresh.png'))
+        self.pushButton.setIconSize(QSize(30, 30))
+        self.set_font()
         self.cancel_btn.clicked.connect(self.close)  # 취소 버튼
         self.user_id = None  # user id 더미 생성
         self.letter = None  # 자동입력방지문자 더미생성
         self.set_random_letter()  # 자동입력방지문자 settext
         self.pushButton.clicked.connect(self.set_random_letter)  # 자동입력방지 문자 새로고침 버튼 이벤트
         self.ok_btn.clicked.connect(self.clicked_ok_btn)
+
+
+    def set_font(self):
+        self.title_lab.setFont(Font.title(3))
+        self.now_pw_edit.setFont(Font.text(3, weight='light'))
+        self.new_pw_edit.setFont(Font.text(3, weight='light'))
+        self.new_pw_recheck_edit.setFont(Font.text(3, weight='light'))
+        self.lineEdit_4.setFont(Font.text(3, weight='light'))
+        self.lineEdit_5.setFont(Font.text(3, weight='light'))
+        self.label_2.setFont(Font.text(3, weight='light'))
+        self.ok_btn.setFont(Font.text(3))
+        self.cancel_btn.setFont(Font.text(3))
+
 
     # 자동입력방지 문자 랜덤생성 ( 숫자 + 소문자 + 대문자)
     def create_random_str(self):
@@ -70,7 +89,7 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
 
     # 현재 비밀번호 검증
     def vertify_current_pw(self):
-        current_pw = self.lineEdit.text()
+        current_pw = self.now_pw_edit.text()
         db_pw = self.controller.dbconn.get_current_pw(self.user_id)
         if current_pw != db_pw:
             return False  # 현재 비밀번호 일치하지 않음
@@ -102,7 +121,7 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
 
     # 확인버튼 누르면 초기화
     def init_var(self):
-        self.lineEdit.clear()
+        self.now_pw_edit.clear()
         self.new_pw_edit.clear()
         self.new_pw_recheck_edit.clear()
         self.lineEdit_5.clear()

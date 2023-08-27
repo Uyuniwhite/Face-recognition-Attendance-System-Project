@@ -53,6 +53,8 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 테이블 채우기
         self.set_dept_table()
+        # 기본 클릭
+        self.team_search_btn.click()
 
     def show_atd_table(self):
         current_month = self.attend_check_combobox.currentText()
@@ -110,7 +112,9 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def initStyle(self):
         # 커서 지정
-        self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
+        self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
+        # self.img_lab.setScaledContents(True)
+        self.img_lab.setPixmap(QPixmap('../../img/icon/user.png').scaled(60, 60))
         self.set_font()  # 폰트 설정
 
     # 사원 추가 버튼
