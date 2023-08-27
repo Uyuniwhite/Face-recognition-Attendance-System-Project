@@ -47,7 +47,6 @@ class DBconnect:
             self.end_conn()
             return False  # 등록된 사원이 아니면 False를 리턴함
 
-
     # user_no 찾는 함수
     def find_no(self, user_id):
         c = self.start_conn()
@@ -162,8 +161,6 @@ class DBconnect:
     # def return_all_data(self, table_name, condition=None):
     #     c = self.start_conn()
     #     query = f"SELECT {column} FROM {table_name}"
-
-
 
     # 출근 여부 확인
     def clock_in_check(self, user_no, day_date):
@@ -289,9 +286,8 @@ class DBconnect:
         self.commit_db()
         self.end_conn()
 
+
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
     # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
     db_conn.return_user_atd_month(user_id='soyeon')
-
-

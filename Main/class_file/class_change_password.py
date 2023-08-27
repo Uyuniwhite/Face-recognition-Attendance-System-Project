@@ -95,6 +95,6 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
         input_letter = self.lineEdit_5.text()
 
         if self.letter != input_letter:
-            return False # 자동입력방지 검증 실패
+            return False  # 자동입력방지 검증 실패
         else:
-            return True # 자동입력방지 검증 성공
+            return True  # 자동입력방지 검증 성공
