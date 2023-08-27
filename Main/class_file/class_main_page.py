@@ -67,14 +67,14 @@ class MainPage(QWidget, Ui_MainWidget):
             if end_time != 'NULL':
                 time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
             else:
-                end_time = '근무중'
+                time_difference = '근무중'
             if atd_type == 'face':
                 atd_type = '얼굴인식'
 
 
             # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
             for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
-                item = QTableWidgetItem(value)
+                item = QTableWidgetItem(str(value))
                 item.setTextAlignment(Qt.AlignCenter)  # 가운데 정렬
                 self.tableWidget.setItem(idx, col, item)
 
@@ -87,6 +87,7 @@ class MainPage(QWidget, Ui_MainWidget):
     def set_user_atd_combo(self, user_id):
         user_atd_months = self.controller.dbconn.return_user_atd_month(user_id=user_id)
         self.attend_check_combobox.addItems(user_atd_months)
+        self.attend_check_btn.click()
 
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):

@@ -127,9 +127,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                     # 사용자 타이틀 바 보여줌
                     self.show_title_btns()
-                    print('유저이름은', self.user_name)
                     self.main.leave_work.SetUserId.emit(self.user_name)
                     self.main.check_out.SetUserId.emit(self.user_name)
+                    self.main.main_page.user_id = name
 
                     # 이 부분은 나중에 함수로 빼기
                     self.main.main_page.set_user_atd_combo(user_id=self.user_name) # 유저 콤보박스 추가
