@@ -259,10 +259,23 @@ class DBconnect:
         user_data = c.fetchone()
         return user_data
 
+    def get_current_pw(self, user_id):
+        c = self.start_conn()
+        find_query = f"select user_pw from tb_user where user_id = '{user_id}'"
+        c.execute(find_query)
+        user_pw = c.fetchone()
+        return user_pw[0]
+
+    def save_new_pw(self, user_id, new_pw):
+        c = self.start_conn()
+        update_query = f"update tb_user set user_pw = '{new_pw}' where user_id = '{user_id}'"
+        c.execute(update_query)
+        self.commit_db()
+        self.end_conn()
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
-    db_conn.return_user_atd_month(user_id='soyeon')
+    pw = db_conn.get_current_pw('woohyun')
+    print(pw)
 
 
