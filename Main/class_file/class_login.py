@@ -132,6 +132,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                     # 메인 페이지 이동
                     self.main.leave_work.SetUserId.emit(self.user_name)
+                    self.main.check_out.SetUserId.emit(self.user_name)
                     self.main.main_page.show()
 
                     # 타이머 종료
