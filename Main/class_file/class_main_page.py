@@ -1,21 +1,17 @@
-import cv2
-
 from Main.UI.MainWidget import Ui_MainWidget
 from Main.class_file.class_user_cell import UserCell
 from Main.class_file.class_font import Font
 from Main.class_file.class_warning_msg import MsgBox
-from Main.class_file.class_face_detection import FaceRecognizer
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
-from PyQt5.QtCore import pyqtSignal, QTimer, QThread
+from PyQt5.QtCore import QThread, pyqtSignal
+import cv2
 import sys
 import os
 
 
-
-
-
 class MainPage(QWidget, Ui_MainWidget):
+    SetUserId = pyqtSignal(str)
 
     def __init__(self, controller):
         super().__init__()
@@ -28,9 +24,8 @@ class MainPage(QWidget, Ui_MainWidget):
 
         self.setupUi(self)
         self.initUI()  # 기본 설정
-        self.initStyle() # 스타일 설정
+        self.initStyle()  # 스타일 설정
         self.msgbox = MsgBox()
-
 
     def initUI(self):
         self.home_btn.clicked.connect(
@@ -38,8 +33,10 @@ class MainPage(QWidget, Ui_MainWidget):
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))
         self.add_btn.clicked.connect(self.add_employee)  # 사원 추가 버튼 눌렀을 때
-        self.team_search_btn.clicked.connect(self.set_grid_lay) # 팀 검색 버튼 눌렀을 때
-        self.out_btn.clicked.connect(self.show_out_while_img) #
+        self.team_search_btn.clicked.connect(self.set_grid_lay)  # 팀 검색 버튼 눌렀을 때
+        self.out_btn.clicked.connect(self.show_out_while_img)  #
+        self.SetUserId.connect(self.set_user_id)
+        self.mypage_btn.clicked.connect(self.get_userinfo_from_DB) # 마이페이지 데이터 반영 관련
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -52,6 +49,8 @@ class MainPage(QWidget, Ui_MainWidget):
         # 테이블 채우기
         self.set_dept_table()
 
+    def set_user_id(self, user_id):
+        self.user_id = user_id
 
     # 근태 테이블 채우기
     def set_user_atd_info(self, user_id):
@@ -60,7 +59,7 @@ class MainPage(QWidget, Ui_MainWidget):
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):
         # 유저 이름
-        con = f"user_id = '{user_id}'" # 조건1
+        con = f"user_id = '{user_id}'"  # 조건1
         user_name = self.controller.dbconn.return_specific_data(column='user_name', table_name='tb_user', condition=con)
 
         # 현재 년-월
@@ -71,8 +70,9 @@ class MainPage(QWidget, Ui_MainWidget):
         user_no = self.controller.dbconn.find_no(user_id)
 
         # 출근일수
-        con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'" # 조건2
-        user_atd_day = self.controller.dbconn.return_specific_data(column='count(*)', table_name='tb_atd', condition=con2, type=1)
+        con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'"  # 조건2
+        user_atd_day = self.controller.dbconn.return_specific_data(column='count(*)', table_name='tb_atd',
+                                                                   condition=con2, type=1)
         print(user_atd_day, current_date)
         # 근태율 계산 = (현재 달 출근일 / 현재 달 날짜) * 100
         atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
@@ -85,7 +85,6 @@ class MainPage(QWidget, Ui_MainWidget):
         if self.msgbox.result() == 1:
             self.controller.show_out_img.show()
 
-
     def initStyle(self):
         # 커서 지정
         self.setCursor(QCursor(QPixmap('../img/icon/cursor_1.png').scaled(40, 40)))
@@ -93,8 +92,6 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 퇴근하기 버튼 클릭
         self.end_btn.clicked.connect(self.clicked_end_btn)
-
-
 
     # 사원 추가 버튼
     def add_employee(self):
@@ -159,7 +156,7 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def set_grid_lay(self):
         """그리드 영역에 위젯 클래스 넣어주기"""
-        self.clear_layout(self.users_grid_lay) #그리드 레이아웃 클리어
+        self.clear_layout(self.users_grid_lay)  # 그리드 레이아웃 클리어
 
         current_dept = self.team_search_combobox.currentText()
         empolyee_list = self.controller.dbconn.select_dept(current_dept)
@@ -174,7 +171,8 @@ class MainPage(QWidget, Ui_MainWidget):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
                     print(empolyee_list[cnt][0], empolyee_list[cnt][1])
-                    user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0], user_id=empolyee_list[cnt][1])
+                    user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0],
+                                         user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
                     cnt += 1
 
@@ -195,22 +193,42 @@ class MainPage(QWidget, Ui_MainWidget):
     def set_dept_table(self):
         dept_list_test = self.controller.dbconn.info_dept()
         print(dept_list_test)
-        self.dept_tablewidget.setRowCount(4) # 이건 부서 갯수 불러오기
+        self.dept_tablewidget.setRowCount(4)  # 이건 부서 갯수 불러오기
         self.dept_tablewidget.setColumnCount(4)
         # self.dept_tablewidget.horizontalHeader().setVisible(False)  # 열 헤더를 숨깁니다.
         for idx, data in enumerate(dept_list_test):
             dept_code, dept_name, dept_emp = data
-            self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(dept_name)) # 1번째 열, 1번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{dept_code}')) # 1번째 열, 2번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f"{dept_emp}")) # 1번째 열, 3번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율')) # 1번째 열, 4번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(dept_name))  # 1번째 열, 1번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{dept_code}'))  # 1번째 열, 2번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f"{dept_emp}"))  # 1번째 열, 3번째 행에 값 넣기
+            self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율'))  # 1번째 열, 4번째 행에 값 넣기
         self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
 
     # 퇴근하기 버튼 클릭 이벤트 코드
     def clicked_end_btn(self):
         self.controller.leave_work.show()
 
+    # DB에서 데이터 user 데이터 가져와서 마이페이지에 데이터 반영
+    def get_userinfo_from_DB(self):
+        user_data = self.controller.dbconn.get_user_data(self.user_id)
+        user_name = user_data[1]
+        user_id = user_data[2]
+        user_pw = user_data[3]
+        dept_id = user_data[-1]
+        dept_name = self.convert_dept_id_to_name(dept_id)
+        self.set_userinfo_mypage(user_name, user_id, user_pw, dept_name)
 
+    # 마이페이지 개인정보 넣기
+    def set_userinfo_mypage(self, user_name, user_id, user_pw, dept_name):
+        self.name_lineedit.setText(user_name)
+        self.dept_lineedit.setText(dept_name)
+        self.user_id_lineedit.setText(user_id)
+        self.pw_lineedit.setText(user_pw)
+        self.pw_recheck_lineedit.setText(user_pw)
 
-
+    # 부서 번호를 부서 이름으로 변환
+    def convert_dept_id_to_name(self, dept_id):
+        dept_info = {10: "개발팀", 20: "인사팀", 30: "회계팀", 40: "감사팀", 50: "영업팀"}
+        dept_name = dept_info[dept_id]
+        return dept_name
 
