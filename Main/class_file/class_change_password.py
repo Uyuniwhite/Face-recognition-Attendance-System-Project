@@ -61,6 +61,7 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
             self.controller.dbconn.save_new_pw(self.user_id, new_pw)
             msgbox.set_dialog_type(msg=message, img='warn')
             msgbox.exec_()
+            self.init_var()
             self.close()
             return
 
@@ -98,3 +99,11 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
             return False  # 자동입력방지 검증 실패
         else:
             return True  # 자동입력방지 검증 성공
+
+    # 확인버튼 누르면 초기화
+    def init_var(self):
+        self.lineEdit.clear()
+        self.new_pw_edit.clear()
+        self.new_pw_recheck_edit.clear()
+        self.lineEdit_5.clear()
+        self.set_random_letter()
