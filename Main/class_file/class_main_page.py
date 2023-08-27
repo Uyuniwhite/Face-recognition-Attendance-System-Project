@@ -56,15 +56,24 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def show_atd_table(self):
         current_month = self.attend_check_combobox.currentText()
-        print('검색한 달', current_month)
         atd_list = self.controller.dbconn.return_user_atd_info(user_id=self.user_id, year_month=current_month)
-        print(atd_list)
-        for data in atd_list:
-            date = data[1] # 날짜
-            start_time = data[2] # 출근 시간
-            atd_type = data[5] # 출근 방식
-            end_time = data[7] # 퇴근 시간
-        pass
+
+        self.tableWidget.setRowCount(len(atd_list))
+        self.tableWidget.setColumnCount(6)
+        for idx, data in enumerate(atd_list):
+            date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5] # 일자, 출근시간, 퇴근시간, 퇴근방식
+            date_day = self.controller.dbconn.get_day_of_week(text_date=date) #요일
+            if atd_type == 'face':
+                atd_type = '얼굴인식'
+            self.tableWidget.setItem(idx, 0, QTableWidgetItem(date))  # 1번째 열, 1번째 행에 값 넣기
+            self.tableWidget.setItem(idx, 1, QTableWidgetItem(date_day))  # 1번째 열, 2번째 행에 값 넣기
+            self.tableWidget.setItem(idx, 2, QTableWidgetItem(start_time))  # 1번째 열, 3번째 행에 값 넣기
+            self.tableWidget.setItem(idx, 3, QTableWidgetItem(atd_type))  # 1번째 열, 4번째 행에 값 넣기
+            self.tableWidget.setItem(idx, 4, QTableWidgetItem(end_time))  # 1번째 열, 4번째 행에 값 넣기
+            self.tableWidget.setItem(idx, 5, QTableWidgetItem('test'))  # 1번째 열, 5번째 행에 값 넣기
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
+
+
 
     def set_user_id(self, user_id):
         self.user_id = user_id
@@ -198,7 +207,7 @@ class MainPage(QWidget, Ui_MainWidget):
     def set_dept_table(self):
         dept_list_test = self.controller.dbconn.info_dept()
         print(dept_list_test)
-        self.dept_tablewidget.setRowCount(4)  # 이건 부서 갯수 불러오기
+        self.dept_tablewidget.setRowCount(len(dept_list_test))  # 이건 부서 갯수 불러오기
         self.dept_tablewidget.setColumnCount(4)
         # self.dept_tablewidget.horizontalHeader().setVisible(False)  # 열 헤더를 숨깁니다.
         for idx, data in enumerate(dept_list_test):

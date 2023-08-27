@@ -235,7 +235,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>4</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="admin_dept_check">
          <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -1554,6 +1554,12 @@ background-color: rgb(217, 217, 217);</string>
                    <width>16777215</width>
                    <height>280</height>
                   </size>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::NoFocus</enum>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
                  </property>
                  <column>
                   <property name="text">
