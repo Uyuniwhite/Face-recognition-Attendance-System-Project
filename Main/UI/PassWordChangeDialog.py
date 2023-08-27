@@ -68,6 +68,7 @@ class Ui_PWChangeDialog(object):
         font.setPointSize(10)
         self.lineEdit.setFont(font)
         self.lineEdit.setStyleSheet("border-radius:10px;")
+        self.lineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.lineEdit.setObjectName("lineEdit")
         self.verticalLayout_2.addWidget(self.lineEdit)
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -77,12 +78,14 @@ class Ui_PWChangeDialog(object):
         self.new_pw_edit.setMinimumSize(QtCore.QSize(0, 30))
         self.new_pw_edit.setStyleSheet("border-top-left-radius: 10px;\n"
 "    border-top-right-radius: 10px;")
+        self.new_pw_edit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.new_pw_edit.setObjectName("new_pw_edit")
         self.verticalLayout.addWidget(self.new_pw_edit)
         self.new_pw_recheck_edit = QtWidgets.QLineEdit(self.widget_2)
         self.new_pw_recheck_edit.setMinimumSize(QtCore.QSize(0, 30))
         self.new_pw_recheck_edit.setStyleSheet("border-bottom-left-radius: 10px;\n"
 "    border-bottom-right-radius: 10px;")
+        self.new_pw_recheck_edit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.new_pw_recheck_edit.setObjectName("new_pw_recheck_edit")
         self.verticalLayout.addWidget(self.new_pw_recheck_edit)
         self.verticalLayout_2.addLayout(self.verticalLayout)

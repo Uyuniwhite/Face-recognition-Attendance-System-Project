@@ -710,6 +710,7 @@ class Ui_MainWidget(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pw_recheck_lineedit.setFont(font)
+        self.pw_recheck_lineedit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pw_recheck_lineedit.setReadOnly(True)
         self.pw_recheck_lineedit.setObjectName("pw_recheck_lineedit")
         self.gridLayout.addWidget(self.pw_recheck_lineedit, 5, 1, 1, 1)
@@ -748,6 +749,7 @@ class Ui_MainWidget(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pw_lineedit.setFont(font)
+        self.pw_lineedit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pw_lineedit.setReadOnly(True)
         self.pw_lineedit.setObjectName("pw_lineedit")
         self.gridLayout.addWidget(self.pw_lineedit, 4, 1, 1, 1)
@@ -794,7 +796,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
