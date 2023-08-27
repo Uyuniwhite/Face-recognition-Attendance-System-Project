@@ -253,6 +253,14 @@ class DBconnect:
         self.commit_db()
         self.end_conn()
 
+    # tb_user 정보 가져오기
+    def get_user_data(self, user_id):
+        c = self.start_conn()
+        find_query = f"select * from tb_user where user_id = '{user_id}'"
+        c.execute(find_query)
+        user_data = c.fetchone()
+        return user_data
+
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
