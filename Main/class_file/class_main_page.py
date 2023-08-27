@@ -54,6 +54,15 @@ class MainPage(QWidget, Ui_MainWidget):
         self.set_dept_table()
 
     def show_atd_table(self):
+        current_month = self.attend_check_combobox.currentText()
+        print('검색한 달', current_month)
+        atd_list = self.controller.dbconn.return_user_atd_info(user_id=self.user_id, year_month=current_month)
+        print(atd_list)
+        for data in atd_list:
+            date = data[1] # 날짜
+            start_time = data[2] # 출근 시간
+            atd_type = data[5] # 출근 방식
+            end_time = data[7] # 퇴근 시간
         pass
 
     def set_user_id(self, user_id):

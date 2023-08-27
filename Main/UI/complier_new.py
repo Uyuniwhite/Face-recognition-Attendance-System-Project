@@ -22,7 +22,7 @@ if __name__ == '__main__':
     os.system(f"pyrcc5 ../../img/icon/resource.qrc -o resource.py")
 
     uis = ['LoginWidget', 'MainWidget', 'warning_dialog', 'OpenWidget',
-           'UserCell', 'AddEmployee', 'SaveUserImg']
+           'UserCell', 'AddEmployee', 'SaveUserImg', 'PassWordChangeDialog']
     for ui in uis:
         os.system(f'python  -m PyQt5.uic.pyuic --import-from=Main.UI -x {ui}.ui -o {ui}.py')
     print('컴파일 완료!')

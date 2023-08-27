@@ -103,11 +103,9 @@ class DBconnect:
         c = self.start_conn()
         user_no = self.find_no(user_id=user_id) # 유저 아이디 반환
 
-        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%'";
+        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%'"
         c.execute(query)
         r_data = c.fetchall()
-
-        print(r_data)
         return r_data
 
     def return_user_atd_month(self, user_id):
@@ -132,7 +130,7 @@ class DBconnect:
         current_date = self.return_datetime(type='c_date')
 
         # 유저 번호
-        user_no = self.dbconn.find_no(user_id)
+        user_no = self.find_no(user_id)
 
         # 출근일수
         con2 = f"user_no = {user_no} and atd_date like '%{current_year_month}%'"  # 조건2
