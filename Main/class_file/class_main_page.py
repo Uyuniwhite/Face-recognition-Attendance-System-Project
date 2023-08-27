@@ -44,6 +44,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.attend_check_btn.clicked.connect(self.show_atd_table)  # 특정 달 출근일자 테이블에 보여주기
         self.SetUserId.connect(self.set_user_id)
         self.mypage_btn.clicked.connect(self.get_userinfo_from_DB)  # 마이페이지 데이터 반영 관련
+        self.edit_btn.clicked.connect(self.clicked_edit_btn)
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -231,3 +232,6 @@ class MainPage(QWidget, Ui_MainWidget):
         dept_info = {10: "개발팀", 20: "인사팀", 30: "회계팀", 40: "감사팀", 50: "영업팀"}
         dept_name = dept_info[dept_id]
         return dept_name
+
+    def clicked_edit_btn(self):
+        self.controller.pw_change.exec()
