@@ -162,9 +162,10 @@ class DBconnect:
                                                  condition=con2, type=1)
         # 근태율 계산 = (현재 달 출근일 / 현재 달 날짜) * 100
         atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
+        absent_day = int(current_date) - int(user_atd_day)
         text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
 
-        return text, atd_per
+        return text, user_atd_day, atd_per, absent_day
 
     # def return_all_data(self, table_name, condition=None):
     #     c = self.start_conn()
