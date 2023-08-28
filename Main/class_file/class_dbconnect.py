@@ -164,7 +164,7 @@ class DBconnect:
         atd_per = round((int(user_atd_day) / int(current_date)) * 100, 2)
         text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
 
-        return text
+        return text, atd_per
 
     # def return_all_data(self, table_name, condition=None):
     #     c = self.start_conn()

@@ -309,6 +309,9 @@ QPushButton::hover{
              </item>
              <item>
               <widget class="QTableWidget" name="dept_tablewidget">
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
                <column>
                 <property name="text">
                  <string>부서이름</string>
@@ -654,8 +657,8 @@ QScrollArea {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>86</width>
-                  <height>33</height>
+                  <width>820</width>
+                  <height>356</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1103,7 +1106,7 @@ border-radius:5px;</string>
                           </size>
                          </property>
                          <property name="text">
-                          <string>외출일</string>
+                          <string>결근일</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1126,7 +1129,7 @@ border-radius:5px;</string>
                       </spacer>
                      </item>
                      <item>
-                      <widget class="QLabel" name="out_img_lab">
+                      <widget class="QLabel" name="absent_img_lab">
                        <property name="minimumSize">
                         <size>
                          <width>60</width>
@@ -1150,7 +1153,7 @@ background-color: rgb(230, 234, 245);</string>
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="../../img/icon/resource.qrc">:/out.png</pixmap>
+                        <pixmap resource="../../img/icon/resource.qrc">:/absent.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -1197,7 +1200,7 @@ border-radius:5px;</string>
                      <item>
                       <layout class="QVBoxLayout" name="verticalLayout_3">
                        <item>
-                        <widget class="QLabel" name="absent_day_lab">
+                        <widget class="QLabel" name="atd_per_lab">
                          <property name="maximumSize">
                           <size>
                            <width>60</width>
@@ -1215,7 +1218,7 @@ border-radius:5px;</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="absent_text_lab">
+                        <widget class="QLabel" name="atd_per_text_lab">
                          <property name="maximumSize">
                           <size>
                            <width>60</width>
@@ -1223,7 +1226,7 @@ border-radius:5px;</string>
                           </size>
                          </property>
                          <property name="text">
-                          <string>결근일</string>
+                          <string>출석률</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1246,7 +1249,7 @@ border-radius:5px;</string>
                       </spacer>
                      </item>
                      <item>
-                      <widget class="QLabel" name="absent_img_lab">
+                      <widget class="QLabel" name="atd_per_img_lab">
                        <property name="minimumSize">
                         <size>
                          <width>60</width>
@@ -1270,7 +1273,7 @@ background-color: rgb(230, 234, 245);</string>
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="../../img/icon/resource.qrc">:/absent.png</pixmap>
+                        <pixmap resource="../../img/icon/resource.qrc">:/out.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>

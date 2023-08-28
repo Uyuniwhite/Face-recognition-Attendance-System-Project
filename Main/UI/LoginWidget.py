@@ -32,7 +32,7 @@ class Ui_LoginWidget(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.left_widget)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.inner_widget = QtWidgets.QWidget(self.left_widget)
-        self.inner_widget.setMaximumSize(QtCore.QSize(290, 244))
+        self.inner_widget.setMaximumSize(QtCore.QSize(290, 277))
         self.inner_widget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.inner_widget.setStyleSheet("QLineEdit{\n"
 "border: 1px solid #3085FE;\n"
