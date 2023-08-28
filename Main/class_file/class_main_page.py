@@ -5,8 +5,8 @@ from Main.class_file.class_user_cell import UserCell
 from Main.class_file.class_font import Font
 from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QCursor, QPixmap
-from PyQt5.QtCore import QThread, pyqtSignal, Qt
+from PyQt5.QtGui import QCursor, QPixmap, QIcon
+from PyQt5.QtCore import QThread, pyqtSignal, Qt, QSize
 
 import matplotlib.pyplot as plt
 import cv2
@@ -123,10 +123,13 @@ class MainPage(QWidget, Ui_MainWidget):
             self.controller.leave_work.show()
 
     def initStyle(self):
-        # 커서 지정
+        # 현재 우치ㅣ
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
         self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
-        # self.img_lab.setScaledContents(True)
         self.img_lab.setPixmap(QPixmap('../../img/icon/user.png').scaled(60, 60))
+
+        self.back_to_dept_btn.setIcon(QIcon('../../img/icon/back.png'))
+        self.back_to_dept_btn.setIconSize(QSize(40, 40))
         self.set_font()  # 폰트 설정
 
     # 사원 추가 버튼

@@ -55,6 +55,8 @@ class Font:
             font.setPointSize(9)
         elif t_size == 5:
             font.setPointSize(8)
+        elif t_size == 6:
+            font.setPointSize(20)
 
 
         if weight == 'bold':
