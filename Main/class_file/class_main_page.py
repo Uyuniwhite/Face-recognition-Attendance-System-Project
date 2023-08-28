@@ -45,6 +45,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.SetUserId.connect(self.set_user_id)
         self.mypage_btn.clicked.connect(self.get_userinfo_from_DB)  # 마이페이지 데이터 반영 관련
         self.edit_btn.clicked.connect(self.clicked_edit_btn)
+        self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data)
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -258,3 +259,8 @@ class MainPage(QWidget, Ui_MainWidget):
     def clicked_edit_btn(self):
         self.controller.pw_change.user_id = self.user_id
         self.controller.pw_change.exec()
+
+    # 관리자모드에서 부서관리 테이블위젯 데이터 가져오기
+    def get_tbwid_data(self):
+        selected_items = self.dept_tablewidget.selectedItems()
+        print(selected_items)
