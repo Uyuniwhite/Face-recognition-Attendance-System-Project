@@ -1,5 +1,6 @@
 import psycopg2
 from datetime import datetime, date
+import pandas as pd
 
 host = "10.10.20.103"
 port = "5432"
@@ -128,6 +129,7 @@ class DBconnect:
         query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%'"
         c.execute(query)
         r_data = c.fetchall()
+
         return r_data
 
     def return_user_atd_month(self, user_id):
@@ -164,6 +166,20 @@ class DBconnect:
         text = f'{user_name}님의 {current_year_month[-2:]}월 출근일수는 {user_atd_day}일, 근태율은 {atd_per}%입니다.'
 
         return text, user_atd_day, atd_per, absent_day
+
+    # 팀별 근태율 리턴
+    def return_team_atd_per(self, dept_name):
+        team_member = self.select_dept(dept_name)
+        per_list = list()
+
+        for mem in team_member:
+            user_id = mem[1]
+            result = self.return_user_atd_summary(user_id)
+            atd_per = result[2]
+            per_list.append(atd_per)
+
+        per_mean = sum(per_list) / len(per_list)
+        return round(per_mean, 2)
 
 
     # 출근 여부 확인
@@ -301,4 +317,5 @@ class DBconnect:
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
     # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
-    db_conn.return_user_atd_month(user_id='soyeon')
+    # db_conn.return_user_atd_month(user_id='soyeon')
+    db_conn.return_team_atd_per('개발팀')

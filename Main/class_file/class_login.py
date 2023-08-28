@@ -144,6 +144,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     if self.user_name !='admin':
                         self.main.main_page.show_atd_table(user_id=self.user_name)
                         self.main.main_page.set_user_atd_combo(self.user_name)
+                        self.main.main_page.back_to_dept_btn.setVisible(False)
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."

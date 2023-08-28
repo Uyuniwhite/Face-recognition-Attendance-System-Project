@@ -64,7 +64,7 @@ class MainPage(QWidget, Ui_MainWidget):
         # self.team_search_btn.click()
 
 
-
+    # TODO 이 함수에서 그래프 넣는 부분도 같이 시작하기
     def show_atd_table(self, user_id):
         if user_id is not None:
             current_month = self.attend_check_combobox.currentText()
@@ -82,7 +82,7 @@ class MainPage(QWidget, Ui_MainWidget):
                     time_difference = '근무중'
                 if atd_type == 'face':
                     atd_type = '얼굴인식'
-
+                print(date, time_difference)
 
                 # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
                 for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
@@ -175,6 +175,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.attend_day_lab.setFont(Font.title(3))
         self.out_day_lab.setFont(Font.title(3))
         self.atd_per_lab.setFont(Font.title(3))
+        self.dept_title.setFont(Font.title(3))
 
         self.attend_text_lab.setFont(Font.text(1))
         self.out_text_lab.setFont(Font.text(1))
@@ -212,7 +213,6 @@ class MainPage(QWidget, Ui_MainWidget):
         for i in range(num_rows):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
-                    print(empolyee_list[cnt][0], empolyee_list[cnt][1])
                     user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0],
                                          user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
@@ -232,19 +232,46 @@ class MainPage(QWidget, Ui_MainWidget):
             else:
                 self.clear_layout(item.layout())
 
+    # def set_dept_table(self):
+    #     dept_list_test = self.controller.dbconn.info_dept()
+    #     print(dept_list_test)
+    #     self.dept_tablewidget.setRowCount(len(dept_list_test))  # 이건 부서 갯수 불러오기
+    #     self.dept_tablewidget.setColumnCount(4)
+    #
+    #     for idx, data in enumerate(dept_list_test):
+    #         dept_code, dept_name, dept_emp = data
+    #         self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(dept_name))  # 1번째 열, 1번째 행에 값 넣기
+    #         self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{dept_code}'))  # 1번째 열, 2번째 행에 값 넣기
+    #         self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f"{dept_emp}"))  # 1번째 열, 3번째 행에 값 넣기
+    #         self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율'))  # 1번째 열, 4번째 행에 값 넣기
+    #     self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
     def set_dept_table(self):
         dept_list_test = self.controller.dbconn.info_dept()
-        print(dept_list_test)
-        self.dept_tablewidget.setRowCount(len(dept_list_test))  # 이건 부서 갯수 불러오기
+        self.dept_tablewidget.setRowCount(len(dept_list_test))
         self.dept_tablewidget.setColumnCount(4)
-        # self.dept_tablewidget.horizontalHeader().setVisible(False)  # 열 헤더를 숨깁니다.
+
         for idx, data in enumerate(dept_list_test):
             dept_code, dept_name, dept_emp = data
-            self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(dept_name))  # 1번째 열, 1번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{dept_code}'))  # 1번째 열, 2번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f"{dept_emp}"))  # 1번째 열, 3번째 행에 값 넣기
-            self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율'))  # 1번째 열, 4번째 행에 값 넣기
-        self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
+            dept_atd_per = self.controller.dbconn.return_team_atd_per(dept_name)
+
+            # 각 항목 생성 및 중앙 정렬
+            item_dept_name = QTableWidgetItem(dept_name)
+            item_dept_name.setTextAlignment(Qt.AlignCenter)
+            self.dept_tablewidget.setItem(idx, 0, item_dept_name)
+
+            item_dept_code = QTableWidgetItem(f'{dept_code}')
+            item_dept_code.setTextAlignment(Qt.AlignCenter)
+            self.dept_tablewidget.setItem(idx, 1, item_dept_code)
+
+            item_dept_emp = QTableWidgetItem(f"{dept_emp}")
+            item_dept_emp.setTextAlignment(Qt.AlignCenter)
+            self.dept_tablewidget.setItem(idx, 2, item_dept_emp)
+
+            item_dept_rate = QTableWidgetItem(f'{str(dept_atd_per)}%')
+            item_dept_rate.setTextAlignment(Qt.AlignCenter)
+            self.dept_tablewidget.setItem(idx, 3, item_dept_rate)
+
+        self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     # DB에서 데이터 user 데이터 가져와서 마이페이지에 데이터 반영
     def get_userinfo_from_DB(self):
@@ -288,10 +315,12 @@ class MainPage(QWidget, Ui_MainWidget):
             self.stackedWidget.setCurrentWidget(self.admin_dept_check)
             self.set_dept_table()
         else:
-            self.stackedWidget.setCurrentWidget(self.home_page)
+             self.stackedWidget.setCurrentWidget(self.home_page)
 
     def check_emp_info(self):
         self.controller.dept_change.show()
 
     def set_graph_for_user(self):
+        """유저 그래프 넣기"""
+
         pass
