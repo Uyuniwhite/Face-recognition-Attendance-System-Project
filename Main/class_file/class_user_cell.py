@@ -63,6 +63,8 @@ class UserCell(QWidget, Ui_Form):
     def move_main_page(self, event):
         if self.user_id != 'admin':
             text, user_atd_day, atd_per, absent_day = self.controller.dbconn.return_user_atd_summary(self.user_id)
+            self.controller.dept_change.emp_id = self.user_id
+            self.controller.dept_change.set_emp_info()
             self.controller.main_page.summary_lab.setText(text)
             self.controller.main_page.show_atd_table(user_id = self.user_id)
             self.controller.main_page.set_user_atd_combo(self.user_id)

@@ -32,7 +32,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
         # 카메라로부터 영상을 캡처하기 위한 객체를 생성
         self.cap = cv2.VideoCapture(0)
-
+        self.id_lineedit.setText('admin')
     def initUI(self):
         # 그림자 효과를 설정
         self.set_shadow()
