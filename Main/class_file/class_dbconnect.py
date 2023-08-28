@@ -141,7 +141,6 @@ class DBconnect:
         unique_result = []
         [unique_result.append(x) for x in result if x not in unique_result]  # 그 중 중복값 제거
 
-        print(unique_result)
         return unique_result
 
     def return_user_atd_summary(self, user_id):
@@ -167,9 +166,6 @@ class DBconnect:
 
         return text, user_atd_day, atd_per, absent_day
 
-    # def return_all_data(self, table_name, condition=None):
-    #     c = self.start_conn()
-    #     query = f"SELECT {column} FROM {table_name}"
 
     # 출근 여부 확인
     def clock_in_check(self, user_no, day_date):

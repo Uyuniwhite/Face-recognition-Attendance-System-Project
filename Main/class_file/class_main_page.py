@@ -7,6 +7,8 @@ from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
 from PyQt5.QtCore import QThread, pyqtSignal, Qt
+
+import matplotlib.pyplot as plt
 import cv2
 import sys
 import os
