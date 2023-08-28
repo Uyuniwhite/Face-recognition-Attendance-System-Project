@@ -31,8 +31,9 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def initUI(self):
         # 페이지 이동
-        self.home_btn.clicked.connect(
-            lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
+        # self.home_btn.clicked.connect(
+        #     lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
+        self.home_btn.clicked.connect(self.move_homepage)
         self.atd_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.atd_page))  # 근태관리 페이지 이동
         self.mypage_btn.clicked.connect(lambda x: self.stackedWidget.setCurrentWidget(self.my_page))  # 마이페이지 이동
 
@@ -45,7 +46,8 @@ class MainPage(QWidget, Ui_MainWidget):
         self.SetUserId.connect(self.set_user_id)
         self.mypage_btn.clicked.connect(self.get_userinfo_from_DB)  # 마이페이지 데이터 반영 관련
         self.edit_btn.clicked.connect(self.clicked_edit_btn)
-        self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data)
+        self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data) # 테이블 위젯 셀 클릭 이벤트
+        self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -55,7 +57,7 @@ class MainPage(QWidget, Ui_MainWidget):
         # 테이블 채우기
         self.set_dept_table()
         # 기본 클릭
-        self.team_search_btn.click()
+        # self.team_search_btn.click()
 
     def show_atd_table(self):
         current_month = self.attend_check_combobox.currentText()
@@ -261,6 +263,16 @@ class MainPage(QWidget, Ui_MainWidget):
         self.controller.pw_change.exec()
 
     # 관리자모드에서 부서관리 테이블위젯 데이터 가져오기
-    def get_tbwid_data(self):
-        selected_items = self.dept_tablewidget.selectedItems()
-        print(selected_items)
+    def get_tbwid_data(self, row, col):
+        dept_name = self.dept_tablewidget.item(row, 0).text()
+        self.stackedWidget.setCurrentWidget(self.admin_home_page)
+        idx = self.team_search_combobox.findText(dept_name)
+        self.team_search_combobox.setCurrentIndex(idx)
+        self.team_search_btn.click()
+
+    # 홈버튼 이벤트
+    def move_homepage(self):
+        if self.user_id == 'admin':
+            self.stackedWidget.setCurrentWidget(self.admin_dept_check)
+        else:
+            self.stackedWidget.setCurrentWidget(self.home_page)
