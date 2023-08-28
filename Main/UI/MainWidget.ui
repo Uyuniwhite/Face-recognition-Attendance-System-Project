@@ -681,7 +681,7 @@ QScrollArea {
                   <x>0</x>
                   <y>0</y>
                   <width>820</width>
-                  <height>356</height>
+                  <height>355</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1455,7 +1455,8 @@ border-radius:10px;</string>
                          </size>
                         </property>
                         <property name="text">
-                         <string>그래프에 대한 설명</string>
+                         <string>2023년 월별 출근율 그래프
+(크게 보려면 클릭하세요)</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>

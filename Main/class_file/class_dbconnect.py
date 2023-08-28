@@ -1,6 +1,5 @@
 import psycopg2
 from datetime import datetime, date
-import pandas as pd
 
 host = "10.10.20.103"
 port = "5432"
@@ -144,7 +143,6 @@ class DBconnect:
 
         return unique_result
 
-
     def return_user_atd_summary(self, user_id):
         # 유저 이름
         con = f"user_id = '{user_id}'"  # 조건1
@@ -181,7 +179,6 @@ class DBconnect:
 
         per_mean = sum(per_list) / len(per_list)
         return round(per_mean, 2)
-
 
     # 출근 여부 확인
     def clock_in_check(self, user_no, day_date):
@@ -228,6 +225,7 @@ class DBconnect:
         c = self.start_conn()
         empolyee_query = "select tb_user.user_name, tb_user.user_id, tb_dept.dept_name from tb_user join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
                          f"where tb_dept.dept_name = '{dept}'"
+
         c.execute(empolyee_query)
         datas = c.fetchall()
         for data in datas:
@@ -326,23 +324,19 @@ class DBconnect:
     # 유저의 연도별 근태 일수 리턴
     def return_user_atd_per_year(self, user_id):
         month_list = [f'2023-{n:02}' for n in range(1, 12 + 1)]
-        month_day_list = {1:31, 2:29, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+        month_day_list = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
         user_no = self.find_no(user_id=user_id)
         atd_per_list = list()
         for idx, month in enumerate(month_list):
-
             con = f"user_no = {user_no} and atd_date like '%{month}%'"  # 조건2
             user_atd_day = self.return_specific_data(column='count(*)', table_name='tb_atd',
                                                      condition=con, type=1)
 
             # 근태율 계산 = (해당 달 출근일 / 해당 달 날짜) * 100
-            atd_per = round(int(user_atd_day) / int(month_day_list[idx+1]) * 100)
-            atd_per_list.append(user_atd_day)
-
+            atd_per = round(int(user_atd_day) / int(month_day_list[idx + 1]) * 100)
+            atd_per_list.append(atd_per)
+        month_list = [f'{i[-2:]}월' for i in month_list]
         return month_list, atd_per_list
-
-
-
 
 
 if __name__ == '__main__':
@@ -351,6 +345,15 @@ if __name__ == '__main__':
     # db_conn.return_user_atd_month(user_id='soyeon')
     # db_conn.return_team_atd_per('개발팀')
     # db_conn.return_user_atd_per_year('soyeon')
+
+    depts = db_conn.find_dept()
+    for dept in depts:
+        print(dept)
+        mems = db_conn.select_dept(dept)
+        for mem in mems:
+            print(mem)
+            m_list, atd_per = db_conn.return_user_atd_per_year(mems[1])
+            print(atd_per)
 
 
     # 출결 임의 삽입

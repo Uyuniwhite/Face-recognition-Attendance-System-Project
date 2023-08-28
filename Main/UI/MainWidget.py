@@ -293,7 +293,7 @@ class Ui_MainWidget(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 820, 356))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 820, 355))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_17.setContentsMargins(0, 0, 0, 0)
@@ -879,7 +879,8 @@ class Ui_MainWidget(object):
         self.atd_per_text_lab.setText(_translate("MainWidget", "출석률"))
         self.graph_contents_1.setText(_translate("MainWidget", "최근 일주일간 근무시간 그래프\n"
 "(월별 그래프를 보려면 클릭하세요)"))
-        self.graph_contents_2.setText(_translate("MainWidget", "그래프에 대한 설명"))
+        self.graph_contents_2.setText(_translate("MainWidget", "2023년 월별 출근율 그래프\n"
+"(크게 보려면 클릭하세요)"))
         self.attend_check_lab.setText(_translate("MainWidget", "월별조회"))
         self.attend_check_btn.setText(_translate("MainWidget", "확인"))
         item = self.tableWidget.horizontalHeaderItem(0)
