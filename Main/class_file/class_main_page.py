@@ -51,7 +51,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data) # 테이블 위젯 셀 클릭 이벤트
         self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
         self.emp_detail_check.clicked.connect(self.check_emp_info) # 관리자 사원 정보 확인 버튼 클릭
-
+        self.back_to_dept_btn.clicked.connect(self.clicked_back_btn) # 관리자 사원관리 뒤로가기 버튼 이벤트
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -295,3 +295,6 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def set_graph_for_user(self):
         pass
+
+    def clicked_back_btn(self):
+        self.stackedWidget.setCurrentWidget(self.admin_home_page)
