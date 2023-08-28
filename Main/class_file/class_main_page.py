@@ -93,9 +93,11 @@ class MainPage(QWidget, Ui_MainWidget):
 
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):
-        text, atd_per = self.controller.dbconn.return_user_atd_summary(user_id=user_id)
+        text, user_atd_day, atd_per, absent_day = self.controller.dbconn.return_user_atd_summary(user_id=user_id)
         self.summary_lab.setText(text)
-        self.atd_per_lab.setText(atd_per)
+        self.atd_per_lab.setText(f"{str(atd_per)[:2]}%")
+        self.attend_day_lab.setText(f'{str(user_atd_day)}일')
+        self.out_day_lab.setText(f'{str(absent_day)}일')
 
     # 외출하기 버튼 클릭시
     def show_out_while_img(self):
@@ -157,11 +159,11 @@ class MainPage(QWidget, Ui_MainWidget):
         # 메인 페이지
         self.attend_day_lab.setFont(Font.title(3))
         self.out_day_lab.setFont(Font.title(3))
-        self.absent_day_lab.setFont(Font.title(3))
+        self.atd_per_lab.setFont(Font.title(3))
 
         self.attend_text_lab.setFont(Font.text(1))
         self.out_text_lab.setFont(Font.text(1))
-        self.absent_text_lab.setFont(Font.text(1))
+        self.atd_per_text_lab.setFont(Font.text(1))
 
         self.out_btn.setFont(Font.text(4))
         self.end_btn.setFont(Font.text(4))

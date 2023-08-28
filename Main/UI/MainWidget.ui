@@ -1203,7 +1203,7 @@ border-radius:5px;</string>
                         <widget class="QLabel" name="atd_per_lab">
                          <property name="maximumSize">
                           <size>
-                           <width>60</width>
+                           <width>65</width>
                            <height>16777215</height>
                           </size>
                          </property>

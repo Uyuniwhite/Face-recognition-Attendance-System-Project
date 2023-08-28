@@ -136,7 +136,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     user_dept = self.main.dbconn.return_specific_data(column='dept_name', table_name='tb_dept', condition=f'dept_id = {result[4]}', type=1)
                     self.main.main_page.home_name_lab.setText(result[1])
                     self.main.main_page.home_dept_lab.setText(user_dept)
-                    self.main.main_page.atd_per_lab.setText()
+                    # self.main.main_page.atd_per_lab.setText()
 
                     self.main.main_page.set_user_atd_combo(user_id=self.user_name)  # 유저 콤보박스 추가
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
