@@ -12,6 +12,7 @@ from Main.class_file.class_change_password import PasswordChange
 from Main.class_file.class_dept_change import DeptChange
 from Main.class_file.class_show_end_img import ShowEndImage
 
+
 from PyQt5.QtWidgets import QWidget
 
 

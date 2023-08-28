@@ -4,11 +4,18 @@ from Main.UI.MainWidget import Ui_MainWidget
 from Main.class_file.class_user_cell import UserCell
 from Main.class_file.class_font import Font
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_show_graph import ShowGraph
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QSize
 
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+# from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
+from scipy.interpolate import interp1d
+import numpy as np
+from datetime import datetime
 import cv2
 import sys
 import os
@@ -52,6 +59,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
         self.emp_detail_check.clicked.connect(self.check_emp_info) # 관리자 사원 정보 확인 버튼 클릭
         self.back_to_dept_btn.clicked.connect(self.clicked_back_btn) # 관리자 사원관리 뒤로가기 버튼 이벤트
+        self.graph_widget_1.mousePressEvent = self.show_large_graph
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -70,6 +78,7 @@ class MainPage(QWidget, Ui_MainWidget):
             current_month = self.attend_check_combobox.currentText()
             atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
 
+            self.set_graph_for_user(atd_list)
             self.tableWidget.setRowCount(len(atd_list))
             self.tableWidget.setColumnCount(6)
 
@@ -82,7 +91,8 @@ class MainPage(QWidget, Ui_MainWidget):
                     time_difference = '근무중'
                 if atd_type == 'face':
                     atd_type = '얼굴인식'
-                print(date, time_difference)
+
+
 
                 # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
                 for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
@@ -124,14 +134,32 @@ class MainPage(QWidget, Ui_MainWidget):
             self.controller.leave_work.show()
 
     def initStyle(self):
-        # 현재 우치ㅣ
-        os.chdir(os.path.dirname(os.path.abspath(__file__)))
+        # 현재 위치
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))\
+
+        # 이미지 넣기
         self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
         self.img_lab.setPixmap(QPixmap('../../img/icon/user.png').scaled(60, 60))
-
         self.back_to_dept_btn.setIcon(QIcon('../../img/icon/back.png'))
         self.back_to_dept_btn.setIconSize(QSize(40, 40))
-        self.set_font()  # 폰트 설정
+
+        # 폰트 설정
+        self.set_font()
+        plt.rcParams['font.family'] = 'Malgun Gothic'
+        plt.rcParams['axes.unicode_minus'] = False
+
+        # 그래프 설정(기본값)
+        # 맷플롯 캔버스 만들기 및 레이아웃에 캔버스 추가
+        # canvas = FigureCanvas(plt.figure())
+        # self.verticalLayout_6.addWidget(canvas)
+
+        # self.figure = plt.figure(figsize=(4, 2))  # Figure 객체를 멤버 변수로 생성
+        # self.canvas = FigureCanvas(self.figure)
+        # self.toolbar = NavigationToolbar(self.canvas, self)
+        # self.verticalLayout_6.addWidget(self.toolbar)  # 툴바 추가
+        # self.verticalLayout_6.addWidget(self.canvas)
+
+
 
     # 사원 추가 버튼
     def add_employee(self):
@@ -212,7 +240,7 @@ class MainPage(QWidget, Ui_MainWidget):
         for i in range(num_rows):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
-                    print(empolyee_list[cnt][0], empolyee_list[cnt][1])
+                    # print(empolyee_list[cnt][0], empolyee_list[cnt][1])
                     user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0],
                                          user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
@@ -307,10 +335,68 @@ class MainPage(QWidget, Ui_MainWidget):
     def check_emp_info(self):
         self.controller.dept_change.show()
 
-    def set_graph_for_user(self):
-        """유저 그래프 넣기"""
+    def set_graph_for_user(self, data):
+        x_list, y_list = list(), list()
+        data = data[-10:]
+        for i in data:
+            date, start_time, end_time = i[1], i[2], i[7]
+            if date != self.controller.dbconn.return_datetime('date'): # 현재날짜는 제외
+                hour_diff = 0
+                if end_time != 'NULL':
+                    time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
+                    hour_diff = time_difference.total_seconds() / 3600
+                x_list.append(str(date[-2:]))
+                y_list.append(int(hour_diff))
+        self.set_user_atd_graph(x_list, y_list, '출근날짜', '출근시간', self.verticalLayout_6)
 
-        pass
+    def set_user_atd_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
+        x_vals = np.linspace(0, len(x_list) - 1, 500)
+        y_interp = interp1d(np.arange(len(y_list)), y_list, kind='cubic')
+        y_vals = y_interp(x_vals)
+
+        # 그래프 조건
+        fig = Figure(figsize=(4, 1.6))
+        fig.tight_layout()
+        fig.subplots_adjust(left=0.15, right=0.98, top=0.95, bottom=0.15)
+
+        ax = fig.add_subplot(111)
+        ax.plot(x_vals, y_vals)  # 부드럽게 그래프 그리기
+
+        ax.set_ylim(0, max(y_vals) + 1)
+
+        ax.set_xticks(np.arange(len(x_list)))  # x_list의 인덱스를 눈금 위치로 설정
+        ax.set_xticklabels(x_list)  # x_list의 값들을 눈금 라벨로 설정
+
+        ax.set_xlabel(x_lab)
+        ax.set_ylabel(y_lab)
+        ax.grid(False)
+
+
+        # figure를 저장합니다.
+        self.figure = fig
+
+        # 기존의 layout에 추가하는 canvas
+        self.canvas = FigureCanvas(self.figure)
+        layout.addWidget(self.canvas)
+
+
+
+    # TODO 그래프 크게 보여주기
+    def show_large_graph(self, event):
+        new_canvas = FigureCanvas(self.figure)
+        d = ShowGraph(new_canvas)
+        d.exec_()
 
     def clicked_back_btn(self):
         self.stackedWidget.setCurrentWidget(self.admin_home_page)
+
+
+
+
+
+# if __name__ == '__main__':
+#     app = QApplication([])
+#     window = Dialog()
+#     window.show()
+#     app.exec_()
+#     app.exec_()
