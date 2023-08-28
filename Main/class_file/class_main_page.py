@@ -51,7 +51,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data) # 테이블 위젯 셀 클릭 이벤트
         self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
         self.emp_detail_check.clicked.connect(self.check_emp_info) # 관리자 사원 정보 확인 버튼 클릭
-
+        self.back_to_dept_btn.clicked.connect(self.clicked_back_btn) # 관리자 사원관리 뒤로가기 버튼 이벤트
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -64,7 +64,7 @@ class MainPage(QWidget, Ui_MainWidget):
         # self.team_search_btn.click()
 
 
-    # TODO 이 함수에서 그래프 넣는 부분도 같이 시작하기
+
     def show_atd_table(self, user_id):
         if user_id is not None:
             current_month = self.attend_check_combobox.currentText()
@@ -175,7 +175,6 @@ class MainPage(QWidget, Ui_MainWidget):
         self.attend_day_lab.setFont(Font.title(3))
         self.out_day_lab.setFont(Font.title(3))
         self.atd_per_lab.setFont(Font.title(3))
-        self.dept_title.setFont(Font.title(3))
 
         self.attend_text_lab.setFont(Font.text(1))
         self.out_text_lab.setFont(Font.text(1))
@@ -213,6 +212,7 @@ class MainPage(QWidget, Ui_MainWidget):
         for i in range(num_rows):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
+                    print(empolyee_list[cnt][0], empolyee_list[cnt][1])
                     user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0],
                                          user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
@@ -232,19 +232,6 @@ class MainPage(QWidget, Ui_MainWidget):
             else:
                 self.clear_layout(item.layout())
 
-    # def set_dept_table(self):
-    #     dept_list_test = self.controller.dbconn.info_dept()
-    #     print(dept_list_test)
-    #     self.dept_tablewidget.setRowCount(len(dept_list_test))  # 이건 부서 갯수 불러오기
-    #     self.dept_tablewidget.setColumnCount(4)
-    #
-    #     for idx, data in enumerate(dept_list_test):
-    #         dept_code, dept_name, dept_emp = data
-    #         self.dept_tablewidget.setItem(idx, 0, QTableWidgetItem(dept_name))  # 1번째 열, 1번째 행에 값 넣기
-    #         self.dept_tablewidget.setItem(idx, 1, QTableWidgetItem(f'{dept_code}'))  # 1번째 열, 2번째 행에 값 넣기
-    #         self.dept_tablewidget.setItem(idx, 2, QTableWidgetItem(f"{dept_emp}"))  # 1번째 열, 3번째 행에 값 넣기
-    #         self.dept_tablewidget.setItem(idx, 3, QTableWidgetItem(f'{dept_name}근태율'))  # 1번째 열, 4번째 행에 값 넣기
-    #     self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 열 너비를 조정합니다.
     def set_dept_table(self):
         dept_list_test = self.controller.dbconn.info_dept()
         self.dept_tablewidget.setRowCount(len(dept_list_test))
@@ -324,3 +311,6 @@ class MainPage(QWidget, Ui_MainWidget):
         """유저 그래프 넣기"""
 
         pass
+
+    def clicked_back_btn(self):
+        self.stackedWidget.setCurrentWidget(self.admin_home_page)
