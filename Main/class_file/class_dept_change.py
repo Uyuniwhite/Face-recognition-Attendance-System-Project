@@ -71,6 +71,7 @@ class DeptChange(QWidget, Ui_AddEmployee):
             self.controller.dbconn.update_dept_id(user_id, dept_id)
             txt = "변경 완료됐습니다!"
             self.msgbox_obj("", txt, img='check')
+            self.close()
         elif result == 0:
             txt = "취소했습니다!"
             self.msgbox_obj("",txt, img='check')
