@@ -15,18 +15,34 @@ class Ui_ShowGraph(object):
     def setupUi(self, ShowGraph):
         ShowGraph.setObjectName("ShowGraph")
         ShowGraph.resize(840, 485)
+        ShowGraph.setStyleSheet("")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(ShowGraph)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.widget = QtWidgets.QWidget(ShowGraph)
+        self.widget.setStyleSheet("#widget{background-color: rgb(255, 255, 255);\n"
+"border-radius: 10px;\n"
+"border: 1px solid gray;\n"
+"}")
         self.widget.setObjectName("widget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget)
+        self.verticalLayout_3.setContentsMargins(-1, 15, -1, -1)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label = QtWidgets.QLabel(self.widget)
+        self.label.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout_3.addWidget(self.label)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.verticalLayout_3.addLayout(self.verticalLayout)
         self.pushButton = QtWidgets.QPushButton(self.widget)
+        self.pushButton.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton.setStyleSheet("background-color: #3085FE;\n"
+"border-radius: 10px;\n"
+"color: white;\n"
+"height:30px;")
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout_3.addWidget(self.pushButton)
         self.verticalLayout_2.addWidget(self.widget)
@@ -37,6 +53,7 @@ class Ui_ShowGraph(object):
     def retranslateUi(self, ShowGraph):
         _translate = QtCore.QCoreApplication.translate
         ShowGraph.setWindowTitle(_translate("ShowGraph", "Dialog"))
+        self.label.setText(_translate("ShowGraph", "그래프 제목"))
         self.pushButton.setText(_translate("ShowGraph", "닫기"))
 
 

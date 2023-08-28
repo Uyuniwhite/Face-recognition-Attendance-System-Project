@@ -142,10 +142,15 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
 
                     if self.user_name !='admin':
-                        self.main.main_page.show_atd_table(user_id=self.user_name)
                         self.main.main_page.set_user_atd_combo(self.user_name)
+                        self.main.main_page.show_atd_table(user_id=self.user_name)
                         self.main.main_page.back_to_dept_btn.setVisible(False)
                         self.main.main_page.emp_detail_check.setVisible(False)
+                        month_list, atd_per_list = self.main.dbconn.return_user_atd_per_year(self.user_name)
+                        self.main.main_page.set_user_bar_graph(x_list=month_list, y_list=atd_per_list,
+                                                                x_lab='연도별', y_lab='근태율', title='연도별 평균 근태율',
+                                                               layout=self.main.main_page.verticalLayout_9)
+
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."

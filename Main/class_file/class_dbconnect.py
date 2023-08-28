@@ -95,8 +95,8 @@ class DBconnect:
 
     # 요일로 반환
     def get_day_of_week(self, text_date):
-        date_object = datetime.strptime(text_date, '%Y-%m-%d').date()
 
+        date_object = datetime.strptime(text_date, '%Y-%m-%d').date()
         # 요일을 숫자로 반환 (월요일: 0, 화요일: 1, ..., 일요일: 6)
         day_of_week = date_object.weekday()
 
@@ -143,6 +143,7 @@ class DBconnect:
         [unique_result.append(x) for x in result if x not in unique_result]  # 그 중 중복값 제거
 
         return unique_result
+
 
     def return_user_atd_summary(self, user_id):
         # 유저 이름
@@ -313,9 +314,47 @@ class DBconnect:
         self.commit_db()
         self.end_conn()
 
+    # 출결 임의 삽입 함수
+    def test(self, date):
+        c = self.start_conn()
+        add_query = "insert into tb_atd (atd_date, atd_time, atd_start, atd_end, atd_type, user_no, atd_leave) values " \
+                    f"('{date}', '{'08:50:30'}', '{1}', '{1}', '{'face'}','{2}', '{'18:10:10'}' )"
+        c.execute(add_query)
+        self.commit_db()
+        self.end_conn()
+
+    # 유저의 연도별 근태 일수 리턴
+    def return_user_atd_per_year(self, user_id):
+        month_list = [f'2023-{n:02}' for n in range(1, 12 + 1)]
+        month_day_list = {1:31, 2:29, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+        user_no = self.find_no(user_id=user_id)
+        atd_per_list = list()
+        for idx, month in enumerate(month_list):
+
+            con = f"user_no = {user_no} and atd_date like '%{month}%'"  # 조건2
+            user_atd_day = self.return_specific_data(column='count(*)', table_name='tb_atd',
+                                                     condition=con, type=1)
+
+            # 근태율 계산 = (해당 달 출근일 / 해당 달 날짜) * 100
+            atd_per = round(int(user_atd_day) / int(month_day_list[idx+1]) * 100)
+            atd_per_list.append(user_atd_day)
+
+        return month_list, atd_per_list
+
+
+
+
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
     # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
     # db_conn.return_user_atd_month(user_id='soyeon')
-    db_conn.return_team_atd_per('개발팀')
+    # db_conn.return_team_atd_per('개발팀')
+    # db_conn.return_user_atd_per_year('soyeon')
+
+
+    # 출결 임의 삽입
+    # date = 31
+    # date_list = [f'2023-07-{n:02}' for n in range(1, date + 1)]
+    # for i in range(1, date+1):
+    #     db_conn.test(date_list[i-1])

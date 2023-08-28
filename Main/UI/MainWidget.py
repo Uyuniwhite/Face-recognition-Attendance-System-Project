@@ -521,7 +521,8 @@ class Ui_MainWidget(object):
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.graph_widget_1 = QtWidgets.QWidget(self.home_bottom_widget_2)
-        self.graph_widget_1.setMaximumSize(QtCore.QSize(379, 16777215))
+        self.graph_widget_1.setMinimumSize(QtCore.QSize(380, 0))
+        self.graph_widget_1.setMaximumSize(QtCore.QSize(380, 16777215))
         self.graph_widget_1.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius:10px;")
         self.graph_widget_1.setObjectName("graph_widget_1")
@@ -539,6 +540,8 @@ class Ui_MainWidget(object):
         self.verticalLayout_7.addWidget(self.graph_contents_1)
         self.horizontalLayout_6.addWidget(self.graph_widget_1)
         self.graph_widget_2 = QtWidgets.QWidget(self.home_bottom_widget_2)
+        self.graph_widget_2.setMinimumSize(QtCore.QSize(380, 0))
+        self.graph_widget_2.setMaximumSize(QtCore.QSize(380, 16777215))
         self.graph_widget_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius:10px;")
         self.graph_widget_2.setObjectName("graph_widget_2")

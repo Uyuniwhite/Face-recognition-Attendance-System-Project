@@ -60,6 +60,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.emp_detail_check.clicked.connect(self.check_emp_info) # 관리자 사원 정보 확인 버튼 클릭
         self.back_to_dept_btn.clicked.connect(self.clicked_back_btn) # 관리자 사원관리 뒤로가기 버튼 이벤트
         self.graph_widget_1.mousePressEvent = self.show_large_graph
+        self.graph_widget_2.mousePressEvent = self.show_large_bar_graph
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -78,6 +79,8 @@ class MainPage(QWidget, Ui_MainWidget):
             current_month = self.attend_check_combobox.currentText()
             atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
 
+            print('현재 달', current_month)
+            print('atd_list출력', atd_list)
             self.set_graph_for_user(atd_list)
             self.tableWidget.setRowCount(len(atd_list))
             self.tableWidget.setColumnCount(6)
@@ -147,17 +150,6 @@ class MainPage(QWidget, Ui_MainWidget):
         self.set_font()
         plt.rcParams['font.family'] = 'Malgun Gothic'
         plt.rcParams['axes.unicode_minus'] = False
-
-        # 그래프 설정(기본값)
-        # 맷플롯 캔버스 만들기 및 레이아웃에 캔버스 추가
-        # canvas = FigureCanvas(plt.figure())
-        # self.verticalLayout_6.addWidget(canvas)
-
-        # self.figure = plt.figure(figsize=(4, 2))  # Figure 객체를 멤버 변수로 생성
-        # self.canvas = FigureCanvas(self.figure)
-        # self.toolbar = NavigationToolbar(self.canvas, self)
-        # self.verticalLayout_6.addWidget(self.toolbar)  # 툴바 추가
-        # self.verticalLayout_6.addWidget(self.canvas)
 
 
 
@@ -335,9 +327,13 @@ class MainPage(QWidget, Ui_MainWidget):
     def check_emp_info(self):
         self.controller.dept_change.show()
 
+    def clicked_back_btn(self):
+        self.stackedWidget.setCurrentWidget(self.admin_home_page)
+
+    # 사용자 그래프 제작
     def set_graph_for_user(self, data):
-        x_list, y_list = list(), list()
-        data = data[-10:]
+        self.x_list, self.y_list = list(), list()
+        # data = data[-10:]
         for i in data:
             date, start_time, end_time = i[1], i[2], i[7]
             if date != self.controller.dbconn.return_datetime('date'): # 현재날짜는 제외
@@ -345,11 +341,12 @@ class MainPage(QWidget, Ui_MainWidget):
                 if end_time != 'NULL':
                     time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
                     hour_diff = time_difference.total_seconds() / 3600
-                x_list.append(str(date[-2:]))
-                y_list.append(int(hour_diff))
-        self.set_user_atd_graph(x_list, y_list, '출근날짜', '출근시간', self.verticalLayout_6)
+                self.x_list.append(str(date[-2:]))
+                self.y_list.append(int(hour_diff))
 
-    def set_user_atd_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
+        self.set_user_atd_graph(self.x_list, self.y_list, '출근날짜', '출근시간', self.verticalLayout_6)
+
+    def create_plot_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
         x_vals = np.linspace(0, len(x_list) - 1, 500)
         y_interp = interp1d(np.arange(len(y_list)), y_list, kind='cubic')
         y_vals = y_interp(x_vals)
@@ -371,32 +368,60 @@ class MainPage(QWidget, Ui_MainWidget):
         ax.set_ylabel(y_lab)
         ax.grid(False)
 
+        return fig
+    # def create_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title=''):
+    #
+    #     fig, ax = plt.subplots()
+    #
+    #     ax.bar(x_list, y_list)
+    #     ax.set_xlabel(x_lab)
+    #     ax.set_ylabel(y_lab)
+    #     ax.set_title(title)
+    #     ax.grid(False)
+    #     fig.tight_layout()
+    #
+    #     return fig
 
-        # figure를 저장합니다.
-        self.figure = fig
+    def create_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title=''):
 
-        # 기존의 layout에 추가하는 canvas
+        fig, ax = plt.subplots(figsize=(4, 1.6))
+
+        ax.bar(x_list, y_list)
+        ax.set_xlabel(x_lab)
+        ax.set_ylabel(y_lab)
+        ax.set_title(title)
+        ax.grid(False)
+        fig.tight_layout()
+        fig.subplots_adjust(left=0.15, right=0.98, top=0.95, bottom=0.15)
+
+        return fig
+
+    def set_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title='', layout=None):
+        fig = self.create_bar_graph(x_list, y_list, x_lab, y_lab, title)
+        canvas = FigureCanvas(fig)
+        # if layout:
+        #     layout.addWidget(canvas)
+        return canvas
+
+    def set_user_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title='', layout=None):
+        canvas = self.set_bar_graph(x_list=x_list, y_list=y_list,
+                                    x_lab=x_lab, y_lab=y_lab, title=title,
+                                   layout=self.verticalLayout_9)
+        layout.addWidget(canvas)
+
+    def set_user_atd_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
+        self.figure = self.create_plot_graph(x_list[-10:], y_list[10:], x_lab, y_lab)
         self.canvas = FigureCanvas(self.figure)
         layout.addWidget(self.canvas)
 
-
-
-    # TODO 그래프 크게 보여주기
+    # 그래프 크게 띄우기
     def show_large_graph(self, event):
-        new_canvas = FigureCanvas(self.figure)
-        d = ShowGraph(new_canvas)
+
+        new_fig = self.create_plot_graph(self.x_list, self.y_list, x_lab='출근날짜', y_lab='출근시간')  # 이 부분에서 필요한 인자를 제공해야 합니다.
+        new_canvas = FigureCanvas(new_fig)
+        d = ShowGraph(new_canvas, '근무시간 그래프')
         d.exec_()
 
-    def clicked_back_btn(self):
-        self.stackedWidget.setCurrentWidget(self.admin_home_page)
-
-
-
-
-
-# if __name__ == '__main__':
-#     app = QApplication([])
-#     window = Dialog()
-#     window.show()
-#     app.exec_()
-#     app.exec_()
+    def show_large_bar_graph(self, event):
+        pass
+        # new_fig = self.create_bar_graph()

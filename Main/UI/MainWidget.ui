@@ -1356,9 +1356,15 @@ background-color: rgb(230, 234, 245);</string>
                    </property>
                    <item>
                     <widget class="QWidget" name="graph_widget_1" native="true">
+                     <property name="minimumSize">
+                      <size>
+                       <width>380</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="maximumSize">
                       <size>
-                       <width>379</width>
+                       <width>380</width>
                        <height>16777215</height>
                       </size>
                      </property>
@@ -1408,6 +1414,18 @@ border-radius:10px;</string>
                    </item>
                    <item>
                     <widget class="QWidget" name="graph_widget_2" native="true">
+                     <property name="minimumSize">
+                      <size>
+                       <width>380</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>380</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">background-color: rgb(255, 255, 255);
 border-radius:10px;</string>
