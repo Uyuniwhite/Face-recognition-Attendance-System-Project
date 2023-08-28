@@ -54,6 +54,7 @@ class DeptChange(QWidget, Ui_AddEmployee):
 
     def set_data_cb(self):
         dept_list = self.controller.dbconn.find_dept()
+        self.comboBox.clear()
         self.comboBox.addItems(dept_list)
 
     def current_dept_name(self, dept_name):
