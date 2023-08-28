@@ -144,6 +144,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.mypage_btn.setFont(Font.button(6))
         self.users_btn.setFont(Font.button(6))
 
+
         # 마이페이지
         self.name_lab.setFont(font_style_1)
         self.dept_lab.setFont(font_style_1)
@@ -163,6 +164,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.attend_check_lab.setFont(Font.text(0, weight='bold'))
         self.attend_check_combobox.setFont(Font.text(0))
         self.attend_check_btn.setFont(Font.text(0, weight='bold'))
+        self.emp_detail_check.setFont(Font.text(0, weight='bold'))
         self.summary_lab.setFont(Font.button(7))
 
         # 메인 페이지

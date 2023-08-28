@@ -473,7 +473,7 @@ class Ui_MainWidget(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.atd_per_lab = QtWidgets.QLabel(self.absent_widget)
-        self.atd_per_lab.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.atd_per_lab.setMaximumSize(QtCore.QSize(65, 16777215))
         font = QtGui.QFont()
         font.setPointSize(17)
         self.atd_per_lab.setFont(font)
@@ -599,6 +599,16 @@ class Ui_MainWidget(object):
 "background-color: rgb(217, 217, 217);")
         self.attend_check_btn.setObjectName("attend_check_btn")
         self.horizontalLayout_11.addWidget(self.attend_check_btn)
+        self.emp_detail_check = QtWidgets.QPushButton(self.widget_9)
+        self.emp_detail_check.setMinimumSize(QtCore.QSize(120, 41))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.emp_detail_check.setFont(font)
+        self.emp_detail_check.setStyleSheet("border-radius:10px;\n"
+"background-color:#3085FE;\n"
+"color: white;")
+        self.emp_detail_check.setObjectName("emp_detail_check")
+        self.horizontalLayout_11.addWidget(self.emp_detail_check)
         self.verticalLayout_13.addWidget(self.widget_9)
         self.widget_10 = QtWidgets.QWidget(self.atd_page)
         self.widget_10.setMaximumSize(QtCore.QSize(16777215, 280))
@@ -806,7 +816,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -844,6 +854,7 @@ class Ui_MainWidget(object):
         self.graph_contents_2.setText(_translate("MainWidget", "그래프에 대한 설명"))
         self.attend_check_lab.setText(_translate("MainWidget", "월별조회"))
         self.attend_check_btn.setText(_translate("MainWidget", "확인"))
+        self.emp_detail_check.setText(_translate("MainWidget", "사원정보확인"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWidget", "일자"))
         item = self.tableWidget.horizontalHeaderItem(1)

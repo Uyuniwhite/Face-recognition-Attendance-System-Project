@@ -235,7 +235,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="admin_dept_check">
          <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -1533,6 +1533,29 @@ background-color: rgb(217, 217, 217);</string>
                  </property>
                  <property name="text">
                   <string>확인</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="emp_detail_check">
+                 <property name="minimumSize">
+                  <size>
+                   <width>120</width>
+                   <height>41</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>13</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:10px;
+background-color:#3085FE;
+color: white;</string>
+                 </property>
+                 <property name="text">
+                  <string>사원정보확인</string>
                  </property>
                 </widget>
                </item>
