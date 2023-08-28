@@ -112,7 +112,6 @@ class DBconnect:
         query = f"SELECT {column} FROM {table_name}"
         if condition is not None:
             query += f" WHERE {condition}"
-        print(query)
 
         c.execute(query)
         r_data = c.fetchall()
