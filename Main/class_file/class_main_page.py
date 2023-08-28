@@ -292,3 +292,6 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def check_emp_info(self):
         self.controller.dept_change.show()
+
+    def set_graph_for_user(self):
+        pass

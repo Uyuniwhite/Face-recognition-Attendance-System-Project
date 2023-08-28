@@ -1,7 +1,9 @@
 from Main.UI.UserCell import Ui_Form
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
+
 
 import sys
 import os
@@ -19,6 +21,7 @@ class UserCell(QWidget, Ui_Form):
         self.user_id = user_id
         self.user_name = name
         self.msgbox = MsgBox()
+        self.name_lab.setFont(Font.text(3))
 
         # 커서 설정
         self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
@@ -50,15 +53,12 @@ class UserCell(QWidget, Ui_Form):
     # 유저 삭제하는 부분
     def del_user(self):
         self.close() # 해당 위젯 삭제
-        print(self.user_id, '삭제해야 합니다.')
         msg = f"{self.user_name}님을 삭제하시겠습니까?"
         self.msgbox.set_dialog_type(msg=msg, img='delete', type=4)
         self.msgbox.exec_()
 
         if self.msgbox.result() == 1:
             self.contoller.dbconn.delete_empolyee(self.user_id)
-        elif self.msgbox.result() == 0:
-            print('취소')
 
     def move_main_page(self, event):
         if self.user_id != 'admin':

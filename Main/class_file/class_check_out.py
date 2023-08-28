@@ -1,6 +1,7 @@
 from Main.UI.SaveUserImg import Ui_SaveUserImg
 from Main.class_file.class_face_detection import FaceRecognizer
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QTimer, pyqtSignal
@@ -26,6 +27,9 @@ class CheckOutWhile(QWidget, Ui_SaveUserImg):
 
         self.user_img.setScaledContents(True)
         self.user_img.setPixmap(QPixmap("../../img/icon/face-id.png"))
+
+        self.title_lab.setFont(Font.title(2))
+
 
     def set_user_id(self, user_id):
         self.user_id = user_id
@@ -68,9 +72,10 @@ class CheckOutWhile(QWidget, Ui_SaveUserImg):
                     message = str()
                     if name == self.user_id:
                         message = f"{self.user_id}님 복귀하셨습니다."
+                        self.msgbox.set_dialog_type(msg=message, img='check')
                     elif name != self.user_id:
                         message = f"당신은 {self.user_id}님이 아니신데요?"
-                    self.msgbox.set_dialog_type(msg=message, img='warn')
+                        self.msgbox.set_dialog_type(msg=message, img='warn')
                     self.msgbox.exec_()
                     self.cap.release()
                     break
