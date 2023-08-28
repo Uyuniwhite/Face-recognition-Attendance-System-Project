@@ -65,7 +65,10 @@ class Ui_Form(object):
         self.del_btn.setStyleSheet("#close_btn::hover{\n"
 "border: 1px solid #3C82F2;\n"
 "    background-color: transparent;\n"
-"}")
+"}\n"
+"#close_btn{\n"
+"border: none;\n"
+"background-color:rgba(255,255,255,0);}")
         self.del_btn.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/interface.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

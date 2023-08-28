@@ -93,8 +93,9 @@ class MainPage(QWidget, Ui_MainWidget):
 
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):
-        text = self.controller.dbconn.return_user_atd_summary(user_id=user_id)
+        text, atd_per = self.controller.dbconn.return_user_atd_summary(user_id=user_id)
         self.summary_lab.setText(text)
+        self.atd_per_lab.setText(atd_per)
 
     # 외출하기 버튼 클릭시
     def show_out_while_img(self):

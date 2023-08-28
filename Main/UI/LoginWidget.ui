@@ -80,7 +80,7 @@
         <property name="maximumSize">
          <size>
           <width>290</width>
-          <height>244</height>
+          <height>277</height>
          </size>
         </property>
         <property name="layoutDirection">

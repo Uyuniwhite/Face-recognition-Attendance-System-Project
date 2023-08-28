@@ -178,7 +178,10 @@
             <string notr="true">#close_btn::hover{
 border: 1px solid #3C82F2;
 	background-color: transparent;
-}</string>
+}
+#close_btn{
+border: none;
+background-color:rgba(255,255,255,0);}</string>
            </property>
            <property name="text">
             <string/>
