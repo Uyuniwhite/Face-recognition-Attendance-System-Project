@@ -9,6 +9,7 @@ from Main.class_file.class_leave_work import CheckLeaveWork
 from Main.class_file.class_show_out_img import ShowOutForWhile
 from Main.class_file.class_check_out import CheckOutWhile
 from Main.class_file.class_change_password import PasswordChange
+from Main.class_file.class_dept_change import DeptChange
 
 from PyQt5.QtWidgets import QWidget
 
@@ -28,3 +29,4 @@ class Controller(QWidget):
         self.check_out = CheckOutWhile(self)  # 외출 복귀 확인 객체 생성
         self.leave_work = CheckLeaveWork(self)  # 퇴근 확인 객체 생성
         self.pw_change = PasswordChange(self) # 사원 마이페이지 패스워드 변경 객체 생성
+        self.dept_change = DeptChange(self)  # 관리자의 사원 부서 변경 객체

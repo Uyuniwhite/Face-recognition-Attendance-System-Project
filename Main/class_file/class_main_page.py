@@ -50,6 +50,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.edit_btn.clicked.connect(self.clicked_edit_btn)
         self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data) # 테이블 위젯 셀 클릭 이벤트
         self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
+        self.emp_detail_check.clicked.connect(self.check_emp_info) # 관리자 사원 정보 확인 버튼 클릭
 
 
         # 부서 콤보박스에 넣기
@@ -287,3 +288,6 @@ class MainPage(QWidget, Ui_MainWidget):
             self.stackedWidget.setCurrentWidget(self.admin_dept_check)
         else:
             self.stackedWidget.setCurrentWidget(self.home_page)
+
+    def check_emp_info(self):
+        self.controller.dept_change.show()
