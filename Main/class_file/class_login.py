@@ -195,13 +195,11 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         elif input_id == 'admin':
             # admin일 경우
             self.show_title_btns(type='admin')
-            # self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_home_page)
             self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
             self.main.main_page.show()
             self.close()
 
     def show_title_btns(self, type='user'):
-        print('여길 타나요')
         btns_list = self.main.main_page.title_btns.findChildren(QPushButton)
         hidden_btns = []
         if type != 'admin':
