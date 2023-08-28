@@ -259,6 +259,5 @@ class MainPage(QWidget, Ui_MainWidget):
         self.controller.pw_change.exec()
 
     # 관리자모드에서 부서관리 테이블위젯 데이터 가져오기
-    def get_tbwid_data(self):
-        selected_items = self.dept_tablewidget.selectedItems()
-        print(selected_items)
+    def get_tbwid_data(self, row, col):
+        print(row, col)
