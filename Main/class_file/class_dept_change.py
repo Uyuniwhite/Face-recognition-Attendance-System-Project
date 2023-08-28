@@ -43,8 +43,14 @@ class DeptChange(QWidget, Ui_AddEmployee):
         dept_name = dept_data[dept_id]
         return dept_name
 
-    # def convert_dept_name_int(self, dept_name):
+    def convert_dept_name_int(self, dept_name):
+        dept_data = {10: '개발부', 20: '인사팀', 30: '회계팀', 40: '감사팀', 50: '영업팀'}
+        dept_id = int()
 
+        for key, value in dept_data.items():
+            if value == dept_name:
+                dept_id = key
+                return dept_id
 
     def set_data_cb(self):
         dept_list = self.controller.dbconn.find_dept()
@@ -56,3 +62,27 @@ class DeptChange(QWidget, Ui_AddEmployee):
 
     def clicked_admit_btn(self):
         new_dept_name = self.comboBox.currentText()
+        dept_id = self.convert_dept_name_int(new_dept_name)
+        user_id = self.user_id_lineedit.text()
+
+        txt = "변경하시겠습니까?"
+        result = self.msgbox_obj(4, txt, img='question')
+        if result == 1:
+            self.controller.dbconn.update_dept_id(user_id, dept_id)
+            txt = "변경 완료됐습니다!"
+            self.msgbox_obj("", txt, img='check')
+        elif result == 0:
+            txt = "취소했습니다!"
+            self.msgbox_obj("",txt, img='check')
+
+
+    def msgbox_obj(self,type, txt, img):
+        msgbox = MsgBox()
+        message = txt
+        msgbox.set_dialog_type(type=type, msg=message, img=img)
+        msgbox.exec_()
+        result = msgbox.result()
+        return result
+
+
+
