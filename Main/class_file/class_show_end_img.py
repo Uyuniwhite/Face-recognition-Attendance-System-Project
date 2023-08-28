@@ -8,9 +8,9 @@ from Main.class_file.class_font import Font
 class ShowEndImage(QWidget):
     def __init__(self, controller):
         super().__init__()
+        self.controller = controller
         self.setupUi()
 
-        self.controller = controller
 
     def setupUi(self):
         self.resize(1120, 630)

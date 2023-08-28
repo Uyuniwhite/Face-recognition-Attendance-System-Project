@@ -125,7 +125,7 @@ class DBconnect:
         c = self.start_conn()
         user_no = self.find_no(user_id=user_id)  # 유저 아이디 반환
 
-        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%'"
+        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%' order by atd_date asc"
         c.execute(query)
         r_data = c.fetchall()
         return r_data
