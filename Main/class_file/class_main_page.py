@@ -286,6 +286,7 @@ class MainPage(QWidget, Ui_MainWidget):
     def move_homepage(self):
         if self.user_id == 'admin':
             self.stackedWidget.setCurrentWidget(self.admin_dept_check)
+            self.set_dept_table()
         else:
             self.stackedWidget.setCurrentWidget(self.home_page)
 

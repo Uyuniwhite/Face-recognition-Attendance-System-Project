@@ -75,6 +75,9 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
                         formatted_date = current_time.strftime('%Y-%m-%d')
                         formatted_time = current_time.strftime('%H:%M:%S')
                         self.controller.dbconn.leave_workplace(self.user_id, formatted_date, formatted_time)
+                        self.controller.show_leave_img.show() #퇴근화면 보여주기
+                        self.controller.show_leave_img.start_timer() # 타이머 시작
+
                     elif name != self.user_id:
                         message = f"당신은 {self.user_id}님이 아니신데요?"
                         self.msgbox.set_dialog_type(msg=message, img='warn')
