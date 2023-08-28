@@ -133,13 +133,17 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     # 이 부분은 나중에 함수로 빼기
                     self.main.main_page.user_id = name
                     result = self.main.dbconn.get_user_data(name)
+
                     user_dept = self.main.dbconn.return_specific_data(column='dept_name', table_name='tb_dept', condition=f'dept_id = {result[4]}', type=1)
                     self.main.main_page.home_name_lab.setText(result[1])
                     self.main.main_page.home_dept_lab.setText(user_dept)
-                    # self.main.main_page.atd_per_lab.setText()
 
-                    self.main.main_page.set_user_atd_combo(user_id=self.user_name)  # 유저 콤보박스 추가
+                    # self.main.main_page.set_user_atd_combo(user_id=self.user_name)  # 유저 콤보박스 추가
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
+
+                    if self.user_name !='admin':
+                        self.main.main_page.show_atd_table(user_id=self.user_name)
+                        self.main.main_page.set_user_atd_combo(self.user_name)
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."

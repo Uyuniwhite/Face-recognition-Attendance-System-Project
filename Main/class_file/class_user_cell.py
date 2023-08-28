@@ -10,11 +10,11 @@ import os
 
 # 그리드 레이아웃에 들어가는 유저 캐럿셀
 class UserCell(QWidget, Ui_Form):
-    def __init__(self, contoller, parent, type, name, user_id):
+    def __init__(self, controller, parent, type, name, user_id):
         super().__init__()
         self.setupUi(self)
 
-        self.contoller = contoller
+        self.controller = controller
         self.main_page = parent
         self.user_id = user_id
         self.user_name = name
@@ -61,9 +61,13 @@ class UserCell(QWidget, Ui_Form):
             print('취소')
 
     def move_main_page(self, event):
-        if self.user_name != '관리자':
-            self.main_page.summary_lab.setText(f'{self.user_name}의 {8}월 출근일수는 {00}일, 근태율은 {00}%입니다.')
-            self.main_page.stackedWidget.setCurrentWidget(self.main_page.atd_page)
+        if self.user_id != 'admin':
+            text, user_atd_day, atd_per, absent_day = self.controller.dbconn.return_user_atd_summary(self.user_id)
+            self.controller.main_page.summary_lab.setText(text)
+            self.controller.main_page.show_atd_table(user_id = self.user_id)
+            self.controller.main_page.set_user_atd_combo(self.user_id)
+            self.controller.main_page.stackedWidget.setCurrentWidget(self.main_page.atd_page)
+
 
     def hide_del_btn(self):
         if self.user_name == '관리자':

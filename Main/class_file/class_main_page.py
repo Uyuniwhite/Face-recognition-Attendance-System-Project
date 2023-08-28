@@ -44,12 +44,13 @@ class MainPage(QWidget, Ui_MainWidget):
         self.team_search_btn.clicked.connect(self.set_grid_lay)  # 팀 검색 버튼 눌렀을 때
         self.out_btn.clicked.connect(self.show_out_while_img)  # 외출하기 버튼 클릭
         self.end_btn.clicked.connect(self.clicked_end_btn)  # 퇴근하기 버튼 클릭
-        self.attend_check_btn.clicked.connect(self.show_atd_table)  # 특정 달 출근일자 테이블에 보여주기
+        self.attend_check_btn.clicked.connect(lambda x, y=self.user_id: self.show_atd_table(user_id=y))  # 특정 달 출근일자 테이블에 보여주기
         self.SetUserId.connect(self.set_user_id)
         self.mypage_btn.clicked.connect(self.get_userinfo_from_DB)  # 마이페이지 데이터 반영 관련
         self.edit_btn.clicked.connect(self.clicked_edit_btn)
         self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data) # 테이블 위젯 셀 클릭 이벤트
         self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
+
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -61,31 +62,34 @@ class MainPage(QWidget, Ui_MainWidget):
         # 기본 클릭
         # self.team_search_btn.click()
 
-    def show_atd_table(self):
-        current_month = self.attend_check_combobox.currentText()
-        atd_list = self.controller.dbconn.return_user_atd_info(user_id=self.user_id, year_month=current_month)
-
-        self.tableWidget.setRowCount(len(atd_list))
-        self.tableWidget.setColumnCount(6)
-
-        for idx, data in enumerate(atd_list):
-            date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5]
-            date_day = self.controller.dbconn.get_day_of_week(text_date=date)
-            if end_time != 'NULL':
-                time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
-            else:
-                time_difference = '근무중'
-            if atd_type == 'face':
-                atd_type = '얼굴인식'
 
 
-            # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
-            for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
-                item = QTableWidgetItem(str(value))
-                item.setTextAlignment(Qt.AlignCenter)  # 가운데 정렬
-                self.tableWidget.setItem(idx, col, item)
+    def show_atd_table(self, user_id):
+        if user_id is not None:
+            current_month = self.attend_check_combobox.currentText()
+            atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
 
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.tableWidget.setRowCount(len(atd_list))
+            self.tableWidget.setColumnCount(6)
+
+            for idx, data in enumerate(atd_list):
+                date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5]
+                date_day = self.controller.dbconn.get_day_of_week(text_date=date)
+                if end_time != 'NULL':
+                    time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
+                else:
+                    time_difference = '근무중'
+                if atd_type == 'face':
+                    atd_type = '얼굴인식'
+
+
+                # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
+                for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
+                    item = QTableWidgetItem(str(value))
+                    item.setTextAlignment(Qt.AlignCenter)  # 가운데 정렬
+                    self.tableWidget.setItem(idx, col, item)
+
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def set_user_id(self, user_id):
         self.user_id = user_id
