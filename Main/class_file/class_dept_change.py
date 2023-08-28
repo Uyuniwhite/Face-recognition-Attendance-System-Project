@@ -43,7 +43,7 @@ class DeptChange(QWidget, Ui_AddEmployee):
         dept_name = dept_data[dept_id]
         return dept_name
 
-    def convert_dept_name_int(self, dept_name):
+    # def convert_dept_name_int(self, dept_name):
 
 
     def set_data_cb(self):
