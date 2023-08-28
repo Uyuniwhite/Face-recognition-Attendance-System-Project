@@ -194,6 +194,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             self.msgbox.exec_()  # 메세지 박스 띄우기
         elif input_id == 'admin':
             # admin일 경우
+            self.main.main_page.SetUserId.emit(input_id)
             self.show_title_btns(type='admin')
             self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
             self.main.main_page.show()
