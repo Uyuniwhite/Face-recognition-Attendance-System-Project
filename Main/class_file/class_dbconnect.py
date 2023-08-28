@@ -291,6 +291,13 @@ class DBconnect:
         self.commit_db()
         self.end_conn()
 
+    def update_dept_id(self, user_id, dept_id):
+        c = self.start_conn()
+        update_query = f"update tb_user set dept_id = '{dept_id}' where user_id = '{user_id}'"
+        c.execute(update_query)
+        self.commit_db()
+        self.end_conn()
+
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
