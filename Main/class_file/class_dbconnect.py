@@ -331,20 +331,18 @@ class DBconnect:
         start_month = start_month.month
         current_time = datetime.now()
         current_month = current_time.month
-        month_diff = current_month - start_month
-        print(start_month, current_month, month_diff)
-
 
         atd_per_list = list()
-        for idx, month in range(start_month, current_month + 1):
-            con = f"user_no = {user_no} and atd_date like '%{month}%'"  # 조건2
+        for month in range(start_month, current_month + 1):
+
+            con = f"user_no = {user_no} and atd_date like '%2023-{month:02}%'"  # 조건2
             user_atd_day = self.return_specific_data(column='count(*)', table_name='tb_atd',
                                                      condition=con, type=1)
 
             # 근태율 계산 = (해당 달 출근일 / 해당 달 날짜) * 100
-            atd_per = round(int(user_atd_day) / int(month_day_list[idx + 1]) * 100)
+            atd_per = round(int(user_atd_day) / int(month_day_list[month]) * 100)
             atd_per_list.append(atd_per)
-        month_list = [f'{i[-2:]}월' for i in month_list]
+        month_list = [f'{i}월' for i in range(start_month, current_month+1)]
         return month_list, atd_per_list
 
 
@@ -357,16 +355,24 @@ if __name__ == '__main__':
     # db_conn.return_team_atd_per('개발팀')
     # db_conn.return_user_atd_per_year('soyeon')
 
+    dept_dict = dict()
+    month_dict = {f"{n}월":0 for n in range(1, 13)}
+    print(month_dict)
     depts = db_conn.find_dept()
     for dept in depts:
-        # print(dept)
+        print(dept)
+        if dept not in dept_dict.keys():
+            dept_dict[dept] = 0
         mems = db_conn.select_dept(dept)
         for mem in mems:
-            # print(mem[1])
             m_list, atd_per = db_conn.return_user_atd_per_year(mem[1])
-            print(atd_per)
+            for m in list(zip(m_list, atd_per)):
+                print(m[0], m[1])
+                month_dict[m[0]] += m[1]
+        dept_dict[dept] = month_dict
+        month_dict.clear()
 
-
+    print(dept_dict)
     # 출결 임의 삽입
     # date = 31
     # date_list = [f'2023-07-{n:02}' for n in range(1, date + 1)]
