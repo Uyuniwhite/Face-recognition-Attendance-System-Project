@@ -33,6 +33,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.msgbox = MsgBox()  # 메세지박스 객체 싱성
 
     def initUI(self):
+        self.stackedWidget.setCurrentWidget(self.home_page) # 초기화면 홈페이지로 설정
         # 페이지 이동
         # self.home_btn.clicked.connect(
         #     lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
@@ -271,7 +272,7 @@ class MainPage(QWidget, Ui_MainWidget):
         user_name = user_data[1]
         user_id = user_data[2]
         user_pw = user_data[3]
-        dept_id = user_data[-1]
+        dept_id = user_data[-2]
         dept_name = self.convert_dept_id_to_name(dept_id)
         self.set_userinfo_mypage(user_name, user_id, user_pw, dept_name)
 

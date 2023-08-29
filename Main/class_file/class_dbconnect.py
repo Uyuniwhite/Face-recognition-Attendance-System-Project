@@ -257,10 +257,10 @@ class DBconnect:
             return True  # 중복 통과
 
     # 신규 사원 등록
-    def save_newbie(self, newbie_name, newbie_id, newbie_pw, dept_id):
+    def save_newbie(self, newbie_name, newbie_id, newbie_pw, dept_id, join_date):
         c = self.start_conn()
-        add_query = "insert into tb_user (user_name, user_id, user_pw, dept_id) values " \
-                    f"('{newbie_name}', '{newbie_id}', '{newbie_pw}', '{dept_id}')"
+        add_query = "insert into tb_user (user_name, user_id, user_pw, dept_id, user_join_date) values " \
+                    f"('{newbie_name}', '{newbie_id}', '{newbie_pw}', '{dept_id}', '{join_date}')"
         c.execute(add_query)
         self.commit_db()
         self.end_conn()

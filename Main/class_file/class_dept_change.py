@@ -27,7 +27,7 @@ class DeptChange(QWidget, Ui_AddEmployee):
 
     def set_emp_info(self):
         user_info = self.controller.dbconn.get_user_data(self.emp_id)
-        user_name, user_id, user_pw, dept_id = user_info[1:]
+        user_name, user_id, user_pw, dept_id = user_info[1:5]
 
         dept_name = self.convert_dept_id_tostring(dept_id)
         self.name_lineedit.setText(user_name)
