@@ -11,7 +11,7 @@ from Main.class_file.class_check_out import CheckOutWhile
 from Main.class_file.class_change_password import PasswordChange
 from Main.class_file.class_dept_change import DeptChange
 from Main.class_file.class_show_end_img import ShowEndImage
-from Main.class_file.class_openingload import OpeningLoading
+# from Main.class_file.class_openingload import OpeningLoading
 
 from PyQt5.QtWidgets import QWidget
 
@@ -33,5 +33,5 @@ class Controller(QWidget):
         self.pw_change = PasswordChange(self) # 사원 마이페이지 패스워드 변경 객체 생성
         self.dept_change = DeptChange(self)  # 관리자의 사원부서 변경 객체
         self.show_leave_img = ShowEndImage(self) # 퇴근 이미지 보여주는 객체
-        self.openingload = OpeningLoading(controller=self) # 오프닝 로딩창
+        # self.openingload = OpeningLoading(self) # 오프닝 로딩창
         # self.loading = Loading(self) # 로딩창 쓰레드

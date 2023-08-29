@@ -19,4 +19,4 @@ class OpenPage(QWidget, Ui_OpenWidget):
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.controller.openingload.Shown.emit()
+        # self.controller.openingload.Shown.emit()

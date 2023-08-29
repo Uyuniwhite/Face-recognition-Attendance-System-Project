@@ -6,12 +6,11 @@ from PyQt5.QtCore import QThread, pyqtSignal
 class OpeningLoading(QWidget, Ui_Opening):
     Shown = pyqtSignal()
 
-    def __init__(self, controller=None):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
 
-        self.controller = controller
         self.Shown.connect(self.open_event)
 
     def open_event(self):
-        self.close()
+        pass
