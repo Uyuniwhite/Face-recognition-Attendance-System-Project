@@ -27,6 +27,7 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 유저 Id
         self.user_id = None
+        self.clicked_id = None
 
         self.setupUi(self)
         self.initUI()  # 기본 설정
@@ -71,38 +72,39 @@ class MainPage(QWidget, Ui_MainWidget):
 
     # 디버깅 해야 함(로그인 후 user_id)가 변경이 안되는 현상이 생김
     def show_atd_table(self, user_id):
-        if user_id is not None:
-            current_month = self.attend_check_combobox.currentText()
-            atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
-            print('오류나는 곳', atd_list)
-            self.set_graph_for_user(atd_list)
-            self.tableWidget.setRowCount(len(atd_list))
-            self.tableWidget.setColumnCount(6)
+        if user_id == 'admin':
+            user_id = self.clicked_id
+        current_month = self.attend_check_combobox.currentText()
+        atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
 
-            for idx, data in enumerate(atd_list):
-                date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5]
-                date_day = self.controller.dbconn.get_day_of_week(text_date=date)
-                if end_time != 'NULL':
-                    time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
-                else:
-                    time_difference = '근무중'
-                if atd_type == 'face':
-                    atd_type = '얼굴인식'
 
-                # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
-                for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
-                    item = QTableWidgetItem(str(value))
-                    item.setTextAlignment(Qt.AlignCenter)  # 가운데 정렬
-                    self.tableWidget.setItem(idx, col, item)
+        self.tableWidget.setRowCount(len(atd_list))
+        self.tableWidget.setColumnCount(6)
 
-            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        for idx, data in enumerate(atd_list):
+            date, start_time, end_time, atd_type = data[1], data[2], data[7], data[5]
+            date_day = self.controller.dbconn.get_day_of_week(text_date=date)
+            if end_time != 'NULL':
+                time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
+            else:
+                time_difference = '근무중'
+            if atd_type == 'face':
+                atd_type = '얼굴인식'
 
-            header = self.tableWidget.horizontalHeader()  # 수평 헤더 (컬럼 헤더) 가져오기
-            header.setFont(Font.button(1))
+            # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
+            for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
+                item = QTableWidgetItem(str(value))
+                item.setTextAlignment(Qt.AlignCenter)  # 가운데 정렬
+                self.tableWidget.setItem(idx, col, item)
+
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        header = self.tableWidget.horizontalHeader()  # 수평 헤더 (컬럼 헤더) 가져오기
+        header.setFont(Font.button(1))
     def set_user_id(self, user_id):
         """로그인 할 때 유저 아이디가 변경됨"""
         self.user_id = user_id
-        self.attend_check_btn.clicked.connect(lambda x, y=self.user_id: self.show_atd_table(user_id=y))
+        self.attend_check_btn.clicked.connect(lambda x: self.show_atd_table(self.user_id))
 
     # 유저 출근 달들만 리턴
     def set_user_atd_combo(self, user_id):
@@ -284,6 +286,10 @@ class MainPage(QWidget, Ui_MainWidget):
         dept_id = user_data[-2]
         dept_name = self.convert_dept_id_to_name(dept_id)
         self.set_userinfo_mypage(user_name, user_id, user_pw, dept_name)
+        if user_id =='soyeon':
+            self.my_img_lab.setPixmap(QPixmap('../../img/icon_profile/soyeon.jpg'))
+        elif user_id == 'woohyun':
+            self.my_img_lab.setPixmap(QPixmap('../../img/icon_profile/woohyeon.jpeg'))
 
     # 마이페이지 개인정보 넣기
     def set_userinfo_mypage(self, user_name, user_id, user_pw, dept_name):
@@ -340,7 +346,7 @@ class MainPage(QWidget, Ui_MainWidget):
                 self.y_list.append(int(hour_diff))
 
         # 그래프 그리기
-        print('그래프 그리는 곳', self.x_list, self.y_list)
+        # print('그래프 그리는 곳', self.x_list, self.y_list)
         if len(self.x_list) >=10:
             self.figure = self.create_plot_graph(self.x_list[-10:], self.y_list[-10:], '출근날짜', '출근시간')
         else:

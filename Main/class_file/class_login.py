@@ -142,16 +142,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
 
                     if self.user_name !='admin':
-                        self.main.main_page.set_user_atd_combo(self.user_name)
-                        self.main.main_page.show_atd_table(user_id=self.user_name)
-                        self.main.main_page.back_to_dept_btn.setVisible(False)
-                        self.main.main_page.emp_detail_check.setVisible(False)
-
-                        month_list, atd_per_list = self.main.dbconn.return_user_atd_per_year(self.user_name)
-                        print(atd_per_list)
-                        self.main.main_page.set_user_bar_graph(x_list=month_list, y_list=atd_per_list,
-                                                               layout=self.main.main_page.verticalLayout_9)
-
+                        self.set_user_basic_setting()
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."
@@ -175,6 +166,21 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                 else:
                     self.msgbox.set_dialog_type(type=2)
                     self.msgbox.exec_()
+
+    def set_user_basic_setting(self):
+        """유저의 기본값 설정"""
+        self.main.main_page.set_user_atd_combo(self.user_name)
+        self.main.main_page.show_atd_table(user_id=self.user_name)
+        self.main.main_page.back_to_dept_btn.setVisible(False)
+        self.main.main_page.emp_detail_check.setVisible(False)
+        current_month = self.main.main_page.attend_check_combobox.currentText()
+        atd_list = self.main.dbconn.return_user_atd_info(user_id=self.user_name, year_month=current_month)
+        self.main.main_page.set_graph_for_user(atd_list)
+
+        month_list, atd_per_list = self.main.dbconn.return_user_atd_per_year(self.user_name)
+        self.main.main_page.set_user_bar_graph(x_list=month_list, y_list=atd_per_list,
+                                               layout=self.main.main_page.verticalLayout_9)
+
 
     # ID / PW 입력하고 로그인버튼 클릭시 이벤트 처리 함수
     def clicked_login_btn(self):

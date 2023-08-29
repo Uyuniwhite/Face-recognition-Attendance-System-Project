@@ -67,6 +67,8 @@ class UserCell(QWidget, Ui_Form):
             self.controller.dept_change.set_emp_info()
             self.controller.main_page.summary_lab.setText(text)
             self.controller.main_page.show_atd_table(user_id = self.user_id)
+            self.controller.main_page.clicked_id = self.user_id
+            # self.controller.main_page.SetUserId.emit(self.user_id) # 수정
             self.controller.main_page.set_user_atd_combo(self.user_id)
             self.controller.main_page.stackedWidget.setCurrentWidget(self.main_page.atd_page)
 

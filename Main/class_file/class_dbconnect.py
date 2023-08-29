@@ -140,8 +140,9 @@ class DBconnect:
         result = [date[0][:7] for date in result]  # 출근 년도 - 월수만 반환
         unique_result = []
         [unique_result.append(x) for x in result if x not in unique_result]  # 그 중 중복값 제거
-
-        return unique_result
+        sorted_dates = sorted(unique_result)
+        print(sorted_dates)
+        return sorted_dates
 
     def return_user_atd_summary(self, user_id):
         # 유저 이름
@@ -397,14 +398,14 @@ class DBconnect:
 
 
 
-if __name__ == '__main__':
-    db_conn = DBconnect(controller=None)
-    data = db_conn.count_dept_emp()
-    print(data)
-    for team, member in data:
-        team_list.append(team)
-        memeber_list.append(member)
-    print(team_list, memeber_list)
+# if __name__ == '__main__':
+#     db_conn = DBconnect(controller=None)
+#     data = db_conn.count_dept_emp()
+#     print(data)
+#     for team, member in data:
+#         team_list.append(team)
+#         memeber_list.append(member)
+#     print(team_list, memeber_list)
 
 
     # 출결 임의 삽입
