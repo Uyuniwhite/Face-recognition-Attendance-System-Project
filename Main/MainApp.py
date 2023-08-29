@@ -2,7 +2,10 @@ import sys
 
 from PyQt5 import QtWidgets
 from Main.class_file.class_controller import Controller
+from Main.class_file.class_Qthread import Loading
 from PyQt5.QtGui import QFontDatabase, QCursor
+from PyQt5.QtCore import pyqtSignal, QThread, Qt
+
 
 def Main():
     app = QtWidgets.QApplication(sys.argv)
@@ -20,10 +23,14 @@ def Main():
 
     # for family in fontDB.families():
     #     print(family, fontDB.styles(family))
-
+    load = Loading()
+    load.start()
 
     main_window = Controller()
     main_window.open_page.show()
+
+    load.loading_close()
+    load.finished_signal.connect(load.quit)
     app.exec_()
 
 

@@ -1,10 +1,11 @@
 from Main.UI.OpenWidget import Ui_OpenWidget
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap
-
+from PyQt5.QtCore import pyqtSignal
 import sys
 
 class OpenPage(QWidget, Ui_OpenWidget):
+    signal = pyqtSignal()
     def __init__(self, controller):
         super().__init__()
 
@@ -15,3 +16,7 @@ class OpenPage(QWidget, Ui_OpenWidget):
     def mousePressEvent(self, event):
         self.close()
         self.controller.login.show()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        # self.controller.openingload.Shown.emit()
