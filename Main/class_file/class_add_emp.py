@@ -5,6 +5,8 @@ from Main.class_file.image_learn import ImageLearn
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSignal, QTimer, QThread
+from PyQt5.QtGui import QCursor, QPixmap
+import os
 
 
 class Worker(QThread):
@@ -28,6 +30,11 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         self.set_font()
         # 변수
         self.face_regist = False  # 얼굴인식 유/무
+
+        # 현재 위치
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
+        # 이미지 넣기
+        self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
 
     def init_func(self):
         # 버튼 클릭 이벤트

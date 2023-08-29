@@ -10,6 +10,7 @@ from PyQt5.QtCore import QThread, pyqtSignal, Qt, QSize
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import matplotlib.colors
 from scipy.interpolate import interp1d
 import numpy as np
 import os
@@ -56,6 +57,8 @@ class MainPage(QWidget, Ui_MainWidget):
         self.back_to_dept_btn.clicked.connect(self.clicked_back_btn)  # 관리자 사원관리 뒤로가기 버튼 이벤트
         self.graph_widget_1.mousePressEvent = self.show_large_graph
         self.graph_widget_2.mousePressEvent = self.show_large_bar_graph
+        self.graph_widget_3.mousePressEvent = self.show_large_admin_bar_graph
+        self.graph_widget_4.mousePressEvent = self.show_large_admin_donut_graph
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -71,6 +74,7 @@ class MainPage(QWidget, Ui_MainWidget):
         if user_id is not None:
             current_month = self.attend_check_combobox.currentText()
             atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
+            print('오류나는 곳', atd_list)
             self.set_graph_for_user(atd_list)
             self.tableWidget.setRowCount(len(atd_list))
             self.tableWidget.setColumnCount(6)
@@ -93,6 +97,8 @@ class MainPage(QWidget, Ui_MainWidget):
 
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
+            header = self.tableWidget.horizontalHeader()  # 수평 헤더 (컬럼 헤더) 가져오기
+            header.setFont(Font.button(1))
     def set_user_id(self, user_id):
         """로그인 할 때 유저 아이디가 변경됨"""
         self.user_id = user_id
@@ -127,8 +133,7 @@ class MainPage(QWidget, Ui_MainWidget):
 
     def initStyle(self):
         # 현재 위치
-        os.chdir(os.path.dirname(os.path.abspath(__file__))) \
- \
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
         # 이미지 넣기
         self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
         self.img_lab.setPixmap(QPixmap('../../img/icon/user.png').scaled(60, 60))
@@ -181,6 +186,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.attend_day_lab.setFont(Font.title(3))
         self.out_day_lab.setFont(Font.title(3))
         self.atd_per_lab.setFont(Font.title(3))
+        self.dept_title.setFont(Font.title(6))
 
         self.attend_text_lab.setFont(Font.text(1))
         self.out_text_lab.setFont(Font.text(1))
@@ -245,7 +251,7 @@ class MainPage(QWidget, Ui_MainWidget):
 
         for idx, data in enumerate(dept_list_test):
             dept_code, dept_name, dept_emp = data
-            dept_atd_per = self.controller.dbconn.return_team_atd_per(dept_name)
+            dept_atd_per = self.controller.dbconn.return_team_atd_per_for_table(dept_name)
 
             # 각 항목 생성 및 중앙 정렬
             item_dept_name = QTableWidgetItem(dept_name)
@@ -265,6 +271,9 @@ class MainPage(QWidget, Ui_MainWidget):
             self.dept_tablewidget.setItem(idx, 3, item_dept_rate)
 
         self.dept_tablewidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        header = self.dept_tablewidget.horizontalHeader()  # 수평 헤더 (컬럼 헤더) 가져오기
+        header.setFont(Font.button(3))
 
     # DB에서 데이터 user 데이터 가져와서 마이페이지에 데이터 반영
     def get_userinfo_from_DB(self):
@@ -331,15 +340,27 @@ class MainPage(QWidget, Ui_MainWidget):
                 self.y_list.append(int(hour_diff))
 
         # 그래프 그리기
-        self.figure = self.create_plot_graph(self.x_list[-10:], self.y_list[10:], '출근날짜', '출근시간')
+        print('그래프 그리는 곳', self.x_list, self.y_list)
+        if len(self.x_list) >=10:
+            self.figure = self.create_plot_graph(self.x_list[-10:], self.y_list[-10:], '출근날짜', '출근시간')
+        else:
+            self.figure = self.create_plot_graph(self.x_list, self.y_list, '출근날짜', '출근시간')
         self.canvas = FigureCanvas(self.figure)
         self.verticalLayout_6.addWidget(self.canvas)
 
 
     # 선 그래프 그리기
     def create_plot_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
+
         x_vals = np.linspace(0, len(x_list) - 1, 500)
-        y_interp = interp1d(np.arange(len(y_list)), y_list, kind='cubic')
+
+        # 데이터 포인트의 수에 따라 보간 방식 결정
+        if len(x_list) < 4:
+            kind = 'linear'  # 또는 'quadratic'
+        else:
+            kind = 'cubic'
+
+        y_interp = interp1d(np.arange(len(y_list)), y_list, kind=kind)
         y_vals = y_interp(x_vals)
 
         # 그래프 조건
@@ -380,6 +401,67 @@ class MainPage(QWidget, Ui_MainWidget):
         return fig
 
 
+    # 다중 막대 그래프 그리기
+    def plot_multi_bar(self, data):
+        # 팀 목록 추출
+        depts = list(data.keys())
+
+        # 모든 팀에서 사용된 월을 추출합니다.
+        all_months = set()
+        for dept in data:
+            all_months.update(data[dept].keys())
+        months = sorted(list(all_months))
+
+        # 모든 팀에 대해 공통된 월 목록을 기반으로 데이터를 정리합니다.
+        for dept in depts:
+            for month in months:
+                if month not in data[dept].keys():
+                    data[dept][month] = 0  # 데이터가 없는 월은 0으로 처리합니다.
+
+        x = np.arange(len(months))
+        width = 1 / (len(depts) + 1)
+
+        fig, ax = plt.subplots(figsize=(12, 7))
+        colors = ["#3085FE", "#89B2FF", "#A9C6FF", "#B8D4FF", "#CBE2FF", "#D9EBFF"]
+        for idx, dept in enumerate(depts):
+            values = [data[dept][month] for month in months]
+            ax.bar(x + idx * width, values, width, label=dept, color=colors[idx])
+
+        ax.set_xticks(x + width * (len(depts) - 1) / 2)
+        ax.set_xticklabels(months)
+        ax.legend()
+
+        fig.tight_layout()
+        return fig
+
+    def create_donut_chart(self, datas):
+        labels, data = zip(*datas)
+        colors = ["#3085FE", "#89B2FF", "#A9C6FF", "#B8D4FF", "#CBE2FF", "#D9EBFF"]
+
+        fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
+
+        # Helper function to display data values along with percentage
+        def func(pct, allvals):
+            absolute = int(pct / 100. * sum(allvals))
+            return f"{pct:.1f}%\n({absolute:d})"
+
+        # Create the pie chart using the ax object
+        wedges, texts, autotexts = ax.pie(data, autopct=lambda pct: func(pct, data), textprops=dict(color="w"),
+                                          colors=colors)
+
+        # Legend and other aesthetics
+        ax.legend(wedges, labels, title="Labels", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
+        plt.setp(autotexts, size=8, weight="bold")
+
+        return fig
+
+    def draw_team_donut_chart_for_admin(self):
+        data = self.controller.dbconn.count_dept_emp()
+        fig = self.create_donut_chart(data)
+        canvas = FigureCanvas(fig)
+        self.verticalLayout_22.addWidget(canvas)
+
+
     # 유저 달별 근태율 막대그래프 그리기
     def set_user_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title='', layout=None):
         fig = self.create_bar_graph(x_list, y_list, x_lab, y_lab, title)
@@ -387,10 +469,23 @@ class MainPage(QWidget, Ui_MainWidget):
 
         layout.addWidget(canvas)
 
+    def set_dept_atd_per_bar_graph(self):
+        data = self.controller.dbconn.return_team_atd_per()
+        print(data)
+        x, y = list(), list()
+        for dept, per in data.items():
+            x.append(dept)
+            y.append(per)
+        print(x, y)
+        self.set_user_bar_graph(x_list=x, y_list=y, layout=self.verticalLayout_20)
 
-    # 그래프 크게 띄우기
+
+
+
+
+
+    # 그래프 크게 띄우기 =====================
     def show_large_graph(self, event):
-
         new_fig = self.create_plot_graph(self.x_list, self.y_list, x_lab='출근날짜', y_lab='출근시간')
         new_canvas = FigureCanvas(new_fig)
         d = ShowGraph(new_canvas, '근무시간 그래프')
@@ -402,3 +497,17 @@ class MainPage(QWidget, Ui_MainWidget):
         d = ShowGraph(new_canvas, '월별 출근울(%)')
         d.exec_()
 
+    # 관리자
+    def show_large_admin_bar_graph(self, event):
+        data = self.controller.dbconn.return_team_atd_per(type='graph')
+        new_fig = self.plot_multi_bar(data)
+        new_canvas = FigureCanvas(new_fig)
+        d = ShowGraph(new_canvas, '팀별 근태율')
+        d.exec_()
+
+    def show_large_admin_donut_graph(self, event):
+        data = self.controller.dbconn.count_dept_emp()
+        fig = self.create_donut_chart(data)
+        new_canvas = FigureCanvas(fig)
+        d = ShowGraph(new_canvas, '팀원수')
+        d.exec_()

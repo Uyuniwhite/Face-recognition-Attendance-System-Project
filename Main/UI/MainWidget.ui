@@ -235,7 +235,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="admin_dept_check">
          <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -306,11 +306,11 @@ QPushButton::hover{
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="emp_detail_check">
+                <widget class="QPushButton" name="add_btn">
                  <property name="minimumSize">
                   <size>
-                   <width>120</width>
-                   <height>41</height>
+                   <width>90</width>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="font">
@@ -324,7 +324,7 @@ background-color:#3085FE;
 color: white;</string>
                  </property>
                  <property name="text">
-                  <string>사원정보확인</string>
+                  <string>사원추가</string>
                  </property>
                 </widget>
                </item>
@@ -332,6 +332,33 @@ color: white;</string>
              </item>
              <item>
               <widget class="QTableWidget" name="dept_tablewidget">
+               <property name="styleSheet">
+                <string notr="true">
+            QScrollBar:vertical {
+                border: none;
+                background: none;
+                width: 15px;
+                margin: 0px;
+            }
+
+            QScrollBar::handle:vertical {
+                border: 3px solid #3085FE;
+				background-color: white;
+                min-height: 20px;
+                border-radius: 5px;
+            }
+
+            QScrollBar::handle:vertical:hover {
+                background: #3085FE;
+            }
+
+            QScrollBar::sub-line:vertical,
+            QScrollBar::add-line:vertical {
+                border: none;
+                height: 0px;
+            }
+</string>
+               </property>
                <property name="editTriggers">
                 <set>QAbstractItemView::NoEditTriggers</set>
                </property>
@@ -358,6 +385,19 @@ color: white;</string>
               </widget>
              </item>
              <item>
+              <spacer name="verticalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
               <widget class="QWidget" name="home_bottom_widget_3" native="true">
                <property name="minimumSize">
                 <size>
@@ -372,6 +412,9 @@ color: white;</string>
                 </size>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
+                <property name="spacing">
+                 <number>9</number>
+                </property>
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -386,11 +429,30 @@ color: white;</string>
                 </property>
                 <item>
                  <widget class="QWidget" name="graph_widget_3" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>402</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:10px;</string>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_19">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
                    <property name="leftMargin">
                     <number>0</number>
                    </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
                    <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
                     <number>0</number>
                    </property>
                    <item>
@@ -405,7 +467,11 @@ color: white;</string>
                       </size>
                      </property>
                      <property name="text">
-                      <string>그래프에 대한 설명</string>
+                      <string>팀별 근태율
+(2023년 전체 근태율을 보려면 클릭하세요)</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -414,11 +480,30 @@ color: white;</string>
                 </item>
                 <item>
                  <widget class="QWidget" name="graph_widget_4" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>401</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:10px;</string>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_21">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
                    <property name="leftMargin">
                     <number>0</number>
                    </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
                    <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
                     <number>0</number>
                    </property>
                    <item>
@@ -433,7 +518,11 @@ color: white;</string>
                       </size>
                      </property>
                      <property name="text">
-                      <string>그래프에 대한 설명</string>
+                      <string>팀 구성원 비율
+(크게 보려면 클릭하세요)</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -442,6 +531,19 @@ color: white;</string>
                 </item>
                </layout>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -606,28 +708,6 @@ background-color: rgb(217, 217, 217);</string>
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="QPushButton" name="add_btn">
-                 <property name="minimumSize">
-                  <size>
-                   <width>90</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>13</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border-radius:10px;
-background-color: rgb(217, 217, 217);</string>
-                 </property>
-                 <property name="text">
-                  <string>사원추가</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </item>
              <item>
@@ -681,7 +761,7 @@ QScrollArea {
                   <x>0</x>
                   <y>0</y>
                   <width>820</width>
-                  <height>355</height>
+                  <height>356</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1455,8 +1535,7 @@ border-radius:10px;</string>
                          </size>
                         </property>
                         <property name="text">
-                         <string>2023년 월별 출근율 그래프
-(크게 보려면 클릭하세요)</string>
+                         <string>그래프에 대한 설명</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
@@ -1676,6 +1755,29 @@ background-color: rgb(217, 217, 217);</string>
                  </property>
                 </widget>
                </item>
+               <item>
+                <widget class="QPushButton" name="emp_detail_check">
+                 <property name="minimumSize">
+                  <size>
+                   <width>120</width>
+                   <height>41</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>13</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:10px;
+background-color:#3085FE;
+color: white;</string>
+                 </property>
+                 <property name="text">
+                  <string>사원정보확인</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -1710,6 +1812,33 @@ background-color: rgb(217, 217, 217);</string>
                  </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">
+            QScrollBar:vertical {
+                border: none;
+                background: none;
+                width: 15px;
+                margin: 0px;
+            }
+
+            QScrollBar::handle:vertical {
+                border: 3px solid #3085FE;
+				background-color: white;
+                min-height: 20px;
+                border-radius: 5px;
+            }
+
+            QScrollBar::handle:vertical:hover {
+                background: #3085FE;
+            }
+
+            QScrollBar::sub-line:vertical,
+            QScrollBar::add-line:vertical {
+                border: none;
+                height: 0px;
+            }
+</string>
                  </property>
                  <property name="editTriggers">
                   <set>QAbstractItemView::NoEditTriggers</set>

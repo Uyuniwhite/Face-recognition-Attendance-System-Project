@@ -14,6 +14,8 @@ class Font:
             font.setPointSize(17)
         elif t_size == 5:
             font.setPointSize(10)
+        elif t_size == 6:
+            font.setPointSize(20)
 
 
         font.setFamily("Pretendard ExtraBold")

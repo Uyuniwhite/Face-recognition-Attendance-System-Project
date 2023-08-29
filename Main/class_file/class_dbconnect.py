@@ -167,7 +167,7 @@ class DBconnect:
         return text, user_atd_day, atd_per, absent_day
 
     # 팀별 근태율 리턴
-    def return_team_atd_per(self, dept_name):
+    def return_team_atd_per_for_table(self, dept_name):
         team_member = self.select_dept(dept_name)
         per_list = list()
 
@@ -357,34 +357,56 @@ class DBconnect:
 
         return data
 
+    # 관리자 팀별 근태율 확인하기 위한 그래프위한 데이터 리턴
+    def return_team_atd_per(self, type='current'):
+        dept_dict = dict()
+        month_dict = {f"{n}월": 0 for n in range(1, 13)}  # 월 리스트
+        current_month = datetime.now().month
+
+        attendance_sum_by_dept = {dept: month_dict.copy() for dept in self.find_dept()}  # 각 부서별 월별 근태율 누적값
+        attendance_count_by_dept = {dept: month_dict.copy() for dept in self.find_dept()}  # 각 부서별 월별 근무한 사람의 수
+
+        depts = self.find_dept()  # 부서 리턴
+        for dept in depts:  # 부서 for문
+            mems = self.select_dept(dept)  # 부서에 속한 멤버들 가져오기
+            for mem in mems:  # 멤버들 for문 돌리기
+                m_list, atd_per = self.return_user_atd_per_year(mem[1])  # 멤버들의 출근달, 출근율 리스트로 가져오기
+                for month, percentage in zip(m_list, atd_per):
+                    attendance_sum_by_dept[dept][month] += percentage  # 누적 근태율 합산
+                    attendance_count_by_dept[dept][month] += 1  # 해당 월에 근무한 사람의 수 증가
+
+        # 평균 근태율 계산
+        avg_attendance_by_dept = {dept: {} for dept in depts}
+        avg_attendance_by_dept_for_graph = {}
+        for dept in depts:
+            avg_attendance_by_dept_for_graph[dept] = {}
+            for month in month_dict.keys():
+                if attendance_count_by_dept[dept][month] > 0:
+                    avg = attendance_sum_by_dept[dept][month] / attendance_count_by_dept[dept][month]
+                    avg_attendance_by_dept[dept][month] = round(avg, 2)  # 소수 두 자리까지 반올림
+                    avg_attendance_by_dept_for_graph[dept][month] = round(avg, 2)
+
+        # 리턴값
+        # print(avg_attendance_by_dept_for_graph)
+        currrent_values_by_dept = {dept: avg_attendance_by_dept[dept][f"{current_month}월"] for dept in depts} # 해당 달 근태율 계산
+        if type == 'all':
+            return avg_attendance_by_dept
+        if type == 'graph':
+            return avg_attendance_by_dept_for_graph
+        return currrent_values_by_dept
 
 
 
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
-    # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
-    # db_conn.return_user_atd_month(user_id='soyeon')
-    # db_conn.return_team_atd_per('개발팀')
-    # db_conn.return_user_atd_per_year('soyeon')
+    data = db_conn.count_dept_emp()
+    print(data)
+    for team, member in data:
+        team_list.append(team)
+        memeber_list.append(member)
+    print(team_list, memeber_list)
 
-    dept_dict = dict()
-    month_dict = {f"{n}월":0 for n in range(1, 13)}
-    print(month_dict)
-    depts = db_conn.find_dept()
-    for dept in depts:
-        print(dept)
-        if dept not in dept_dict.keys():
-            dept_dict[dept] = 0
-        mems = db_conn.select_dept(dept)
-        for mem in mems:
-            m_list, atd_per = db_conn.return_user_atd_per_year(mem[1])
-            for m in list(zip(m_list, atd_per)):
-                print(m[0], m[1])
-                month_dict[m[0]] += m[1]
-        dept_dict[dept] = month_dict
-        month_dict.clear()
 
-    print(dept_dict)
     # 출결 임의 삽입
     # date = 31
     # date_list = [f'2023-07-{n:02}' for n in range(1, date + 1)]

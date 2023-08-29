@@ -119,18 +119,43 @@ class Ui_MainWidget(object):
         self.horizontalLayout_19.addWidget(self.dept_title)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_19.addItem(spacerItem4)
-        self.emp_detail_check = QtWidgets.QPushButton(self.widget)
-        self.emp_detail_check.setMinimumSize(QtCore.QSize(120, 41))
+        self.add_btn = QtWidgets.QPushButton(self.widget)
+        self.add_btn.setMinimumSize(QtCore.QSize(90, 40))
         font = QtGui.QFont()
         font.setPointSize(13)
-        self.emp_detail_check.setFont(font)
-        self.emp_detail_check.setStyleSheet("border-radius:10px;\n"
+        self.add_btn.setFont(font)
+        self.add_btn.setStyleSheet("border-radius:10px;\n"
 "background-color:#3085FE;\n"
 "color: white;")
-        self.emp_detail_check.setObjectName("emp_detail_check")
-        self.horizontalLayout_19.addWidget(self.emp_detail_check)
+        self.add_btn.setObjectName("add_btn")
+        self.horizontalLayout_19.addWidget(self.add_btn)
         self.verticalLayout_23.addLayout(self.horizontalLayout_19)
         self.dept_tablewidget = QtWidgets.QTableWidget(self.widget)
+        self.dept_tablewidget.setStyleSheet("\n"
+"            QScrollBar:vertical {\n"
+"                border: none;\n"
+"                background: none;\n"
+"                width: 15px;\n"
+"                margin: 0px;\n"
+"            }\n"
+"\n"
+"            QScrollBar::handle:vertical {\n"
+"                border: 3px solid #3085FE;\n"
+"                background-color: white;\n"
+"                min-height: 20px;\n"
+"                border-radius: 5px;\n"
+"            }\n"
+"\n"
+"            QScrollBar::handle:vertical:hover {\n"
+"                background: #3085FE;\n"
+"            }\n"
+"\n"
+"            QScrollBar::sub-line:vertical,\n"
+"            QScrollBar::add-line:vertical {\n"
+"                border: none;\n"
+"                height: 0px;\n"
+"            }\n"
+"")
         self.dept_tablewidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.dept_tablewidget.setObjectName("dept_tablewidget")
         self.dept_tablewidget.setColumnCount(4)
@@ -144,43 +169,58 @@ class Ui_MainWidget(object):
         item = QtWidgets.QTableWidgetItem()
         self.dept_tablewidget.setHorizontalHeaderItem(3, item)
         self.verticalLayout_23.addWidget(self.dept_tablewidget)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_23.addItem(spacerItem5)
         self.home_bottom_widget_3 = QtWidgets.QWidget(self.widget)
         self.home_bottom_widget_3.setMinimumSize(QtCore.QSize(0, 236))
         self.home_bottom_widget_3.setMaximumSize(QtCore.QSize(16777215, 240))
         self.home_bottom_widget_3.setObjectName("home_bottom_widget_3")
         self.horizontalLayout_20 = QtWidgets.QHBoxLayout(self.home_bottom_widget_3)
         self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_20.setSpacing(9)
         self.horizontalLayout_20.setObjectName("horizontalLayout_20")
         self.graph_widget_3 = QtWidgets.QWidget(self.home_bottom_widget_3)
+        self.graph_widget_3.setMaximumSize(QtCore.QSize(16777215, 402))
+        self.graph_widget_3.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-radius:10px;")
         self.graph_widget_3.setObjectName("graph_widget_3")
         self.verticalLayout_19 = QtWidgets.QVBoxLayout(self.graph_widget_3)
-        self.verticalLayout_19.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_19.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_19.setSpacing(0)
         self.verticalLayout_19.setObjectName("verticalLayout_19")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout()
         self.verticalLayout_20.setObjectName("verticalLayout_20")
         self.verticalLayout_19.addLayout(self.verticalLayout_20)
         self.graph_contents_3 = QtWidgets.QLabel(self.graph_widget_3)
         self.graph_contents_3.setMaximumSize(QtCore.QSize(16777215, 45))
+        self.graph_contents_3.setAlignment(QtCore.Qt.AlignCenter)
         self.graph_contents_3.setObjectName("graph_contents_3")
         self.verticalLayout_19.addWidget(self.graph_contents_3)
         self.horizontalLayout_20.addWidget(self.graph_widget_3)
         self.graph_widget_4 = QtWidgets.QWidget(self.home_bottom_widget_3)
+        self.graph_widget_4.setMaximumSize(QtCore.QSize(401, 16777215))
+        self.graph_widget_4.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-radius:10px;")
         self.graph_widget_4.setObjectName("graph_widget_4")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.graph_widget_4)
-        self.verticalLayout_21.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_21.setSpacing(0)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
         self.verticalLayout_22 = QtWidgets.QVBoxLayout()
         self.verticalLayout_22.setObjectName("verticalLayout_22")
         self.verticalLayout_21.addLayout(self.verticalLayout_22)
         self.graph_contents_4 = QtWidgets.QLabel(self.graph_widget_4)
         self.graph_contents_4.setMaximumSize(QtCore.QSize(16777215, 45))
+        self.graph_contents_4.setAlignment(QtCore.Qt.AlignCenter)
         self.graph_contents_4.setObjectName("graph_contents_4")
         self.verticalLayout_21.addWidget(self.graph_contents_4)
         self.horizontalLayout_20.addWidget(self.graph_widget_4)
         self.verticalLayout_23.addWidget(self.home_bottom_widget_3)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_23.addItem(spacerItem6)
         self.horizontalLayout_18.addWidget(self.widget)
-        spacerItem5 = QtWidgets.QSpacerItem(142, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_18.addItem(spacerItem5)
+        spacerItem7 = QtWidgets.QSpacerItem(142, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_18.addItem(spacerItem7)
         self.stackedWidget.addWidget(self.admin_dept_check)
         self.admin_home_page = QtWidgets.QWidget()
         self.admin_home_page.setObjectName("admin_home_page")
@@ -188,8 +228,8 @@ class Ui_MainWidget(object):
         self.horizontalLayout_16.setContentsMargins(0, 40, 0, 70)
         self.horizontalLayout_16.setSpacing(0)
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        spacerItem6 = QtWidgets.QSpacerItem(147, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_16.addItem(spacerItem6)
+        spacerItem8 = QtWidgets.QSpacerItem(147, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_16.addItem(spacerItem8)
         self.widget_4 = QtWidgets.QWidget(self.admin_home_page)
         self.widget_4.setMinimumSize(QtCore.QSize(820, 0))
         self.widget_4.setObjectName("widget_4")
@@ -198,8 +238,8 @@ class Ui_MainWidget(object):
         self.verticalLayout_16.setObjectName("verticalLayout_16")
         self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
-        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_17.addItem(spacerItem7)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_17.addItem(spacerItem9)
         self.team_search_lab = QtWidgets.QLabel(self.widget_4)
         self.team_search_lab.setMinimumSize(QtCore.QSize(92, 40))
         font = QtGui.QFont()
@@ -243,15 +283,6 @@ class Ui_MainWidget(object):
 "background-color: rgb(217, 217, 217);")
         self.team_search_btn.setObjectName("team_search_btn")
         self.horizontalLayout_17.addWidget(self.team_search_btn)
-        self.add_btn = QtWidgets.QPushButton(self.widget_4)
-        self.add_btn.setMinimumSize(QtCore.QSize(90, 40))
-        font = QtGui.QFont()
-        font.setPointSize(13)
-        self.add_btn.setFont(font)
-        self.add_btn.setStyleSheet("border-radius:10px;\n"
-"background-color: rgb(217, 217, 217);")
-        self.add_btn.setObjectName("add_btn")
-        self.horizontalLayout_17.addWidget(self.add_btn)
         self.verticalLayout_16.addLayout(self.horizontalLayout_17)
         self.scrollArea = QtWidgets.QScrollArea(self.widget_4)
         self.scrollArea.setStyleSheet("QScrollBar:vertical {\n"
@@ -293,7 +324,7 @@ class Ui_MainWidget(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 820, 355))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 820, 356))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_17.setContentsMargins(0, 0, 0, 0)
@@ -307,34 +338,34 @@ class Ui_MainWidget(object):
         self.users_grid_lay = QtWidgets.QGridLayout()
         self.users_grid_lay.setObjectName("users_grid_lay")
         self.verticalLayout_18.addLayout(self.users_grid_lay)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 319, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_18.addItem(spacerItem8)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 319, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_18.addItem(spacerItem10)
         self.verticalLayout_17.addWidget(self.frame)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_16.addWidget(self.scrollArea)
         self.horizontalLayout_16.addWidget(self.widget_4)
-        spacerItem9 = QtWidgets.QSpacerItem(147, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_16.addItem(spacerItem9)
+        spacerItem11 = QtWidgets.QSpacerItem(147, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_16.addItem(spacerItem11)
         self.stackedWidget.addWidget(self.admin_home_page)
         self.home_page = QtWidgets.QWidget()
         self.home_page.setObjectName("home_page")
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.home_page)
         self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
-        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem10)
+        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem12)
         self.home_page_main_widget = QtWidgets.QWidget(self.home_page)
         self.home_page_main_widget.setObjectName("home_page_main_widget")
         self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.home_page_main_widget)
         self.verticalLayout_12.setSpacing(9)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
-        spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem11)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem13)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setSpacing(0)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
-        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_8.addItem(spacerItem12)
+        spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem14)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setSpacing(9)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
@@ -417,8 +448,8 @@ class Ui_MainWidget(object):
         self.attend_text_lab.setObjectName("attend_text_lab")
         self.verticalLayout_5.addWidget(self.attend_text_lab)
         self.horizontalLayout_4.addLayout(self.verticalLayout_5)
-        spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem13)
+        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem15)
         self.attand_img_lab = QtWidgets.QLabel(self.attend_widget)
         self.attand_img_lab.setMinimumSize(QtCore.QSize(60, 60))
         self.attand_img_lab.setMaximumSize(QtCore.QSize(60, 60))
@@ -456,8 +487,8 @@ class Ui_MainWidget(object):
         self.out_text_lab.setObjectName("out_text_lab")
         self.verticalLayout_4.addWidget(self.out_text_lab)
         self.horizontalLayout_3.addLayout(self.verticalLayout_4)
-        spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem14)
+        spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem16)
         self.absent_img_lab = QtWidgets.QLabel(self.out_widget)
         self.absent_img_lab.setMinimumSize(QtCore.QSize(60, 60))
         self.absent_img_lab.setMaximumSize(QtCore.QSize(60, 60))
@@ -495,8 +526,8 @@ class Ui_MainWidget(object):
         self.atd_per_text_lab.setObjectName("atd_per_text_lab")
         self.verticalLayout_3.addWidget(self.atd_per_text_lab)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
-        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem15)
+        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem17)
         self.atd_per_img_lab = QtWidgets.QLabel(self.absent_widget)
         self.atd_per_img_lab.setMinimumSize(QtCore.QSize(60, 60))
         self.atd_per_img_lab.setMaximumSize(QtCore.QSize(60, 60))
@@ -511,8 +542,8 @@ class Ui_MainWidget(object):
         self.horizontalLayout.addWidget(self.atd_per_img_lab)
         self.horizontalLayout_5.addWidget(self.absent_widget)
         self.verticalLayout_10.addLayout(self.horizontalLayout_5)
-        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_10.addItem(spacerItem16)
+        spacerItem18 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_10.addItem(spacerItem18)
         self.home_bottom_widget_2 = QtWidgets.QWidget(self.home_bottom_widget)
         self.home_bottom_widget_2.setMinimumSize(QtCore.QSize(0, 236))
         self.home_bottom_widget_2.setMaximumSize(QtCore.QSize(16777215, 240))
@@ -559,22 +590,22 @@ class Ui_MainWidget(object):
         self.horizontalLayout_6.addWidget(self.graph_widget_2)
         self.verticalLayout_10.addWidget(self.home_bottom_widget_2)
         self.verticalLayout_12.addWidget(self.home_bottom_widget)
-        spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem17)
+        spacerItem19 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem19)
         self.horizontalLayout_9.addWidget(self.home_page_main_widget)
-        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem18)
+        spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem20)
         self.stackedWidget.addWidget(self.home_page)
         self.atd_page = QtWidgets.QWidget()
         self.atd_page.setObjectName("atd_page")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.atd_page)
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
-        spacerItem19 = QtWidgets.QSpacerItem(61, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_10.addItem(spacerItem19)
+        spacerItem21 = QtWidgets.QSpacerItem(61, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_10.addItem(spacerItem21)
         self.verticalLayout_13 = QtWidgets.QVBoxLayout()
         self.verticalLayout_13.setObjectName("verticalLayout_13")
-        spacerItem20 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_13.addItem(spacerItem20)
+        spacerItem22 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_13.addItem(spacerItem22)
         self.widget_9 = QtWidgets.QWidget(self.atd_page)
         self.widget_9.setMaximumSize(QtCore.QSize(16777215, 41))
         font = QtGui.QFont()
@@ -595,8 +626,8 @@ class Ui_MainWidget(object):
         self.back_to_dept_btn.setIconSize(QtCore.QSize(40, 40))
         self.back_to_dept_btn.setObjectName("back_to_dept_btn")
         self.horizontalLayout_11.addWidget(self.back_to_dept_btn)
-        spacerItem21 = QtWidgets.QSpacerItem(649, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_11.addItem(spacerItem21)
+        spacerItem23 = QtWidgets.QSpacerItem(649, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem23)
         self.attend_check_lab = QtWidgets.QLabel(self.widget_9)
         font = QtGui.QFont()
         font.setPointSize(13)
@@ -635,6 +666,16 @@ class Ui_MainWidget(object):
 "background-color: rgb(217, 217, 217);")
         self.attend_check_btn.setObjectName("attend_check_btn")
         self.horizontalLayout_11.addWidget(self.attend_check_btn)
+        self.emp_detail_check = QtWidgets.QPushButton(self.widget_9)
+        self.emp_detail_check.setMinimumSize(QtCore.QSize(120, 41))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.emp_detail_check.setFont(font)
+        self.emp_detail_check.setStyleSheet("border-radius:10px;\n"
+"background-color:#3085FE;\n"
+"color: white;")
+        self.emp_detail_check.setObjectName("emp_detail_check")
+        self.horizontalLayout_11.addWidget(self.emp_detail_check)
         self.verticalLayout_13.addWidget(self.widget_9)
         self.widget_10 = QtWidgets.QWidget(self.atd_page)
         self.widget_10.setMaximumSize(QtCore.QSize(16777215, 280))
@@ -645,6 +686,31 @@ class Ui_MainWidget(object):
         self.tableWidget = QtWidgets.QTableWidget(self.widget_10)
         self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 280))
         self.tableWidget.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.tableWidget.setStyleSheet("\n"
+"            QScrollBar:vertical {\n"
+"                border: none;\n"
+"                background: none;\n"
+"                width: 15px;\n"
+"                margin: 0px;\n"
+"            }\n"
+"\n"
+"            QScrollBar::handle:vertical {\n"
+"                border: 3px solid #3085FE;\n"
+"                background-color: white;\n"
+"                min-height: 20px;\n"
+"                border-radius: 5px;\n"
+"            }\n"
+"\n"
+"            QScrollBar::handle:vertical:hover {\n"
+"                background: #3085FE;\n"
+"            }\n"
+"\n"
+"            QScrollBar::sub-line:vertical,\n"
+"            QScrollBar::add-line:vertical {\n"
+"                border: none;\n"
+"                height: 0px;\n"
+"            }\n"
+"")
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(6)
@@ -672,11 +738,11 @@ class Ui_MainWidget(object):
         self.summary_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.summary_lab.setObjectName("summary_lab")
         self.verticalLayout_13.addWidget(self.summary_lab)
-        spacerItem22 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_13.addItem(spacerItem22)
+        spacerItem24 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_13.addItem(spacerItem24)
         self.horizontalLayout_10.addLayout(self.verticalLayout_13)
-        spacerItem23 = QtWidgets.QSpacerItem(61, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_10.addItem(spacerItem23)
+        spacerItem25 = QtWidgets.QSpacerItem(61, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_10.addItem(spacerItem25)
         self.stackedWidget.addWidget(self.atd_page)
         self.my_page = QtWidgets.QWidget()
         self.my_page.setStyleSheet("QLineEdit{\n"
@@ -713,15 +779,15 @@ class Ui_MainWidget(object):
         self.my_img_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.my_img_lab.setObjectName("my_img_lab")
         self.horizontalLayout_13.addWidget(self.my_img_lab)
-        spacerItem24 = QtWidgets.QSpacerItem(130, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_13.addItem(spacerItem24)
+        spacerItem26 = QtWidgets.QSpacerItem(130, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_13.addItem(spacerItem26)
         self.line = QtWidgets.QFrame(self.my_page_widget)
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.horizontalLayout_13.addWidget(self.line)
-        spacerItem25 = QtWidgets.QSpacerItem(70, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_13.addItem(spacerItem25)
+        spacerItem27 = QtWidgets.QSpacerItem(70, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_13.addItem(spacerItem27)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setVerticalSpacing(20)
         self.gridLayout.setObjectName("gridLayout")
@@ -842,7 +908,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -853,7 +919,7 @@ class Ui_MainWidget(object):
         self.atd_btn.setText(_translate("MainWidget", "근태화면"))
         self.mypage_btn.setText(_translate("MainWidget", "마이페이지"))
         self.dept_title.setText(_translate("MainWidget", "부서조회"))
-        self.emp_detail_check.setText(_translate("MainWidget", "사원정보확인"))
+        self.add_btn.setText(_translate("MainWidget", "사원추가"))
         item = self.dept_tablewidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWidget", "부서이름"))
         item = self.dept_tablewidget.horizontalHeaderItem(1)
@@ -862,11 +928,12 @@ class Ui_MainWidget(object):
         item.setText(_translate("MainWidget", "팀원수"))
         item = self.dept_tablewidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWidget", "근태율"))
-        self.graph_contents_3.setText(_translate("MainWidget", "그래프에 대한 설명"))
-        self.graph_contents_4.setText(_translate("MainWidget", "그래프에 대한 설명"))
+        self.graph_contents_3.setText(_translate("MainWidget", "팀별 근태율\n"
+"(2023년 전체 근태율을 보려면 클릭하세요)"))
+        self.graph_contents_4.setText(_translate("MainWidget", "팀 구성원 비율\n"
+"(크게 보려면 클릭하세요)"))
         self.team_search_lab.setText(_translate("MainWidget", "부서조회"))
         self.team_search_btn.setText(_translate("MainWidget", "확인"))
-        self.add_btn.setText(_translate("MainWidget", "사원추가"))
         self.home_name_lab.setText(_translate("MainWidget", "이름이름"))
         self.home_dept_lab.setText(_translate("MainWidget", "부서부서"))
         self.out_btn.setText(_translate("MainWidget", "외출하기"))
@@ -879,10 +946,10 @@ class Ui_MainWidget(object):
         self.atd_per_text_lab.setText(_translate("MainWidget", "출석률"))
         self.graph_contents_1.setText(_translate("MainWidget", "최근 일주일간 근무시간 그래프\n"
 "(월별 그래프를 보려면 클릭하세요)"))
-        self.graph_contents_2.setText(_translate("MainWidget", "2023년 월별 출근율 그래프\n"
-"(크게 보려면 클릭하세요)"))
+        self.graph_contents_2.setText(_translate("MainWidget", "그래프에 대한 설명"))
         self.attend_check_lab.setText(_translate("MainWidget", "월별조회"))
         self.attend_check_btn.setText(_translate("MainWidget", "확인"))
+        self.emp_detail_check.setText(_translate("MainWidget", "사원정보확인"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWidget", "일자"))
         item = self.tableWidget.horizontalHeaderItem(1)
