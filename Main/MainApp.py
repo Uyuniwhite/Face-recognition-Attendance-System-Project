@@ -10,6 +10,8 @@ from PyQt5.QtCore import pyqtSignal, QThread, Qt
 def Main():
     app = QtWidgets.QApplication(sys.argv)
 
+    load = Loading()
+    load.start()
     # 폰트 설정
     fontDB = QFontDatabase()
     fontDB.addApplicationFont('../font/Pretendard-Black.ttf')
@@ -23,8 +25,7 @@ def Main():
 
     # for family in fontDB.families():
     #     print(family, fontDB.styles(family))
-    load = Loading()
-    load.start()
+
 
     main_window = Controller()
     main_window.open_page.show()

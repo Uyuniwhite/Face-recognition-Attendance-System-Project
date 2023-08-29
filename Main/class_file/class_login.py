@@ -213,13 +213,14 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             self.msgbox.exec_()  # 메세지 박스 띄우기
         elif input_id == 'admin':
             # admin일 경우
-            self.main.main_page.SetUserId.emit(input_id)
-            self.show_title_btns(type='admin') # 관리자 타이틀 바 보여줌
-            self.main.main_page.draw_team_donut_chart_for_admin() # 도넛그래프
-            self.main.main_page.set_dept_atd_per_bar_graph() # 막대그래프
-            self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
-            self.main.main_page.show()
-            self.close()
+            if input_pw == 'admin':
+                self.main.main_page.SetUserId.emit(input_id)
+                self.show_title_btns(type='admin') # 관리자 타이틀 바 보여줌
+                self.main.main_page.draw_team_donut_chart_for_admin() # 도넛그래프
+                self.main.main_page.set_dept_atd_per_bar_graph() # 막대그래프
+                self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
+                self.main.main_page.show()
+                self.close()
 
     def show_title_btns(self, type='user'):
         btns_list = self.main.main_page.title_btns.findChildren(QPushButton)
