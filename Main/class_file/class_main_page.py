@@ -46,7 +46,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.team_search_btn.clicked.connect(self.set_grid_lay)  # 팀 검색 버튼 눌렀을 때
         self.out_btn.clicked.connect(self.show_out_while_img)  # 외출하기 버튼 클릭
         self.end_btn.clicked.connect(self.clicked_end_btn)  # 퇴근하기 버튼 클릭
-        self.attend_check_btn.clicked.connect(lambda x, y=self.user_id: self.show_atd_table(user_id=y))  # 특정 달 출근일자 테이블에 보여주기
+        # self.attend_check_btn.clicked.connect(lambda x, y=self.user_id: self.show_atd_table(user_id=y))  # 특정 달 출근일자 테이블에 보여주기
         self.SetUserId.connect(self.set_user_id)
         self.mypage_btn.clicked.connect(self.get_userinfo_from_DB)  # 마이페이지 데이터 반영 관련
         self.edit_btn.clicked.connect(self.clicked_edit_btn)
@@ -94,8 +94,9 @@ class MainPage(QWidget, Ui_MainWidget):
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def set_user_id(self, user_id):
-        print('여기를 타서 유저 아이디가 변경됩니다.')
+        """로그인 할 때 유저 아이디가 변경됨"""
         self.user_id = user_id
+        self.attend_check_btn.clicked.connect(lambda x, y=self.user_id: self.show_atd_table(user_id=y))
 
     # 유저 출근 달들만 리턴
     def set_user_atd_combo(self, user_id):
@@ -398,6 +399,6 @@ class MainPage(QWidget, Ui_MainWidget):
     def show_large_bar_graph(self, event):
         new_fig = self.create_bar_graph(self.x_val, self.y_val, x_lab='월별', y_lab='출근율', title='월별 출근울(%)')
         new_canvas = FigureCanvas(new_fig)
-        d = ShowGraph(new_canvas, '근무시간 그래프')
+        d = ShowGraph(new_canvas, '월별 출근울(%)')
         d.exec_()
 
