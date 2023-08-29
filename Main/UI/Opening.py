@@ -15,13 +15,19 @@ class Ui_Opening(object):
     def setupUi(self, Opening):
         Opening.setObjectName("Opening")
         Opening.resize(1120, 630)
+        self.verticalLayout = QtWidgets.QVBoxLayout(Opening)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(Opening)
-        self.label.setGeometry(QtCore.QRect(260, 100, 651, 341))
         font = QtGui.QFont()
         font.setPointSize(29)
         self.label.setFont(font)
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(":/opening.png"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
 
         self.retranslateUi(Opening)
         QtCore.QMetaObject.connectSlotsByName(Opening)
@@ -29,8 +35,7 @@ class Ui_Opening(object):
     def retranslateUi(self, Opening):
         _translate = QtCore.QCoreApplication.translate
         Opening.setWindowTitle(_translate("Opening", "Form"))
-        self.label.setText(_translate("Opening", "로딩중이오 잠시만 기다리소 \n"
-"그렇게 급하면 어제 키지 그랬소"))
+from Main.UI import resource_rc
 
 
 if __name__ == "__main__":

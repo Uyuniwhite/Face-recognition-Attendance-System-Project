@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>opening.png</file>
     <file>back.png</file>
     <file>user.png</file>
     <file>refresh.png</file>

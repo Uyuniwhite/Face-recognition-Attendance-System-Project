@@ -13,29 +13,41 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>100</y>
-     <width>651</width>
-     <height>341</height>
-    </rect>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>29</pointsize>
-    </font>
+   <property name="leftMargin">
+    <number>0</number>
    </property>
-   <property name="text">
-    <string>로딩중이오 잠시만 기다리소 
-그렇게 급하면 어제 키지 그랬소</string>
+   <property name="topMargin">
+    <number>0</number>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
+   <property name="rightMargin">
+    <number>0</number>
    </property>
-  </widget>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>29</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../img/icon/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
