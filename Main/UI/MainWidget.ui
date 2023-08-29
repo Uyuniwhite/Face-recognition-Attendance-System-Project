@@ -235,7 +235,7 @@ QPushButton::hover{
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="admin_dept_check">
          <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -357,6 +357,10 @@ color: white;</string>
                 border: none;
                 height: 0px;
             }
+			#dept_tablewidget{
+			
+	background-color: rgb(255, 255, 255);
+			}
 </string>
                </property>
                <property name="editTriggers">
@@ -1535,7 +1539,8 @@ border-radius:10px;</string>
                          </size>
                         </property>
                         <property name="text">
-                         <string>그래프에 대한 설명</string>
+                         <string>월별 근태율 그래프
+(자세히 보려면 클릭하세요)</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignCenter</set>
@@ -1838,6 +1843,11 @@ color: white;</string>
                 border: none;
                 height: 0px;
             }
+
+			#tableWidget{
+			
+	background-color: rgb(255, 255, 255);
+			}
 </string>
                  </property>
                  <property name="editTriggers">
@@ -2002,7 +2012,8 @@ height: 40px;
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(255, 255, 255);</string>
+                   <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 115px;</string>
                   </property>
                   <property name="text">
                    <string>이미지</string>

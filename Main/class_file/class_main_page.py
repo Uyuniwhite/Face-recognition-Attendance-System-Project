@@ -4,8 +4,8 @@ from Main.class_file.class_font import Font
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_show_graph import ShowGraph
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QCursor, QPixmap, QIcon
-from PyQt5.QtCore import QThread, pyqtSignal, Qt, QSize
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -35,7 +35,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.msgbox = MsgBox()  # 메세지박스 객체 싱성
 
     def initUI(self):
-        self.stackedWidget.setCurrentWidget(self.home_page) # 초기화면 홈페이지로 설정
+        self.stackedWidget.setCurrentWidget(self.home_page)  # 초기화면 홈페이지로 설정
         # 페이지 이동
         # self.home_btn.clicked.connect(
         #     lambda x: self.stackedWidget.setCurrentWidget(self.home_page))  # 관리자일 경우에는 팀 관리 화면으로 넘어가게 하기
@@ -69,14 +69,12 @@ class MainPage(QWidget, Ui_MainWidget):
         # 테이블 채우기
         self.set_dept_table()
 
-
     # 디버깅 해야 함(로그인 후 user_id)가 변경이 안되는 현상이 생김
     def show_atd_table(self, user_id):
         if user_id == 'admin':
             user_id = self.clicked_id
         current_month = self.attend_check_combobox.currentText()
         atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
-
 
         self.tableWidget.setRowCount(len(atd_list))
         self.tableWidget.setColumnCount(6)
@@ -101,6 +99,7 @@ class MainPage(QWidget, Ui_MainWidget):
 
         header = self.tableWidget.horizontalHeader()  # 수평 헤더 (컬럼 헤더) 가져오기
         header.setFont(Font.button(1))
+
     def set_user_id(self, user_id):
         """로그인 할 때 유저 아이디가 변경됨"""
         self.user_id = user_id
@@ -287,10 +286,33 @@ class MainPage(QWidget, Ui_MainWidget):
         dept_name = self.convert_dept_id_to_name(dept_id)
         self.set_userinfo_mypage(user_name, user_id, user_pw, dept_name)
         self.my_img_lab.setScaledContents(True)
-        if user_id =='soyeon':
-            self.my_img_lab.setPixmap(QPixmap('../../img/icon_profile/soyeon.jpg'))
+        if user_id == 'soyeon':
+            circle_img = self.circleImage('../../img/icon_profile/soyeon.jpg')
+            self.my_img_lab.setPixmap(QPixmap(circle_img))
         elif user_id == 'woohyun':
-            self.my_img_lab.setPixmap(QPixmap('../../img/icon_profile/woohyeon.jpeg'))
+            circle_img = self.circleImage('../../img/icon_profile/woohyeon.jpeg')
+            self.my_img_lab.setPixmap(QPixmap(circle_img))
+
+    def circleImage(self, imagePath):
+        """이미지 둥글게"""
+        source = QPixmap(imagePath)
+        size = min(source.width(), source.height())
+
+        target = QPixmap(size, size)
+        target.fill(Qt.transparent)
+
+        qp = QPainter(target)
+        qp.setRenderHints(qp.Antialiasing)
+        path = QPainterPath()
+        path.addEllipse(0, 0, size, size)
+        qp.setClipPath(path)
+
+        sourceRect = QRect(0, 0, size, size)
+        sourceRect.moveCenter(source.rect().center())
+        qp.drawPixmap(target.rect(), source, sourceRect)
+        qp.end()
+
+        return target
 
     # 마이페이지 개인정보 넣기
     def set_userinfo_mypage(self, user_name, user_id, user_pw, dept_name):
@@ -348,13 +370,12 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 그래프 그리기
         # print('그래프 그리는 곳', self.x_list, self.y_list)
-        if len(self.x_list) >=10:
+        if len(self.x_list) >= 10:
             self.figure = self.create_plot_graph(self.x_list[-10:], self.y_list[-10:], '출근날짜', '출근시간')
         else:
             self.figure = self.create_plot_graph(self.x_list, self.y_list, '출근날짜', '출근시간')
         self.canvas = FigureCanvas(self.figure)
         self.verticalLayout_6.addWidget(self.canvas)
-
 
     # 선 그래프 그리기
     def create_plot_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
@@ -400,13 +421,12 @@ class MainPage(QWidget, Ui_MainWidget):
         ax.set_title(title)
         ax.set_xticks(x_list)  # x축의 눈금 위치 설정
         ax.set_xticklabels(x_list, rotation=45)  # x축의 눈금 라벨을 설정하고 45도로 회전
-        ax.set_ylim(0, 100) # y축 크기 설정
+        ax.set_ylim(0, 100)  # y축 크기 설정
         ax.grid(False)
         fig.tight_layout()
         # fig.subplots_adjust(left=0.15, right=0.98, top=0.95, bottom=0.15)
 
         return fig
-
 
     # 다중 막대 그래프 그리기
     def plot_multi_bar(self, data):
@@ -468,7 +488,6 @@ class MainPage(QWidget, Ui_MainWidget):
         canvas = FigureCanvas(fig)
         self.verticalLayout_22.addWidget(canvas)
 
-
     # 유저 달별 근태율 막대그래프 그리기
     def set_user_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title='', layout=None):
         fig = self.create_bar_graph(x_list, y_list, x_lab, y_lab, title)
@@ -485,11 +504,6 @@ class MainPage(QWidget, Ui_MainWidget):
             y.append(per)
         print(x, y)
         self.set_user_bar_graph(x_list=x, y_list=y, layout=self.verticalLayout_20)
-
-
-
-
-
 
     # 그래프 크게 띄우기 =====================
     def show_large_graph(self, event):

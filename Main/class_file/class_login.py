@@ -17,6 +17,7 @@ from Main.class_file.class_face_detection import FaceRecognizer
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성
 class LoginFunc(QWidget, Ui_LoginWidget):
     custom_signal = pyqtSignal(str)
+
     def __init__(self, controller):
         super().__init__()  # 부모 클래스의 초기화 메서드를 호출
 
@@ -35,6 +36,7 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         # 카메라로부터 영상을 캡처하기 위한 객체를 생성
         self.cap = cv2.VideoCapture(0)
         self.id_lineedit.setText('admin')
+
     def initUI(self):
         # 그림자 효과를 설정
         self.set_shadow()
@@ -136,12 +138,13 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
                     result = self.main.dbconn.get_user_data(name)
 
-                    user_dept = self.main.dbconn.return_specific_data(column='dept_name', table_name='tb_dept', condition=f'dept_id = {result[4]}', type=1)
+                    user_dept = self.main.dbconn.return_specific_data(column='dept_name', table_name='tb_dept',
+                                                                      condition=f'dept_id = {result[4]}', type=1)
                     self.main.main_page.home_name_lab.setText(result[1])
                     self.main.main_page.home_dept_lab.setText(user_dept)
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
 
-                    if self.user_name !='admin':
+                    if self.user_name != 'admin':
                         self.set_user_basic_setting()
 
                     # 로그인 확인 다이얼로그 연결
@@ -181,7 +184,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.main.main_page.set_user_bar_graph(x_list=month_list, y_list=atd_per_list,
                                                layout=self.main.main_page.verticalLayout_9)
 
-
     # ID / PW 입력하고 로그인버튼 클릭시 이벤트 처리 함수
     def clicked_login_btn(self):
         input_id, input_pw = self.id_lineedit.text(), self.pw_lineedit.text()
@@ -215,9 +217,9 @@ class LoginFunc(QWidget, Ui_LoginWidget):
             # admin일 경우
             if input_pw == 'admin':
                 self.main.main_page.SetUserId.emit(input_id)
-                self.show_title_btns(type='admin') # 관리자 타이틀 바 보여줌
-                self.main.main_page.draw_team_donut_chart_for_admin() # 도넛그래프
-                self.main.main_page.set_dept_atd_per_bar_graph() # 막대그래프
+                self.show_title_btns(type='admin')  # 관리자 타이틀 바 보여줌
+                self.main.main_page.draw_team_donut_chart_for_admin()  # 도넛그래프
+                self.main.main_page.set_dept_atd_per_bar_graph()  # 막대그래프
                 self.main.main_page.stackedWidget.setCurrentWidget(self.main.main_page.admin_dept_check)
                 self.main.main_page.show()
                 self.close()

@@ -155,6 +155,10 @@ class Ui_MainWidget(object):
 "                border: none;\n"
 "                height: 0px;\n"
 "            }\n"
+"            #dept_tablewidget{\n"
+"            \n"
+"    background-color: rgb(255, 255, 255);\n"
+"            }\n"
 "")
         self.dept_tablewidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.dept_tablewidget.setObjectName("dept_tablewidget")
@@ -710,6 +714,11 @@ class Ui_MainWidget(object):
 "                border: none;\n"
 "                height: 0px;\n"
 "            }\n"
+"\n"
+"            #tableWidget{\n"
+"            \n"
+"    background-color: rgb(255, 255, 255);\n"
+"            }\n"
 "")
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setObjectName("tableWidget")
@@ -775,7 +784,8 @@ class Ui_MainWidget(object):
         self.my_img_lab = QtWidgets.QLabel(self.my_page_widget)
         self.my_img_lab.setMinimumSize(QtCore.QSize(230, 230))
         self.my_img_lab.setMaximumSize(QtCore.QSize(230, 230))
-        self.my_img_lab.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.my_img_lab.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-radius: 115px;")
         self.my_img_lab.setAlignment(QtCore.Qt.AlignCenter)
         self.my_img_lab.setObjectName("my_img_lab")
         self.horizontalLayout_13.addWidget(self.my_img_lab)
@@ -908,7 +918,7 @@ class Ui_MainWidget(object):
         self.verticalLayout.addWidget(self.bottom_widget)
 
         self.retranslateUi(MainWidget)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWidget)
 
     def retranslateUi(self, MainWidget):
@@ -946,7 +956,8 @@ class Ui_MainWidget(object):
         self.atd_per_text_lab.setText(_translate("MainWidget", "출석률"))
         self.graph_contents_1.setText(_translate("MainWidget", "최근 일주일간 근무시간 그래프\n"
 "(월별 그래프를 보려면 클릭하세요)"))
-        self.graph_contents_2.setText(_translate("MainWidget", "그래프에 대한 설명"))
+        self.graph_contents_2.setText(_translate("MainWidget", "월별 근태율 그래프\n"
+"(자세히 보려면 클릭하세요)"))
         self.attend_check_lab.setText(_translate("MainWidget", "월별조회"))
         self.attend_check_btn.setText(_translate("MainWidget", "확인"))
         self.emp_detail_check.setText(_translate("MainWidget", "사원정보확인"))
