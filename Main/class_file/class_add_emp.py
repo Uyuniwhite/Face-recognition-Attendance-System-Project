@@ -1,9 +1,10 @@
 from Main.UI.AddEmployee import Ui_AddEmployee
 from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
+from Main.class_file.image_learn import ImageLearn
+from datetime import datetime
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSignal, QTimer, QThread
-from Main.class_file.image_learn import ImageLearn
 
 
 class Worker(QThread):
@@ -60,6 +61,9 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         emp_pw = self.pw_lineedit.text()
         emp_re_pw = self.pw_recheck_lineedit.text()
 
+        current_time = datetime.now()
+        join_date = current_time.strftime('%Y-%m-%d')
+
         result_name = self.verify_name(emp_name)
         result_id = self.verify_id(emp_id)
         result_pw = self.verify_pw(emp_pw, emp_re_pw)
@@ -88,6 +92,8 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
                     if not self.face_regist:
                         message = "얼굴 인식을 진행해주세요!"
                     elif self.face_regist:
+                        # DB 저장
+                        self.main.dbconn.save_newbie(emp_name, emp_id, emp_pw, result_dept, join_date)
                         # 로딩 화면 보여주기
                         self.msgbox.set_dialog_type(msg='이미지 학습 중입니다...', img='loading')
                         self.msgbox.show()
