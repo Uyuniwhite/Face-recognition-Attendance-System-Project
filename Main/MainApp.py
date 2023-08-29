@@ -29,6 +29,8 @@ def Main():
     main_window = Controller()
     main_window.open_page.show()
 
+    load.loading_close()
+    load.finished_signal.connect(load.quit)
     app.exec_()
 
 
