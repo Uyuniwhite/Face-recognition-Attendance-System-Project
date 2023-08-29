@@ -345,6 +345,18 @@ class DBconnect:
         month_list = [f'{i}월' for i in range(start_month, current_month+1)]
         return month_list, atd_per_list
 
+    # 팀 이름과 팀원 수를 리턴함
+    def count_dept_emp(self):
+        c = self.start_conn()
+        count_query = "select tb_dept.dept_name, count(tb_user.*) as count_emp from tb_user " \
+                      "join tb_dept on tb_user.dept_id = tb_dept.dept_id " \
+                      "group by tb_dept.dept_name"
+        c.execute(count_query)
+        data = c.fetchall()
+        self.end_conn()
+
+        return data
+
 
 
 
