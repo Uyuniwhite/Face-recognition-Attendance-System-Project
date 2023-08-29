@@ -3,6 +3,7 @@ from Main.UI.LoginWidget import Ui_LoginWidget
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox, QPushButton
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor, QCursor
+from PyQt5.QtCore import pyqtSignal
 import sys
 import cv2
 import os
@@ -15,6 +16,7 @@ from Main.class_file.class_face_detection import FaceRecognizer
 
 # LoginFunc 클래스는 QWidget와 Ui_LoginWidget 클래스를 상속받아서 작성
 class LoginFunc(QWidget, Ui_LoginWidget):
+    custom_signal = pyqtSignal(str)
     def __init__(self, controller):
         super().__init__()  # 부모 클래스의 초기화 메서드를 호출
 
@@ -129,22 +131,27 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                     self.show_title_btns()
                     self.main.leave_work.SetUserId.emit(self.user_name)
                     self.main.check_out.SetUserId.emit(self.user_name)
+                    self.main.main_page.SetUserId.emit(self.user_name)
+                    # self.custom_signal.emit(self.user_name)
 
-                    # 이 부분은 나중에 함수로 빼기
-                    self.main.main_page.user_id = name
                     result = self.main.dbconn.get_user_data(name)
 
                     user_dept = self.main.dbconn.return_specific_data(column='dept_name', table_name='tb_dept', condition=f'dept_id = {result[4]}', type=1)
                     self.main.main_page.home_name_lab.setText(result[1])
                     self.main.main_page.home_dept_lab.setText(user_dept)
-
-                    # self.main.main_page.set_user_atd_combo(user_id=self.user_name)  # 유저 콤보박스 추가
                     self.main.main_page.set_user_atd_summary(user_id=self.user_name)  # 유저 근태내역 요약 추가
 
                     if self.user_name !='admin':
-                        self.main.main_page.show_atd_table(user_id=self.user_name)
                         self.main.main_page.set_user_atd_combo(self.user_name)
+                        self.main.main_page.show_atd_table(user_id=self.user_name)
                         self.main.main_page.back_to_dept_btn.setVisible(False)
+                        self.main.main_page.emp_detail_check.setVisible(False)
+
+                        month_list, atd_per_list = self.main.dbconn.return_user_atd_per_year(self.user_name)
+                        print(atd_per_list)
+                        self.main.main_page.set_user_bar_graph(x_list=month_list, y_list=atd_per_list,
+                                                               layout=self.main.main_page.verticalLayout_9)
+
 
                     # 로그인 확인 다이얼로그 연결
                     message = f"{name}님 로그인되었습니다."

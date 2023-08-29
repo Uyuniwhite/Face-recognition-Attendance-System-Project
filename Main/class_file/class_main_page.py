@@ -1,16 +1,17 @@
-import cv2
-
 from Main.UI.MainWidget import Ui_MainWidget
 from Main.class_file.class_user_cell import UserCell
 from Main.class_file.class_font import Font
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_show_graph import ShowGraph
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QSize
 
 import matplotlib.pyplot as plt
-import cv2
-import sys
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+from scipy.interpolate import interp1d
+import numpy as np
 import os
 
 
@@ -49,10 +50,12 @@ class MainPage(QWidget, Ui_MainWidget):
         self.SetUserId.connect(self.set_user_id)
         self.mypage_btn.clicked.connect(self.get_userinfo_from_DB)  # 마이페이지 데이터 반영 관련
         self.edit_btn.clicked.connect(self.clicked_edit_btn)
-        self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data) # 테이블 위젯 셀 클릭 이벤트
-        self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection) # 셀 클릭시 블록 설정 안되게
-        self.emp_detail_check.clicked.connect(self.check_emp_info) # 관리자 사원 정보 확인 버튼 클릭
-        self.back_to_dept_btn.clicked.connect(self.clicked_back_btn) # 관리자 사원관리 뒤로가기 버튼 이벤트
+        self.dept_tablewidget.cellDoubleClicked.connect(self.get_tbwid_data)  # 테이블 위젯 셀 클릭 이벤트
+        self.dept_tablewidget.setSelectionMode(QTableWidget.NoSelection)  # 셀 클릭시 블록 설정 안되게
+        self.emp_detail_check.clicked.connect(self.check_emp_info)  # 관리자 사원 정보 확인 버튼 클릭
+        self.back_to_dept_btn.clicked.connect(self.clicked_back_btn)  # 관리자 사원관리 뒤로가기 버튼 이벤트
+        self.graph_widget_1.mousePressEvent = self.show_large_graph
+        self.graph_widget_2.mousePressEvent = self.show_large_bar_graph
 
         # 부서 콤보박스에 넣기
         self.team_search_combobox.clear()
@@ -61,16 +64,14 @@ class MainPage(QWidget, Ui_MainWidget):
 
         # 테이블 채우기
         self.set_dept_table()
-        # 기본 클릭
-        # self.team_search_btn.click()
 
 
-
+    # 디버깅 해야 함(로그인 후 user_id)가 변경이 안되는 현상이 생김
     def show_atd_table(self, user_id):
         if user_id is not None:
             current_month = self.attend_check_combobox.currentText()
             atd_list = self.controller.dbconn.return_user_atd_info(user_id=user_id, year_month=current_month)
-
+            self.set_graph_for_user(atd_list)
             self.tableWidget.setRowCount(len(atd_list))
             self.tableWidget.setColumnCount(6)
 
@@ -83,7 +84,6 @@ class MainPage(QWidget, Ui_MainWidget):
                     time_difference = '근무중'
                 if atd_type == 'face':
                     atd_type = '얼굴인식'
-                print(date, time_difference)
 
                 # 각 아이템을 생성하고 가운데 정렬한 후, 테이블에 추가
                 for col, value in enumerate([date, date_day, start_time, atd_type, end_time, time_difference]):
@@ -94,13 +94,13 @@ class MainPage(QWidget, Ui_MainWidget):
             self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def set_user_id(self, user_id):
+        print('여기를 타서 유저 아이디가 변경됩니다.')
         self.user_id = user_id
 
     # 유저 출근 달들만 리턴
     def set_user_atd_combo(self, user_id):
         user_atd_months = self.controller.dbconn.return_user_atd_month(user_id=user_id)
         self.attend_check_combobox.addItems(user_atd_months)
-        self.attend_check_btn.click()
 
     # 근태화면 하단 요약 부분
     def set_user_atd_summary(self, user_id):
@@ -125,14 +125,19 @@ class MainPage(QWidget, Ui_MainWidget):
             self.controller.leave_work.show()
 
     def initStyle(self):
-        # 현재 우치ㅣ
-        os.chdir(os.path.dirname(os.path.abspath(__file__)))
+        # 현재 위치
+        os.chdir(os.path.dirname(os.path.abspath(__file__))) \
+ \
+        # 이미지 넣기
         self.setCursor(QCursor(QPixmap('../../img/icon/cursor_1.png').scaled(40, 40)))
         self.img_lab.setPixmap(QPixmap('../../img/icon/user.png').scaled(60, 60))
-
         self.back_to_dept_btn.setIcon(QIcon('../../img/icon/back.png'))
         self.back_to_dept_btn.setIconSize(QSize(40, 40))
-        self.set_font()  # 폰트 설정
+
+        # 폰트 설정
+        self.set_font()
+        plt.rcParams['font.family'] = 'Malgun Gothic'
+        plt.rcParams['axes.unicode_minus'] = False
 
     # 사원 추가 버튼
     def add_employee(self):
@@ -148,7 +153,6 @@ class MainPage(QWidget, Ui_MainWidget):
         self.atd_btn.setFont(Font.button(6))
         self.mypage_btn.setFont(Font.button(6))
         self.users_btn.setFont(Font.button(6))
-
 
         # 마이페이지
         self.name_lab.setFont(font_style_1)
@@ -213,7 +217,7 @@ class MainPage(QWidget, Ui_MainWidget):
         for i in range(num_rows):
             for j in range(3):  # 열은 3개로 고정
                 if cnt < len(empolyee_list):  # test_list의 원소 수를 초과하지 않도록 함
-                    print(empolyee_list[cnt][0], empolyee_list[cnt][1])
+                    # print(empolyee_list[cnt][0], empolyee_list[cnt][1])
                     user_cell = UserCell(self.controller, self, type=1, name=empolyee_list[cnt][0],
                                          user_id=empolyee_list[cnt][1])
                     self.users_grid_lay.addWidget(user_cell, i, j)
@@ -303,15 +307,97 @@ class MainPage(QWidget, Ui_MainWidget):
             self.stackedWidget.setCurrentWidget(self.admin_dept_check)
             self.set_dept_table()
         else:
-             self.stackedWidget.setCurrentWidget(self.home_page)
+            self.stackedWidget.setCurrentWidget(self.home_page)
 
     def check_emp_info(self):
         self.controller.dept_change.show()
 
-    def set_graph_for_user(self):
-        """유저 그래프 넣기"""
-
-        pass
-
     def clicked_back_btn(self):
         self.stackedWidget.setCurrentWidget(self.admin_home_page)
+
+    # 현재 달에 해당하는 사용자 근태시간 그리기 위한 데이터 가져오기
+    def set_graph_for_user(self, data):
+        self.x_list, self.y_list = list(), list()
+        # data = data[-10:]
+        for i in data:
+            date, start_time, end_time = i[1], i[2], i[7]
+            if date != self.controller.dbconn.return_datetime('date'):  # 현재날짜는 제외
+                hour_diff = 0
+                if end_time != 'NULL':
+                    time_difference = self.controller.dbconn.get_strptime(start_time, end_time)
+                    hour_diff = time_difference.total_seconds() / 3600
+                self.x_list.append(str(date[-2:]))
+                self.y_list.append(int(hour_diff))
+
+        # 그래프 그리기
+        self.figure = self.create_plot_graph(self.x_list[-10:], self.y_list[10:], '출근날짜', '출근시간')
+        self.canvas = FigureCanvas(self.figure)
+        self.verticalLayout_6.addWidget(self.canvas)
+
+
+    # 선 그래프 그리기
+    def create_plot_graph(self, x_list, y_list, x_lab='', y_lab='', layout=''):
+        x_vals = np.linspace(0, len(x_list) - 1, 500)
+        y_interp = interp1d(np.arange(len(y_list)), y_list, kind='cubic')
+        y_vals = y_interp(x_vals)
+
+        # 그래프 조건
+        fig = Figure(figsize=(4, 1.6))
+        fig.tight_layout()
+        # fig.subplots_adjust(left=0.15, right=0.98, top=0.95, bottom=0.15)
+
+        ax = fig.add_subplot(111)
+        ax.plot(x_vals, y_vals, color='#3085FE')  # 부드럽게 그래프 그리기
+
+        ax.set_ylim(0, max(y_vals) + 1)
+
+        ax.set_xticks(np.arange(len(x_list)))  # x_list의 인덱스를 눈금 위치로 설정
+        ax.set_xticklabels(x_list)  # x_list의 값들을 눈금 라벨로 설정
+
+        # ax.set_xlabel(x_lab)
+        # ax.set_ylabel(y_lab)
+        ax.grid(False)
+
+        return fig
+
+    # 막대 그래프 그리기
+    def create_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title=''):
+
+        fig, ax = plt.subplots(figsize=(4, 3))
+        self.x_val, self.y_val = x_list, y_list
+        ax.bar(x_list, y_list, color='#3085FE')
+        ax.set_xlabel(x_lab)
+        ax.set_ylabel(y_lab)
+        ax.set_title(title)
+        ax.set_xticks(x_list)  # x축의 눈금 위치 설정
+        ax.set_xticklabels(x_list, rotation=45)  # x축의 눈금 라벨을 설정하고 45도로 회전
+        ax.set_ylim(0, 100) # y축 크기 설정
+        ax.grid(False)
+        fig.tight_layout()
+        # fig.subplots_adjust(left=0.15, right=0.98, top=0.95, bottom=0.15)
+
+        return fig
+
+
+    # 유저 달별 근태율 막대그래프 그리기
+    def set_user_bar_graph(self, x_list, y_list, x_lab='', y_lab='', title='', layout=None):
+        fig = self.create_bar_graph(x_list, y_list, x_lab, y_lab, title)
+        canvas = FigureCanvas(fig)
+
+        layout.addWidget(canvas)
+
+
+    # 그래프 크게 띄우기
+    def show_large_graph(self, event):
+
+        new_fig = self.create_plot_graph(self.x_list, self.y_list, x_lab='출근날짜', y_lab='출근시간')
+        new_canvas = FigureCanvas(new_fig)
+        d = ShowGraph(new_canvas, '근무시간 그래프')
+        d.exec_()
+
+    def show_large_bar_graph(self, event):
+        new_fig = self.create_bar_graph(self.x_val, self.y_val, x_lab='월별', y_lab='출근율', title='월별 출근울(%)')
+        new_canvas = FigureCanvas(new_fig)
+        d = ShowGraph(new_canvas, '근무시간 그래프')
+        d.exec_()
+
