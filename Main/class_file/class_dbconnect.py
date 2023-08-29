@@ -326,8 +326,17 @@ class DBconnect:
         month_list = [f'2023-{n:02}' for n in range(1, 12 + 1)]
         month_day_list = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
         user_no = self.find_no(user_id=user_id)
+        user_join_date = self.return_specific_data(column='user_join_date', table_name='tb_user', condition=f"user_id='{user_id}'")
+        start_month = datetime.strptime(user_join_date, '%Y-%m-%d')
+        start_month = start_month.month
+        current_time = datetime.now()
+        current_month = current_time.month
+        month_diff = current_month - start_month
+        print(start_month, current_month, month_diff)
+
+
         atd_per_list = list()
-        for idx, month in enumerate(month_list):
+        for idx, month in range(start_month, current_month + 1):
             con = f"user_no = {user_no} and atd_date like '%{month}%'"  # 조건2
             user_atd_day = self.return_specific_data(column='count(*)', table_name='tb_atd',
                                                      condition=con, type=1)
@@ -339,6 +348,8 @@ class DBconnect:
         return month_list, atd_per_list
 
 
+
+
 if __name__ == '__main__':
     db_conn = DBconnect(controller=None)
     # db_conn.return_user_atd_info(user_id='soyeon',year_month='2023-08')
@@ -348,11 +359,11 @@ if __name__ == '__main__':
 
     depts = db_conn.find_dept()
     for dept in depts:
-        print(dept)
+        # print(dept)
         mems = db_conn.select_dept(dept)
         for mem in mems:
-            print(mem)
-            m_list, atd_per = db_conn.return_user_atd_per_year(mems[1])
+            # print(mem[1])
+            m_list, atd_per = db_conn.return_user_atd_per_year(mem[1])
             print(atd_per)
 
 
