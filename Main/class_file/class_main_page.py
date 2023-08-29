@@ -286,6 +286,7 @@ class MainPage(QWidget, Ui_MainWidget):
         dept_id = user_data[-2]
         dept_name = self.convert_dept_id_to_name(dept_id)
         self.set_userinfo_mypage(user_name, user_id, user_pw, dept_name)
+        self.my_img_lab.setScaledContents(True)
         if user_id =='soyeon':
             self.my_img_lab.setPixmap(QPixmap('../../img/icon_profile/soyeon.jpg'))
         elif user_id == 'woohyun':
