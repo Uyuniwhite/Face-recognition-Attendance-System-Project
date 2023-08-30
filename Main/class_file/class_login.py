@@ -201,10 +201,12 @@ class LoginFunc(QWidget, Ui_LoginWidget):
                 elif db_password != input_pw:
                     self.msgbox.set_dialog_type(type=3)
                 else:
+                    self.main.main_page.user_id = input_id
+                    self.user_name = input_id
                     self.show_title_btns()
                     self.message = f"{input_id}님 로그인되었습니다."
                     self.msgbox.set_dialog_type(msg=message, img='check')
-
+                    self.set_user_basic_setting()
                     # 메인페이지로 이동
                     self.main.main_page.show()
                     # 로그인 정보 DB 저장
@@ -252,7 +254,6 @@ class LoginFunc(QWidget, Ui_LoginWidget):
 
     # 출근 시간 DB 저장
     def save_db(self, login_type):
-
         current_time = datetime.now()  # 현재 시간
         formatted_date = current_time.strftime('%Y-%m-%d')
         formatted_time = current_time.strftime('%H:%M:%S')
