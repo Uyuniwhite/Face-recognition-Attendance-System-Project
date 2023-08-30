@@ -1,5 +1,6 @@
 import sys
 import cv2
+import os
 import numpy as np
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QMessageBox
 from PyQt5.QtGui import QImage, QPixmap
@@ -13,9 +14,20 @@ class FaceRecognitionApp(QWidget):
 
         self.model = load_model("face_model.h5")
         self.cap = cv2.VideoCapture(0)
-        self.class_names = ['soyeon', 'uhyeon', 'hohyeon', 'gwanghyeon']
+        self.class_names = self.list_directories('../img/face')
 
         self.initUI()
+
+    def list_directories(self, path):
+        """
+        지정된 경로의 폴더를 출력합니다.
+        """
+        class_names = []
+        for name in os.listdir(path):
+            full_path = os.path.join(path, name)
+            if os.path.isdir(full_path):
+                class_names.append(name)
+        return class_names
 
     def initUI(self):
         layout = QVBoxLayout()
@@ -59,7 +71,7 @@ class FaceRecognitionApp(QWidget):
                 # Crop the face and recognize it
                 face_image = image[y:y + h, x:x + w]
                 recognized_name = self.recognize_face(face_image)
-                print(recognized_name)
+                print('확인된 유저: ',recognized_name)
 
                 # Display the name of the recognized person on the image
                 image = cv2.putText(image, recognized_name, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2,
@@ -73,7 +85,7 @@ class FaceRecognitionApp(QWidget):
         prepared_img = self.prepare(image)
         predictions = self.model.predict(prepared_img)
         max_probability = np.max(predictions[0])
-        print(max_probability)
+        print('확률', max_probability)
         return self.class_names[np.argmax(predictions[0])]
 
     # def recognize_face(self, image):

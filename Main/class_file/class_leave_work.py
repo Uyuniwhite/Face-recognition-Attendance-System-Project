@@ -1,6 +1,7 @@
 from Main.UI.SaveUserImg import Ui_SaveUserImg
 from Main.class_file.class_face_detection import FaceRecognizer
 from Main.class_file.class_warning_msg import MsgBox
+from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer, pyqtSignal, Qt
 from PyQt5.QtGui import QPixmap
@@ -18,9 +19,18 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
         self.controller = controller
 
         self.setWindowFlags(Qt.FramelessWindowHint)
+        self.set_font()
         self.title_lab.setText('퇴근 확인 화면')
         self.numimglabel.setVisible(False)
         self.init_cam()
+
+    def set_font(self):
+
+
+        self.title_lab.setFont(Font.title(2))
+        self.numimglabel.setFont(Font.text(3))
+        self.capture_btn.setFont(Font.text(0, weight='bold'))
+        self.cancel_btn.setFont(Font.text(0, weight='bold'))
 
     def init_cam(self):
         self.user_id = None
@@ -31,6 +41,7 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
         self.SetUserId.connect(self.set_user_id)
         self.capture_btn.clicked.connect(self.start_cam)
         self.cancel_btn.clicked.connect(self.close)
+
 
     # 로그인 유저 ID 변수 설정
     def set_user_id(self, login_id):

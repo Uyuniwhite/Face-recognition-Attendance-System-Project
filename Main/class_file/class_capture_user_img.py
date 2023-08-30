@@ -84,9 +84,7 @@ class CaptureUserImage(QWidget, Ui_SaveUserImg):
             for x, y, w, h in face:
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 0), 2)
                 cv2.putText(img, "Face Detected", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255))
-                cv2.putText(img, str(str(num_of_images) + " images captured"), (x, y + h + 20),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.8, (0, 0, 255))
+                # cv2.putText(img, str(str(num_of_images) + " images captured"), (x, y + h + 20),cv2.FONT_HERSHEY_SIMPLEX,0.8, (0, 0, 255))
                 new_img = img[y:y + h, x:x + w]
 
             # img를 PyQt QLabel에 표시

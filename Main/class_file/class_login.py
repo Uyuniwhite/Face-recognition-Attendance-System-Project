@@ -179,7 +179,8 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         self.main.main_page.emp_detail_check.setVisible(False)
         current_month = self.main.main_page.attend_check_combobox.currentText()
         atd_list = self.main.dbconn.return_user_atd_info(user_id=self.user_name, year_month=current_month)
-        self.main.main_page.set_graph_for_user(atd_list)
+        if len(atd_list) >1:
+            self.main.main_page.set_graph_for_user(atd_list)
 
         month_list, atd_per_list = self.main.dbconn.return_user_atd_per_year(self.user_name)
         self.main.main_page.set_user_bar_graph(x_list=month_list, y_list=atd_per_list,

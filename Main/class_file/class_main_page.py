@@ -360,6 +360,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.x_list, self.y_list = list(), list()
         # data = data[-10:]
         for i in data:
+            print(i)
             date, start_time, end_time = i[1], i[2], i[7]
             if date != self.controller.dbconn.return_datetime('date'):  # 현재날짜는 제외
                 hour_diff = 0
@@ -516,7 +517,7 @@ class MainPage(QWidget, Ui_MainWidget):
     def show_large_bar_graph(self, event):
         new_fig = self.create_bar_graph(self.x_val, self.y_val, x_lab='월별', y_lab='출근율', title='월별 출근울(%)')
         new_canvas = FigureCanvas(new_fig)
-        d = ShowGraph(new_canvas, '월별 출근울(%)')
+        d = ShowGraph(new_canvas, '월별 출근율(%)')
         d.exec_()
 
     # 관리자

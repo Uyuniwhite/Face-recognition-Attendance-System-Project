@@ -52,13 +52,17 @@ class UserCell(QWidget, Ui_Form):
 
     # 유저 삭제하는 부분
     def del_user(self):
-        self.close() # 해당 위젯 삭제
+
         msg = f"{self.user_name}님을 삭제하시겠습니까?"
         self.msgbox.set_dialog_type(msg=msg, img='delete', type=4)
         self.msgbox.exec_()
 
         if self.msgbox.result() == 1:
-            self.contoller.dbconn.delete_empolyee(self.user_id)
+            self.controller.dbconn.delete_empolyee(self.user_id)
+            self.close()  # 해당 위젯 삭제
+        else:
+            pass
+
 
     def move_main_page(self, event):
         if self.user_id != 'admin':

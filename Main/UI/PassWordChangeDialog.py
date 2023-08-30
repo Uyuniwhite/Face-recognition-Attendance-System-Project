@@ -34,6 +34,7 @@ class Ui_PWChangeDialog(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.widget = QtWidgets.QWidget(PWChangeDialog)
         self.widget.setStyleSheet("#widget{background-color: rgb(255, 255, 255);\n"
+"border: 1px solid gray;\n"
 "border-radius: 10px;}")
         self.widget.setObjectName("widget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget)

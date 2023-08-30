@@ -2,6 +2,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from Main.class_file.class_font import Font
 import os
 
 class ShowOutForWhile(QWidget):
@@ -38,6 +39,7 @@ class ShowOutForWhile(QWidget):
 
         # 외출 복귀 화면 클릭하면
         label.mousePressEvent = self.check_user
+
 
     # 사용자 확인
     def check_user(self, event):

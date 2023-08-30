@@ -125,7 +125,7 @@ class DBconnect:
         c = self.start_conn()
         user_no = self.find_no(user_id=user_id)  # 유저 아이디 반환
 
-        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%' order by atd_date asc"
+        query = f"select * from tb_atd where user_no = {user_no} and atd_date like '%{year_month}%' order by atd_date desc"
         c.execute(query)
         r_data = c.fetchall()
 
@@ -140,9 +140,10 @@ class DBconnect:
         result = [date[0][:7] for date in result]  # 출근 년도 - 월수만 반환
         unique_result = []
         [unique_result.append(x) for x in result if x not in unique_result]  # 그 중 중복값 제거
+
         sorted_dates = sorted(unique_result)
-        print(sorted_dates)
-        return sorted_dates
+        reversed_lst = sorted_dates[::-1]
+        return reversed_lst
 
     def return_user_atd_summary(self, user_id):
         # 유저 이름

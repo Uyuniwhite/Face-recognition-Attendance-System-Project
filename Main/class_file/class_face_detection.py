@@ -36,7 +36,7 @@ class FaceRecognizer:
         prepared_img = self.prepare(image)
         predictions = self.model.predict(prepared_img)
         max_probability = np.max(predictions[0])
-
+        print('인식확률: ', max_probability)
         # 임계값 설정
         threshold = 0.9
         if max_probability > threshold:

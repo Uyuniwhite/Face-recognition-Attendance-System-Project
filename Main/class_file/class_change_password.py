@@ -33,12 +33,12 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
 
     def set_font(self):
         self.title_lab.setFont(Font.title(3))
-        self.now_pw_edit.setFont(Font.text(3, weight='light'))
-        self.new_pw_edit.setFont(Font.text(3, weight='light'))
-        self.new_pw_recheck_edit.setFont(Font.text(3, weight='light'))
-        self.lineEdit_4.setFont(Font.text(3, weight='light'))
-        self.lineEdit_5.setFont(Font.text(3, weight='light'))
-        self.label_2.setFont(Font.text(3, weight='light'))
+        self.now_pw_edit.setFont(Font.text(3))
+        self.new_pw_edit.setFont(Font.text(3))
+        self.new_pw_recheck_edit.setFont(Font.text(3))
+        self.lineEdit_4.setFont(Font.text(3))
+        self.lineEdit_5.setFont(Font.text(3))
+        self.label_2.setFont(Font.text(3))
         self.ok_btn.setFont(Font.text(3))
         self.cancel_btn.setFont(Font.text(3))
 

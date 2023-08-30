@@ -12,6 +12,7 @@ import os
 # 외출 복귀 확인
 class CheckOutWhile(QWidget, Ui_SaveUserImg):
     SetUserId = pyqtSignal(str)
+
     def __init__(self, controller):
         super().__init__()
         self.setupUi(self)
@@ -28,8 +29,7 @@ class CheckOutWhile(QWidget, Ui_SaveUserImg):
         self.user_img.setScaledContents(True)
         self.user_img.setPixmap(QPixmap("../../img/icon/face-id.png"))
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.title_lab.setFont(Font.title(2))
-
+        self.set_font()
 
     def set_user_id(self, user_id):
         self.user_id = user_id
@@ -44,6 +44,12 @@ class CheckOutWhile(QWidget, Ui_SaveUserImg):
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(5)
+
+    def set_font(self):
+
+        self.title_lab.setFont(Font.title(2))
+        self.numimglabel.setFont(Font.text(3))
+        self.capture_btn.setFont(Font.text(0, weight='bold'))
 
     def update_frame(self):
         ret, image = self.cap.read()
