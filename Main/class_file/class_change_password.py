@@ -3,7 +3,7 @@ from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QSize, Qt
 import random
 import string
 
@@ -22,6 +22,7 @@ class PasswordChange(QDialog, Ui_PWChangeDialog):
         self.pushButton.setIcon(QIcon('../../img/icon/refresh.png'))
         self.pushButton.setIconSize(QSize(30, 30))
         self.set_font()
+        self.setWindowFlags(Qt.FramelessWindowHint)
         self.cancel_btn.clicked.connect(self.close)  # 취소 버튼
         self.user_id = None  # user id 더미 생성
         self.letter = None  # 자동입력방지문자 더미생성
