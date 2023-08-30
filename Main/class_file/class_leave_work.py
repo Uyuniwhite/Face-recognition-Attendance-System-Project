@@ -2,7 +2,7 @@ from Main.UI.SaveUserImg import Ui_SaveUserImg
 from Main.class_file.class_face_detection import FaceRecognizer
 from Main.class_file.class_warning_msg import MsgBox
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import QTimer, pyqtSignal
+from PyQt5.QtCore import QTimer, pyqtSignal, Qt
 from PyQt5.QtGui import QPixmap
 from datetime import datetime
 import cv2
@@ -17,6 +17,7 @@ class CheckLeaveWork(QWidget, Ui_SaveUserImg):
         self.setupUi(self)
         self.controller = controller
 
+        self.setWindowFlags(Qt.FramelessWindowHint)
         self.title_lab.setText('퇴근 확인 화면')
         self.numimglabel.setVisible(False)
         self.init_cam()

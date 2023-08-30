@@ -16,6 +16,7 @@ class ShowEndImage(QWidget):
         self.resize(1120, 630)
         self.setStyleSheet("background-color: rgb(241, 242, 246);")
         self.setWindowTitle('퇴근화면')
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         self.verticalLayout = QVBoxLayout(self)
         self.verticalSpacer = QSpacerItem(20, 234, QSizePolicy.Minimum, QSizePolicy.Expanding)

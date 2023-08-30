@@ -14,6 +14,7 @@ class ShowOutForWhile(QWidget):
         # 위젯의 크기 및 이름 설정
         self.setObjectName("MyWidget")
         self.resize(1120, 630)
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         # 레이아웃 설정
         layout = QVBoxLayout(self)

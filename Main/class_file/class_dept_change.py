@@ -3,6 +3,7 @@ from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QCursor, QPixmap
+from PyQt5.QtCore import Qt
 import os
 
 class DeptChange(QWidget, Ui_AddEmployee):
@@ -24,7 +25,7 @@ class DeptChange(QWidget, Ui_AddEmployee):
         self.user_id_lineedit.setReadOnly(True)
         self.pw_recheck_lineedit.setReadOnly(True)
         self.set_font()
-
+        self.setWindowFlags(Qt.FramelessWindowHint)
         # 현재 위치
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
         # 이미지 넣기

@@ -4,7 +4,7 @@ from Main.class_file.class_font import Font
 from Main.class_file.image_learn import ImageLearn
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import pyqtSignal, QTimer, QThread
+from PyQt5.QtCore import pyqtSignal, QTimer, QThread, Qt
 from PyQt5.QtGui import QCursor, QPixmap
 import os
 
@@ -28,6 +28,7 @@ class AddEmpolyee(QWidget, Ui_AddEmployee):
         self.setupUi(self)
         self.set_data_cb()
         self.set_font()
+        self.setWindowFlags(Qt.FramelessWindowHint)
         # 변수
         self.face_regist = False  # 얼굴인식 유/무
 

@@ -3,7 +3,7 @@ from Main.UI.LoginWidget import Ui_LoginWidget
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect, QMessageBox, QPushButton
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap, QColor, QCursor
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
 import sys
 import cv2
 import os
@@ -56,6 +56,8 @@ class LoginFunc(QWidget, Ui_LoginWidget):
         # 사진 넣기
         self.face_lab.setScaledContents(True)
         self.face_lab.setPixmap(QPixmap('../img/icon/face-id.png'))
+
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
     def set_font(self):
         self.id_lab.setFont(Font.text(2, weight='light'))

@@ -4,7 +4,7 @@ from Main.class_file.class_warning_msg import MsgBox
 from Main.class_file.class_font import Font
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import QTimer, pyqtSignal
+from PyQt5.QtCore import QTimer, pyqtSignal, Qt
 import cv2
 import os
 
@@ -27,7 +27,7 @@ class CheckOutWhile(QWidget, Ui_SaveUserImg):
 
         self.user_img.setScaledContents(True)
         self.user_img.setPixmap(QPixmap("../../img/icon/face-id.png"))
-
+        self.setWindowFlags(Qt.FramelessWindowHint)
         self.title_lab.setFont(Font.title(2))
 
 

@@ -35,6 +35,7 @@ class MainPage(QWidget, Ui_MainWidget):
         self.msgbox = MsgBox()  # 메세지박스 객체 싱성
 
     def initUI(self):
+        self.setWindowFlags(Qt.FramelessWindowHint)
         self.stackedWidget.setCurrentWidget(self.home_page)  # 초기화면 홈페이지로 설정
         # 페이지 이동
         # self.home_btn.clicked.connect(
