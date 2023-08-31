@@ -58,7 +58,6 @@
 
 3. 로그인 화면
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/a3c57161-ad09-4674-bdbd-349723063159"/>
-![3  외출 화면](https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/0fa5f099-a580-4281-9ad4-6dfe4ba6aec5)
 
 5. 아이디, 비밀번호 입력하지 않았을 때
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b2d0863e-9501-4b62-b8f0-2205965ae630"/>
