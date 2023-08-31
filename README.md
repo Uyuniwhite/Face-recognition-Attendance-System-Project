@@ -48,3 +48,8 @@
   - 관리자는 각 부서별 1 ~ 12월 평균 근태율을 그래프로 확인할 수 있다.
   - 관리자는 각 부서별 부서인원을 그래프로 확인할 수 있다.
 
+## 🔍 시연 사진
+
+1. 로딩 화면
+<img width="80%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/1674e422-87f5-4c33-b160-2430ef4c484b"/>
+
