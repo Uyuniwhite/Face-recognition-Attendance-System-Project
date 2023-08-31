@@ -16,11 +16,10 @@
 - 개발언어: Python 3.11
 - 개발 툴: Pycharm
 - DBSM: PostgreSQL
-- 추가 패키지: Pandas, Matplotlib, Sklearn
+- 추가 패키지: Pandas, Matplotlib, Sklearn, Tensorflow
 
   
 ## 📌 주요 기능
-- 작성예정
 - 사원 모드
   - 얼굴 인식으로 프로그램을 로그인 / 출근 시간을 DB에 저장한다.
   - 로그인하면 홈페이지에서 해당 월의 출근일 / 결근일 / 출석률을 확인할 수 있다.
