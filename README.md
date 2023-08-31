@@ -58,20 +58,21 @@
 
 3. 로그인 화면
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/a3c57161-ad09-4674-bdbd-349723063159"/>
+![3  외출 화면](https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/0fa5f099-a580-4281-9ad4-6dfe4ba6aec5)
 
-4. 아이디, 비밀번호 입력하지 않았을 때
+5. 아이디, 비밀번호 입력하지 않았을 때
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b2d0863e-9501-4b62-b8f0-2205965ae630"/>
 
-5. 로그인 성공시 메세지창
+6. 로그인 성공시 메세지창
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/08aaf148-00c3-4bad-8738-cad55802d1a0"/>
 
-6. 메인화면
+7. 메인화면
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/71163ee3-57e0-493d-bdd3-8fcdc557780c"/>
 
-7. 근무시간 그래프 클릭시 해당 달 근무시간 그래프 출력
+8. 근무시간 그래프 클릭시 해당 달 근무시간 그래프 출력
 <img width="100" src="(https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b754e6ff-bd78-40ee-af81-0227e21f4b6c"/>
 
-8. 월별 출근율 그래프 클릭시
+9. 월별 출근율 그래프 클릭시
 <img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/fdd26922-d921-456d-b13a-e3b90fe5fbb4"/>
 
 8. 근태화면 페이지
