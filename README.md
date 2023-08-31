@@ -54,40 +54,40 @@
 <img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/1674e422-87f5-4c33-b160-2430ef4c484b"/>
 
 2. 오픈 화면
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/16381094-a10c-44e0-b186-1da083be283f"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/16381094-a10c-44e0-b186-1da083be283f"/>
 
 3. 로그인 화면
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/a3c57161-ad09-4674-bdbd-349723063159"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/a3c57161-ad09-4674-bdbd-349723063159"/>
 
 5. 아이디, 비밀번호 입력하지 않았을 때
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b2d0863e-9501-4b62-b8f0-2205965ae630"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b2d0863e-9501-4b62-b8f0-2205965ae630"/>
 
 6. 로그인 성공시 메세지창
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/08aaf148-00c3-4bad-8738-cad55802d1a0"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/08aaf148-00c3-4bad-8738-cad55802d1a0"/>
 
 7. 메인화면
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/71163ee3-57e0-493d-bdd3-8fcdc557780c"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/71163ee3-57e0-493d-bdd3-8fcdc557780c"/>
 
 8. 근무시간 그래프 클릭시 해당 달 근무시간 그래프 출력
-<img width="100" src="(https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b754e6ff-bd78-40ee-af81-0227e21f4b6c"/>
+<img width="100%" src="(https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/b754e6ff-bd78-40ee-af81-0227e21f4b6c"/>
 
 9. 월별 출근율 그래프 클릭시
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/fdd26922-d921-456d-b13a-e3b90fe5fbb4"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/fdd26922-d921-456d-b13a-e3b90fe5fbb4"/>
 
 8. 근태화면 페이지
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/52189889-c6df-4d69-b66a-1b1946260205"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/52189889-c6df-4d69-b66a-1b1946260205"/>
 
 9. 근태화면 월별조회
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/696888d1-6be5-46f9-b90c-db0f70c7e7f0"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/696888d1-6be5-46f9-b90c-db0f70c7e7f0"/>
 
 10. 마이페이지
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/ee8f5807-0c35-455f-94a7-b1fe63355d34"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/ee8f5807-0c35-455f-94a7-b1fe63355d34"/>
 
 11. 마이페이지 - 비밀번호 변경
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/2d657a57-3a85-4543-9ff8-5c369783aba3"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/2d657a57-3a85-4543-9ff8-5c369783aba3"/>
 
 12. 외출여부 질문
-<img width="100" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/e12f563a-f1a4-402f-82ba-bf30acd35a8b"/>
+<img width="100%" src="https://github.com/guaba98/Face-recognition-Attendance-System-Project/assets/121913371/e12f563a-f1a4-402f-82ba-bf30acd35a8b"/>
 
 
 
